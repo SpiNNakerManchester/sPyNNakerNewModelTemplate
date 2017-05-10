@@ -1,0 +1,8 @@
+*.aplx
+.project
+.pydevproject
+build/
+application_generated_data_files/
+reports/
+*.pyc
+/sPyNNaker8NewModelTemplate.egg-info/
