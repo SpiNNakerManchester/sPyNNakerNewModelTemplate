@@ -5,5 +5,5 @@ setup(
     version="1.0.0",
     packages=['python_models8',],
     package_data={'python_models8.model_binaries': ['*.aplx']},
-    install_requires=['SpyNNaker >= 3.0.0, < 4.0.0']
+    install_requires=['SpyNNaker >= 1!4.0.0a5, < 1!5.0.0']
 )
