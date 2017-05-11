@@ -6,24 +6,24 @@ from spynnaker.pyNN.models.neuron.abstract_population_vertex \
 
 # TODO: additional inputs (import as required)
 # There are no standard models for this, so import your own
-from python_models8.neuron.additional_inputs.my_additional_input \
-    import MyAdditionalInput
+# from python_models8.neuron.additional_inputs.my_additional_input \
+#    import MyAdditionalInput
 
 # TODO: input types (all imported for help, only use one)
 from spynnaker.pyNN.models.neuron.input_types.input_type_current \
     import InputTypeCurrent
-from spynnaker.pyNN.models.neuron.input_types.input_type_conductance \
-    import InputTypeConductance
+# from spynnaker.pyNN.models.neuron.input_types.input_type_conductance \
+#    import InputTypeConductance
 
 # TODO: neuron models (all imported for help, only use one)
 # standard
-from spynnaker.pyNN.models.neuron.neuron_models.\
-    neuron_model_leaky_integrate_and_fire \
-    import NeuronModelLeakyIntegrateAndFire
-from spynnaker.pyNN.models.neuron.neuron_models.neuron_model_leaky_integrate \
-    import NeuronModelLeakyIntegrate
-from spynnaker.pyNN.models.neuron.neuron_models.neuron_model_izh \
-    import NeuronModelIzh
+# from spynnaker.pyNN.models.neuron.neuron_models.\
+#     neuron_model_leaky_integrate_and_fire \
+#     import NeuronModelLeakyIntegrateAndFire
+# from spynnaker.pyNN.models.neuron.neuron_models\
+#     .neuron_model_leaky_integrate import NeuronModelLeakyIntegrate
+# from spynnaker.pyNN.models.neuron.neuron_models.neuron_model_izh \
+#     import NeuronModelIzh
 
 # new model template
 from python_models8.neuron.neuron_models.my_neuron_model \
@@ -33,12 +33,12 @@ from python_models8.neuron.neuron_models.my_neuron_model \
 # standard
 from spynnaker.pyNN.models.neuron.synapse_types.synapse_type_exponential \
     import SynapseTypeExponential
-from spynnaker.pyNN.models.neuron.synapse_types.synapse_type_dual_exponential \
-    import SynapseTypeDualExponential
+# from spynnaker.pyNN.models.neuron.synapse_types\
+#     .synapse_type_dual_exponential import SynapseTypeDualExponential
 
 # new model template
-from python_models8.neuron.synapse_types.my_synapse_type \
-    import MySynapseType
+# from python_models8.neuron.synapse_types.my_synapse_type \
+#     import MySynapseType
 
 
 # threshold types (all imported for help, only use one)
@@ -47,8 +47,9 @@ from spynnaker.pyNN.models.neuron.threshold_types.threshold_type_static \
     import ThresholdTypeStatic
 
 # new model template
-from python_models8.neuron.threshold_types.my_threshold_type\
-    import MyThresholdType
+# from python_models8.neuron.threshold_types.my_threshold_type\
+#     import MyThresholdType
+
 
 class MyModelCurrExpBase(AbstractPopulationVertex):
 
@@ -63,7 +64,7 @@ class MyModelCurrExpBase(AbstractPopulationVertex):
         'isyn_exc': 0.0, 'isyn_inh': 0.0,
         'i_offset': 0, 'my_parameter': -70.0}
 
-    none_pynn_default_parameters = { 'v_init': None }
+    none_pynn_default_parameters = {'v_init': None}
 
     def __init__(
             self, n_neurons, spikes_per_second=AbstractPopulationVertex.
@@ -130,7 +131,8 @@ class MyModelCurrExpBase(AbstractPopulationVertex):
             incoming_spike_buffer_size=incoming_spike_buffer_size,
 
             # TODO: Ensure the correct class is used below
-            max_atoms_per_core=MyModelCurrExpBase._model_based_max_atoms_per_core,
+            max_atoms_per_core=(
+                MyModelCurrExpBase._model_based_max_atoms_per_core),
 
             # These are the various model types
             neuron_model=neuron_model, input_type=input_type,

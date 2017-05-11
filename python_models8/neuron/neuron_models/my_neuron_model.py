@@ -130,4 +130,3 @@ class MyNeuronModel(AbstractNeuronModel, AbstractContainsUnits):
     @overrides(AbstractContainsUnits.get_units)
     def get_units(self, variable):
         return self._units[variable]
-

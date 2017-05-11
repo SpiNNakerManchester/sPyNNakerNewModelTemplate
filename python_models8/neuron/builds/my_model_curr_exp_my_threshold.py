@@ -26,7 +26,7 @@ class MyModelCurrExpMyThresholdBase(AbstractPopulationVertex):
         'my_threshold_parameter': 0.5,
         'threshold_value': -10.0}
 
-    none_pynn_default_parameters = { 'v_init': None }
+    none_pynn_default_parameters = {'v_init': None}
 
     def __init__(
             self, n_neurons, spikes_per_second=AbstractPopulationVertex.
@@ -107,8 +107,8 @@ class MyModelCurrExpMyThresholdBase(AbstractPopulationVertex):
 
     @staticmethod
     def set_max_atoms_per_core(new_value):
-
-        MyModelCurrExpMyThresholdBase._model_based_max_atoms_per_core = new_value
+        MyModelCurrExpMyThresholdBase._model_based_max_atoms_per_core = \
+            new_value
 
     @property
     def my_threshold_parameter(self):

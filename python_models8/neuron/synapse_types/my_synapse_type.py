@@ -1,10 +1,12 @@
-# from spinn_utilities.overrides import overrides
-# from spynnaker.pyNN.models.abstract_models.abstract_contains_units import \
-#     AbstractContainsUnits
+from spinn_utilities.overrides import overrides
+
+from pacman.executor.injection_decorator import inject_items
+
+from spynnaker.pyNN.models.abstract_models.abstract_contains_units import \
+    AbstractContainsUnits
 from spynnaker.pyNN.models.neuron.synapse_types.abstract_synapse_type import \
     AbstractSynapseType
 from spynnaker.pyNN.utilities import utility_calls
-from pacman.executor.injection_decorator import inject_items
 from spynnaker.pyNN.models.neural_properties.neural_parameter \
     import NeuronParameter
 
@@ -12,6 +14,7 @@ from data_specification.enums.data_type import DataType
 
 import numpy
 from enum import Enum
+
 
 class _EXP_TYPES(Enum):
 
@@ -32,6 +35,7 @@ class _EXP_TYPES(Enum):
     def data_type(self):
         return self._data_type
 
+
 def get_exponential_decay_and_init(tau, machine_time_step):
     decay = numpy.exp(numpy.divide(-float(machine_time_step),
                                    numpy.multiply(1000.0, tau)))
@@ -42,7 +46,8 @@ def get_exponential_decay_and_init(tau, machine_time_step):
     init_scaled = numpy.multiply(init, scale).astype("uint32")
     return decay_scaled, init_scaled
 
-class MySynapseType(AbstractSynapseType): #, AbstractContainsUnits):
+
+class MySynapseType(AbstractSynapseType, AbstractContainsUnits):
 
     def __init__(self, n_neurons,
 
@@ -53,13 +58,13 @@ class MySynapseType(AbstractSynapseType): #, AbstractContainsUnits):
                  my_inh_init=0.0):
 
         AbstractSynapseType.__init__(self)
-#         AbstractContainsUnits.__init__(self)
-#
-#         self._units = {
-#             'my_ex_synapse_parameter': "mV",
-#             'my_in_synapse_parameter': 'mV',
-#             'my_exc_init': "uS",
-#             'my_inh_init': "uS"}
+        AbstractContainsUnits.__init__(self)
+
+        self._units = {
+            'my_ex_synapse_parameter': "mV",
+            'my_in_synapse_parameter': 'mV',
+            'my_exc_init': "uS",
+            'my_inh_init': "uS"}
 
         self._n_neurons = n_neurons
 
@@ -115,8 +120,10 @@ class MySynapseType(AbstractSynapseType): #, AbstractContainsUnits):
             NeuronParameter(e_init, _EXP_TYPES.E_INIT.data_type),
             NeuronParameter(i_decay, _EXP_TYPES.I_DECAY.data_type),
             NeuronParameter(i_init, _EXP_TYPES.I_INIT.data_type),
-            NeuronParameter(self._my_exc_init, _EXP_TYPES.INITIAL_EXC.data_type),
-            NeuronParameter(self._my_inh_init, _EXP_TYPES.INITIAL_INH.data_type),
+            NeuronParameter(
+                self._my_exc_init, _EXP_TYPES.INITIAL_EXC.data_type),
+            NeuronParameter(
+                self._my_inh_init, _EXP_TYPES.INITIAL_INH.data_type),
         ]
 
     def get_synapse_type_parameter_types(self):
@@ -132,6 +139,6 @@ class MySynapseType(AbstractSynapseType): #, AbstractContainsUnits):
         # synapse_types_get_inhibitory_input
         return 100
 
-#     @overrides(AbstractContainsUnits.get_units)
-#     def get_units(self, variable):
-#         return self._units[variable]
+    @overrides(AbstractContainsUnits.get_units)
+    def get_units(self, variable):
+        return self._units[variable]

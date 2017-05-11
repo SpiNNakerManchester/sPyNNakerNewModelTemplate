@@ -67,7 +67,7 @@ class MyAdditionalInput(AbstractAdditionalInput):
 
         :return: An array of parameter types
         """
-        #TODO: update the parameter types
+        # TODO: update the parameter types
         return [item.data_type for item in DataType]
 
     def get_n_cpu_cycles_per_neuron(self):

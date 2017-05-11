@@ -116,5 +116,3 @@ class MyTimingDependence(AbstractTimingDependence):
     @A_minus.setter
     def A_minus(self, new_value):
         self._a_minus = new_value
-
-

@@ -27,7 +27,7 @@ class MyModelCurrExpMyAdditionalInputBase(AbstractPopulationVertex):
         'i_offset': 0, 'my_parameter': -70.0,
         'my_additional_input_parameter': 1.0}
 
-    none_pynn_default_parameters = { 'v_init': None }
+    none_pynn_default_parameters = {'v_init': None}
 
     def __init__(
             self, n_neurons, spikes_per_second=None, ring_buffer_sigma=None,
@@ -100,7 +100,9 @@ class MyModelCurrExpMyAdditionalInputBase(AbstractPopulationVertex):
     @staticmethod
     def get_max_atoms_per_core():
 
-        return MyModelCurrExpMyAdditionalInputBase._model_based_max_atoms_per_core
+        return (
+            MyModelCurrExpMyAdditionalInputBase._model_based_max_atoms_per_core
+        )
 
     @staticmethod
     def set_max_atoms_per_core(new_value):
@@ -115,4 +117,3 @@ class MyModelCurrExpMyAdditionalInputBase(AbstractPopulationVertex):
     @property
     def my_parameter(self):
         return self.default_parameters['my_parameter']
-
