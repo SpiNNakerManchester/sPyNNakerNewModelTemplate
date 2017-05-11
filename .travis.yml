@@ -21,7 +21,7 @@ before_install:
   - pip install --upgrade git+git://github.com/SpiNNakerManchester/DataSpecification.git@$TRAVIS_BRANCH || pip install --upgrade git+git://github.com/SpiNNakerManchester/DataSpecification.git@master
   - pip install --upgrade git+git://github.com/SpiNNakerManchester/SpiNNFrontEndCommon.git@$TRAVIS_BRANCH || pip install --upgrade git+git://github.com/SpiNNakerManchester/SpiNNFrontEndCommon.git@master
   - pip install --upgrade git+git://github.com/SpiNNakerManchester/sPyNNaker.git@$TRAVIS_BRANCH || pip install --upgrade git+git://github.com/SpiNNakerManchester/sPyNNaker.git@master
-  - pip install --upgrade git+git://github.com/SpiNNakerManchester/sPyNNaker8.git@$TRAVIS_BRANCH || pip install --upgrade git+git://github.com/SpiNNakerManchester/sPyNNaker7.git@master
+  - pip install --upgrade git+git://github.com/SpiNNakerManchester/sPyNNaker8.git@$TRAVIS_BRANCH || pip install --upgrade git+git://github.com/SpiNNakerManchester/sPyNNaker8.git@master
 
 install:
   - pip install -r requirements-test.txt
