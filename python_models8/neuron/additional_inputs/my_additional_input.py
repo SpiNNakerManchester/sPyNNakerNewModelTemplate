@@ -6,6 +6,23 @@ from spynnaker.pyNN.models.neural_properties.neural_parameter \
 
 from data_specification.enums.data_type import DataType
 
+from enum import Enum
+
+
+class _MY_ADDITIONAL_INPUT_TYPES(Enum):
+
+    MY_ADDITIONAL_INPUT_PARAMETER = (1, DataType.S1615)
+
+    def __new__(cls, value, data_type):
+        obj = object.__new__(cls)
+        obj._value_ = value
+        obj._data_type = data_type
+        return obj
+
+    @property
+    def data_type(self):
+        return self._data_type
+
 
 class MyAdditionalInput(AbstractAdditionalInput):
 
@@ -59,7 +76,9 @@ class MyAdditionalInput(AbstractAdditionalInput):
         return [
             NeuronParameter(0, DataType.S1615),
             NeuronParameter(
-                self._my_additional_input_parameter, DataType.S1615),
+                self._my_additional_input_parameter,
+                _MY_ADDITIONAL_INPUT_TYPES.
+                MY_ADDITIONAL_INPUT_PARAMETER.data_type)
         ]
 
     def get_parameter_types(self):
@@ -68,7 +87,7 @@ class MyAdditionalInput(AbstractAdditionalInput):
         :return: An array of parameter types
         """
         # TODO: update the parameter types
-        return [item.data_type for item in DataType]
+        return [item.data_type for item in _MY_ADDITIONAL_INPUT_TYPES]
 
     def get_n_cpu_cycles_per_neuron(self):
         """ Get the number of CPU cycles executed by\

@@ -16,7 +16,7 @@ import numpy
 from enum import Enum
 
 
-class _EXP_TYPES(Enum):
+class _MY_SYNAPSE_TYPES(Enum):
 
     E_DECAY = (1, DataType.UINT32)
     E_INIT = (2, DataType.UINT32)
@@ -116,20 +116,20 @@ class MySynapseType(AbstractSynapseType, AbstractContainsUnits):
         # Note: The order of the parameters must match the order in the
         # synapse_param_t data structure in the C code
         return [
-            NeuronParameter(e_decay, _EXP_TYPES.E_DECAY.data_type),
-            NeuronParameter(e_init, _EXP_TYPES.E_INIT.data_type),
-            NeuronParameter(i_decay, _EXP_TYPES.I_DECAY.data_type),
-            NeuronParameter(i_init, _EXP_TYPES.I_INIT.data_type),
+            NeuronParameter(e_decay, _MY_SYNAPSE_TYPES.E_DECAY.data_type),
+            NeuronParameter(e_init, _MY_SYNAPSE_TYPES.E_INIT.data_type),
+            NeuronParameter(i_decay, _MY_SYNAPSE_TYPES.I_DECAY.data_type),
+            NeuronParameter(i_init, _MY_SYNAPSE_TYPES.I_INIT.data_type),
             NeuronParameter(
-                self._my_exc_init, _EXP_TYPES.INITIAL_EXC.data_type),
+                self._my_exc_init, _MY_SYNAPSE_TYPES.INITIAL_EXC.data_type),
             NeuronParameter(
-                self._my_inh_init, _EXP_TYPES.INITIAL_INH.data_type),
+                self._my_inh_init, _MY_SYNAPSE_TYPES.INITIAL_INH.data_type),
         ]
 
     def get_synapse_type_parameter_types(self):
 
         # TODO: update to return the parameter types
-        return [item.data_type for item in _EXP_TYPES]
+        return [item.data_type for item in _MY_SYNAPSE_TYPES]
 
     def get_n_cpu_cycles_per_neuron(self):
 

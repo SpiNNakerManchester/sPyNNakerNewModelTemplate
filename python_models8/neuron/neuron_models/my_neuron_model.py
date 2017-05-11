@@ -10,6 +10,25 @@ from spynnaker.pyNN.utilities import utility_calls
 
 from data_specification.enums.data_type import DataType
 
+from enum import Enum
+
+
+class _MY_NEURON_MODEL_TYPES(Enum):
+
+    V_INIT = (1, DataType.S1615)
+    I_OFFSET = (2, DataType.S1615)
+    MY_NEURON_PARAMETER = (3, DataType.S1615)
+
+    def __new__(cls, value, data_type):
+        obj = object.__new__(cls)
+        obj._value_ = value
+        obj._data_type = data_type
+        return obj
+
+    @property
+    def data_type(self):
+        return self._data_type
+
 
 class MyNeuronModel(AbstractNeuronModel, AbstractContainsUnits):
 
@@ -81,19 +100,23 @@ class MyNeuronModel(AbstractNeuronModel, AbstractContainsUnits):
         return [
 
             # REAL V;
-            NeuronParameter(self._v_init, DataType.S1615),
+            NeuronParameter(self._v_init,
+                            _MY_NEURON_MODEL_TYPES.V_INIT.data_type),
 
             # REAL I_offset;
-            NeuronParameter(self._i_offset, DataType.S1615),
+            NeuronParameter(self._i_offset,
+                            _MY_NEURON_MODEL_TYPES.I_OFFSET.data_type),
 
             # REAL my_parameter;
-            NeuronParameter(self._my_neuron_parameter, DataType.S1615)
+            NeuronParameter(self._my_neuron_parameter,
+                            _MY_NEURON_MODEL_TYPES.
+                            MY_NEURON_PARAMETER.data_type)
         ]
 
     def get_neural_parameter_types(self):
 
         # TODO: update to match the parameter types
-        return [item.data_type for item in DataType]
+        return [item.data_type for item in _MY_NEURON_MODEL_TYPES]
 
     def get_n_global_parameters(self):
 
