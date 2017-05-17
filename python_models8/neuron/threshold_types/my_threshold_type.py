@@ -5,6 +5,24 @@ from data_specification.enums.data_type import DataType
 from spynnaker.pyNN.models.neuron.threshold_types.abstract_threshold_type \
     import AbstractThresholdType
 
+from enum import Enum
+
+
+class _MY_THRESHOLD_TYPES(Enum):
+
+    THRESHOLD_VALUE = (1, DataType.S1615)
+    MY_THRESHOLD_PARAMETER = (2, DataType.S1615)
+
+    def __new__(cls, value, data_type):
+        obj = object.__new__(cls)
+        obj._value_ = value
+        obj._data_type = data_type
+        return obj
+
+    @property
+    def data_type(self):
+        return self._data_type
+
 
 class MyThresholdType(AbstractThresholdType):
     """ A threshold that is a static value
@@ -56,14 +74,17 @@ class MyThresholdType(AbstractThresholdType):
         # Note: The order of the parameters must match the order in the
         # threshold_type_t data structure in the C code
         return [
-            NeuronParameter(self._threshold_value, DataType.S1615),
-            NeuronParameter(self._my_threshold_parameter, DataType.S1615)
+            NeuronParameter(self._threshold_value,
+                            _MY_THRESHOLD_TYPES.THRESHOLD_VALUE.data_type),
+            NeuronParameter(self._my_threshold_parameter,
+                            _MY_THRESHOLD_TYPES.
+                            MY_THRESHOLD_PARAMETER.data_type)
         ]
 
     def get_threshold_parameter_types(self):
 
         # TODO: update to return the parameter types
-        return [item.data_type for item in DataType]
+        return [item.data_type for item in _MY_THRESHOLD_TYPES]
 
     def get_n_cpu_cycles_per_neuron(self):
 
