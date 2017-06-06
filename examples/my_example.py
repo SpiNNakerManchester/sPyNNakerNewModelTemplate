@@ -110,7 +110,8 @@ myModelCurrExpMyThresholdParams = {
     "my_threshold_parameter": 0.4
 }
 my_model_my_threshold_pop = p.Population(
-    n_neurons, My_Model_Curr_Exp_My_Threshold(**myModelCurrExpMyThresholdParams),
+    n_neurons, My_Model_Curr_Exp_My_Threshold(
+        **myModelCurrExpMyThresholdParams),
     label="my_model_my_threshold_pop")
 p.Projection(
     input_pop, my_model_my_threshold_pop,
@@ -143,7 +144,7 @@ my_model_my_threshold_pop.record(['v'])
 
 p.run(run_time)
 
-print stdp_connection.get('weight', 'list') # Weights()
+print stdp_connection.get('weight', 'list')  # Weights()
 
 # get v for each example
 v_my_model_pop = my_model_pop.get_data('v')
