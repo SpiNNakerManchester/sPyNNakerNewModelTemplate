@@ -5,5 +5,7 @@ setup(
     version="1!4.0.0a5",
     packages=['python_models8'],
     package_data={'python_models8.model_binaries': ['*.aplx']},
-    install_requires=['sPyNNaker8 >= 1!4.0.0a5, < 1!5.0.0']
+    dependency_links=['http://github.com/python-quantities/python-quantities/'
+                      'tarball/master#egg=quantities'],
+    install_requires=['quantities', 'sPyNNaker8 >= 1!4.0.0a5, < 1!5.0.0']
 )
