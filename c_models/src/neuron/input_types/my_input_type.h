@@ -62,7 +62,7 @@ static inline input_t input_type_convert_inhibitory_input_to_current(
     use(membrane_voltage);
 
     // This changes inhibitory to excitatory input
-    // (without the multiplication factor of 40 used in sEMD model, to test...)
+    // (without the multiplication factor of 40 used in sEMD model)
     return (-inh_input * input_type->my_multiplicator);
 }
 
