@@ -1,9 +1,7 @@
 from spynnaker.pyNN.utilities import utility_calls
-from spynnaker.pyNN.models.neural_properties.neural_parameter \
-    import NeuronParameter
-from data_specification.enums.data_type import DataType
-from spynnaker.pyNN.models.neuron.threshold_types.abstract_threshold_type \
-    import AbstractThresholdType
+from spynnaker.pyNN.models.neural_properties import NeuronParameter
+from data_specification.enums import DataType
+from spynnaker.pyNN.models.neuron.threshold_types import AbstractThresholdType
 
 from enum import Enum
 
