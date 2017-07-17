@@ -1,9 +1,8 @@
-from data_specification.enums.data_type import DataType
-
+from data_specification.enums import DataType
 from spynnaker.pyNN.models.neuron.plasticity.stdp.timing_dependence\
-    .abstract_timing_dependence import AbstractTimingDependence
+    import AbstractTimingDependence
 from spynnaker.pyNN.models.neuron.plasticity.stdp.synapse_structure\
-    .synapse_structure_weight_only import SynapseStructureWeightOnly
+    import SynapseStructureWeightOnly
 
 
 class MyTimingDependence(AbstractTimingDependence):

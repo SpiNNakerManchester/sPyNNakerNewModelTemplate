@@ -1,3 +1,5 @@
+git+https://github.com/python-quantities/python-quantities.git
+pynn>=0.8, <0.9
 SpyNNaker8 >= 1!4.0.0a5, < 1!5.0.0
 git+https://github.com/python-quantities/python-quantities.git
 

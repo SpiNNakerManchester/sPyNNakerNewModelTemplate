@@ -1,7 +1,6 @@
 # main interface to use the spynnaker related tools.
 # ALL MODELS MUST INHERIT FROM THIS
-from spynnaker.pyNN.models.neuron.abstract_population_vertex \
-    import AbstractPopulationVertex
+from spynnaker.pyNN.models.neuron import AbstractPopulationVertex
 
 
 # TODO: additional inputs (import as required)
@@ -10,19 +9,16 @@ from spynnaker.pyNN.models.neuron.abstract_population_vertex \
 #    import MyAdditionalInput
 
 # TODO: input types (all imported for help, only use one)
-from spynnaker.pyNN.models.neuron.input_types.input_type_current \
-    import InputTypeCurrent
-# from spynnaker.pyNN.models.neuron.input_types.input_type_conductance \
-#    import InputTypeConductance
+from spynnaker.pyNN.models.neuron.input_types import InputTypeCurrent
+# from spynnaker.pyNN.models.neuron.input_types import InputTypeConductance
 
 # TODO: neuron models (all imported for help, only use one)
 # standard
-# from spynnaker.pyNN.models.neuron.neuron_models.\
-#     neuron_model_leaky_integrate_and_fire \
+# from spynnaker.pyNN.models.neuron.neuron_models \
 #     import NeuronModelLeakyIntegrateAndFire
-# from spynnaker.pyNN.models.neuron.neuron_models\
-#     .neuron_model_leaky_integrate import NeuronModelLeakyIntegrate
-# from spynnaker.pyNN.models.neuron.neuron_models.neuron_model_izh \
+# from spynnaker.pyNN.models.neuron.neuron_models \
+#     import NeuronModelLeakyIntegrate
+# from spynnaker.pyNN.models.neuron.neuron_models \
 #     import NeuronModelIzh
 
 # new model template
@@ -31,10 +27,9 @@ from python_models8.neuron.neuron_models.my_neuron_model \
 
 # TODO: synapse types (all imported for help, only use one)
 # standard
-from spynnaker.pyNN.models.neuron.synapse_types.synapse_type_exponential \
-    import SynapseTypeExponential
+from spynnaker.pyNN.models.neuron.synapse_types import SynapseTypeExponential
 # from spynnaker.pyNN.models.neuron.synapse_types\
-#     .synapse_type_dual_exponential import SynapseTypeDualExponential
+#     import SynapseTypeDualExponential
 
 # new model template
 # from python_models8.neuron.synapse_types.my_synapse_type \
@@ -43,8 +38,7 @@ from spynnaker.pyNN.models.neuron.synapse_types.synapse_type_exponential \
 
 # threshold types (all imported for help, only use one)
 # standard
-from spynnaker.pyNN.models.neuron.threshold_types.threshold_type_static \
-    import ThresholdTypeStatic
+from spynnaker.pyNN.models.neuron.threshold_types import ThresholdTypeStatic
 
 # new model template
 # from python_models8.neuron.threshold_types.my_threshold_type\
