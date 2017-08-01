@@ -1,3 +1,4 @@
+from spinn_utilities.overrides import overrides
 from data_specification.enums import DataType
 from spynnaker.pyNN.models.neuron.plasticity.stdp.weight_dependence\
     import AbstractWeightDependence
@@ -106,3 +107,7 @@ class MyWeightDependence(AbstractWeightDependence, AbstractHasAPlusAMinus):
         # TODO: update to return the maximum weight that this rule will ever
         # give to a synapse
         return self._w_max
+
+    @overrides(AbstractWeightDependence.get_parameter_names)
+    def get_parameter_names(self):
+        return ['w_min', 'w_max', 'my_parameter']
