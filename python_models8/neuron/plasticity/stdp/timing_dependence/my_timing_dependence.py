@@ -1,3 +1,4 @@
+from spinn_utilities.overrides import overrides
 from data_specification.enums import DataType
 from spynnaker.pyNN.models.neuron.plasticity.stdp.timing_dependence\
     import AbstractTimingDependence
@@ -95,6 +96,10 @@ class MyTimingDependence(AbstractTimingDependence):
             self._my_potentiation_parameter, data_type=DataType.S1615)
         spec.write_value(
             self._my_depression_parameter, data_type=DataType.S1615)
+
+    @overrides(AbstractTimingDependence.get_parameter_names)
+    def get_parameter_names(self):
+        return ['my_potentiation_parameter', 'my_depression_parameter']
 
     @property
     def synaptic_structure(self):
