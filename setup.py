@@ -2,8 +2,8 @@ import os
 from setuptools import setup
 from collections import defaultdict
 
-__version__ = "1!4.0.0a5"
-# exec(open("python_models8/_version.py").read())
+__version__ = None
+exec(open("python_models8/_version.py").read())
 assert __version__
 
 
@@ -42,5 +42,14 @@ setup(
     packages=packages,
     package_data=package_data,
     install_requires=[
+        'SpiNNUtilities >= 1!4.0.0a5, < 1!5.0.0',
+        'SpiNNStorageHandlers >= 1!4.0.0a5, < 1!5.0.0',
+        'SpiNNMachine >= 1!4.0.0a5, < 1!5.0.0',
+        'SpiNNMan >= 1!4.0.0a5, < 1!5.0.0',
+        'SpiNNaker_PACMAN >= 1!4.0.0a5, < 1!5.0.0',
+        'SpiNNaker_DataSpecification >= 1!4.0.0a5, < 1!5.0.0',
+        'spalloc >= 0.2.2, < 1.0.0',
+        'SpiNNFrontEndCommon >= 1!4.0.0a5, < 1!5.0.0',
+        'sPyNNaker >= 1!4.0.0a5, < 1!5.0.0',
         'sPyNNaker8 >= 1!4.0.0a5, < 1!5.0.0']
 )
