@@ -2,8 +2,8 @@ import os
 from setuptools import setup
 from collections import defaultdict
 
-__version__ = "1!4.0.0a5"
-# exec(open("python_models8/_version.py").read())
+__version__ = None
+exec(open("python_models8/_version.py").read())
 assert __version__
 
 
