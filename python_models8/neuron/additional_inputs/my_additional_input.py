@@ -42,7 +42,7 @@ class MyAdditionalInput(AbstractAdditionalInput):
 
     @property
     def my_additional_input_parameter(self):
-        return self._my_parameter
+        return self._my_additional_input_parameter
 
     @my_additional_input_parameter.setter
     def my_additional_input_parameter(self, my_additional_input_parameter):
