@@ -42,14 +42,14 @@ setup(
     packages=packages,
     package_data=package_data,
     install_requires=[
-        'SpiNNUtilities >= 1!4.0.0a5, < 1!5.0.0',
-        'SpiNNStorageHandlers >= 1!4.0.0a5, < 1!5.0.0',
-        'SpiNNMachine >= 1!4.0.0a5, < 1!5.0.0',
-        'SpiNNMan >= 1!4.0.0a5, < 1!5.0.0',
-        'SpiNNaker_PACMAN >= 1!4.0.0a5, < 1!5.0.0',
-        'SpiNNaker_DataSpecification >= 1!4.0.0a5, < 1!5.0.0',
-        'spalloc >= v0.2.6, < 1.0.0',
-        'SpiNNFrontEndCommon >= 1!4.0.0a5, < 1!5.0.0',
-        'sPyNNaker >= 1!4.0.0a5, < 1!5.0.0',
-        'sPyNNaker8 >= 1!4.0.0a5, < 1!5.0.0']
+        'SpiNNUtilities >= 1!4.0.0, < 1!5.0.0',
+        'SpiNNStorageHandlers >= 1!4.0.0, < 1!5.0.0',
+        'SpiNNMachine >= 1!4.0.0, < 1!5.0.0',
+        'SpiNNMan >= 1!4.0.0, < 1!5.0.0',
+        'SpiNNaker_PACMAN >= 1!4.0.0, < 1!5.0.0',
+        'SpiNNaker_DataSpecification >= 1!4.0.0, < 1!5.0.0',
+        'spalloc >= 1.0.0, < 2.0.0',
+        'SpiNNFrontEndCommon >= 1!4.0.0, < 1!5.0.0',
+        'sPyNNaker >= 1!4.0.0, < 1!5.0.0',
+        'sPyNNaker8 >= 1!4.0.0, < 1!5.0.0']
 )
