@@ -123,6 +123,11 @@ my_model_my_synapse_type_pop.record(['v'])
 my_model_my_additional_input_pop.record(['v'])
 my_model_my_threshold_pop.record(['v'])
 
+# my_model_pop.set(my_neuron_parameter=-60.0)
+# my_model_my_synapse_type_pop.set(my_ex_synapse_parameter=1.5)
+# my_model_my_additional_input_pop.set(my_additional_input_parameter=0.01)
+# my_model_my_threshold_pop.set(my_threshold_parameter=1.0)
+
 p.run(run_time)
 
 print stdp_connection.get('weight', 'list')
