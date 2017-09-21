@@ -75,6 +75,44 @@ class MySynapseType(AbstractSynapseType, AbstractContainsUnits):
         self._my_inh_init = utility_calls.convert_param_to_numpy(
             my_inh_init, n_neurons)
 
+    # TODO: Add any getters and setters for new parameters
+
+    @property
+    def my_ex_synapse_parameter(self):
+        return self._my_ex_synapse_parameter
+
+    @my_ex_synapse_parameter.setter
+    def my_ex_synapse_parameter(self, my_ex_synapse_parameter):
+        self._my_ex_synapse_parameter = utility_calls.convert_param_to_numpy(
+            my_ex_synapse_parameter, self._n_neurons)
+
+    @property
+    def my_in_synapse_parameter(self):
+        return self._my_in_synapse_parameter
+
+    @my_in_synapse_parameter.setter
+    def my_in_synapse_parameter(self, my_in_synapse_parameter):
+        self._my_in_synapse_parameter = utility_calls.convert_param_to_numpy(
+            my_in_synapse_parameter, self._n_neurons)
+
+    @property
+    def my_exc_init(self):
+        return self._my_exc_init
+
+    @my_exc_init.setter
+    def my_exc_init(self, my_exc_init):
+        self._my_exc_init = utility_calls.convert_param_to_numpy(
+            my_exc_init, self._n_neurons)
+
+    @property
+    def my_inh_init(self):
+        return self._my_inh_init
+
+    @my_inh_init.setter
+    def my_inh_init(self, my_inh_init):
+        self._my_inh_init = utility_calls.convert_param_to_numpy(
+            my_inh_init, self._n_neurons)
+
     def get_n_synapse_types(self):
 
         # TODO: Update with the number of supported synapse types
