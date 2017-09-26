@@ -9,8 +9,8 @@ assert __version__
 
 # Build a list of all project modules, as well as supplementary files
 main_package = "python_models8"
-data_extensions = {".aplx", ".xml", ".json", ".xsd"}
-config_extensions = {".cfg", ".template"}
+extensions = {".aplx", ".boot", ".cfg", ".json", ".sql", ".template", ".xml",
+              ".xsd"}
 main_package_dir = os.path.join(os.path.dirname(__file__), main_package)
 start = len(main_package_dir)
 packages = []
@@ -22,12 +22,7 @@ for dirname, dirnames, filenames in os.walk(main_package_dir):
         packages.append(package)
     for filename in filenames:
         _, ext = os.path.splitext(filename)
-        if ext in data_extensions:
-            package = "{}{}".format(
-                main_package, dirname[start:].replace(os.sep, '.'))
-            package_data[package].append("*{}".format(ext))
-            break
-        if ext in config_extensions:
+        if ext in extensions:
             package = "{}{}".format(
                 main_package, dirname[start:].replace(os.sep, '.'))
             package_data[package].append(filename)
@@ -42,14 +37,14 @@ setup(
     packages=packages,
     package_data=package_data,
     install_requires=[
-        'SpiNNUtilities >= 1!4.0.0, < 1!5.0.0',
-        'SpiNNStorageHandlers >= 1!4.0.0, < 1!5.0.0',
-        'SpiNNMachine >= 1!4.0.0, < 1!5.0.0',
-        'SpiNNMan >= 1!4.0.0, < 1!5.0.0',
-        'SpiNNaker_PACMAN >= 1!4.0.0, < 1!5.0.0',
-        'SpiNNaker_DataSpecification >= 1!4.0.0, < 1!5.0.0',
-        'spalloc >= 1.0.0, < 2.0.0',
-        'SpiNNFrontEndCommon >= 1!4.0.0, < 1!5.0.0',
-        'sPyNNaker >= 1!4.0.0, < 1!5.0.0',
-        'sPyNNaker8 >= 1!4.0.0, < 1!5.0.0']
+        'SpiNNUtilities >= 1!4.0.1, < 1!5.0.0',
+        'SpiNNStorageHandlers >= 1!4.0.1, < 1!5.0.0',
+        'SpiNNMachine >= 1!4.0.1, < 1!5.0.0',
+        'SpiNNMan >= 1!4.0.1, < 1!5.0.0',
+        'SpiNNaker_PACMAN >= 1!4.0.1, < 1!5.0.0',
+        'SpiNNaker_DataSpecification >= 1!4.0.1, < 1!5.0.0',
+        'spalloc >= 1.0.1, < 2.0.0',
+        'SpiNNFrontEndCommon >= 1!4.0.1, < 1!5.0.0',
+        'sPyNNaker >= 1!4.0.1, < 1!5.0.0',
+        'sPyNNaker8 >= 1!4.0.1, < 1!5.0.0']
 )
