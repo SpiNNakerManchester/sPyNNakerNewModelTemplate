@@ -1,9 +1,9 @@
 #ifndef _MY_NEURON_IMPL_H_
 #define _MY_NEURON_IMPL_H_
 
-// Note, this is simply a straight copy of what's in neuron_impl_semd.h at the moment
-// It should probably be updated to demonstrate how the changes help the user to
-// define a model in a different way now
+// Note, this is simply a straight copy of what's in sPyNNaker's neuron_impl_semd.h
+// at the moment. It should probably be updated to demonstrate how the changes help
+// the user to define a model in a different way now
 
 #include <neuron/implementations/neuron_impl.h>
 #include <neuron/models/neuron_model.h>
