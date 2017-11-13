@@ -7,6 +7,10 @@ import matplotlib.pyplot as plt
 from python_models8.model_data_holders.my_model_curr_exp_data_holder \
     import MyModelCurrExpDataHolder as My_Model_Curr_Exp
 from python_models8.model_data_holders\
+    .my_model_curr_exp_incl_input_and_threshold_data_holder \
+    import MyModelCurrExpInclInputAndThresholdDataHolder as \
+    My_Model_Curr_Exp_Incl_Input_And_Threshold
+from python_models8.model_data_holders\
     .my_model_curr_exp_my_input_type_data_holder \
     import MyModelCurrExpMyInputTypeDataHolder as \
     My_Model_Curr_Exp_My_Input_Type
@@ -63,9 +67,24 @@ p.Projection(
     p.OneToOneConnector(), receptor_type='excitatory',
     synapse_type=p.StaticSynapse(weight=weight))
 
+myModelCurrExpInclInputAndThresholdParams = {
+    "my_neuron_parameter": -70.0,
+    "i_offset": i_offset,
+    "threshold_value": -35.0,
+    "my_threshold_parameter": 1.0
+}
+my_model_incl_input_and_threshold_pop = p.Population(
+    n_neurons, My_Model_Curr_Exp_Incl_Input_And_Threshold(
+        **myModelCurrExpInclInputAndThresholdParams),
+    label="my_model_incl_input_and_threshold_pop")
+p.Projection(
+    input_pop, my_model_incl_input_and_threshold_pop,
+    p.OneToOneConnector(), receptor_type='excitatory',
+    synapse_type=p.StaticSynapse(weight=weight))
+
 myModelCurrExpMyInputTypeParams = {
-    "my_input_parameter": 0.0,
-    "my_multiplicator": 0.0,
+    "my_input_parameter": 1.0,
+    "my_multiplicator": 1.0
 }
 my_model_my_input_type_pop = p.Population(
     n_neurons, My_Model_Curr_Exp_My_Input_Type(
@@ -82,7 +101,8 @@ myModelCurrMySynapseTypeParams = {
     "my_ex_synapse_parameter": 0.5
 }
 my_model_my_synapse_type_pop = p.Population(
-    n_neurons, My_Model_Curr_My_Synapse_Type(**myModelCurrMySynapseTypeParams),
+    n_neurons, My_Model_Curr_My_Synapse_Type(
+        **myModelCurrMySynapseTypeParams),
     label="my_model_my_synapse_type_pop")
 p.Projection(
     input_pop, my_model_my_synapse_type_pop,
@@ -137,12 +157,14 @@ stdp_connection = p.Projection(
     synapse_type=stdp)
 
 my_model_pop.record(['v'])
+my_model_incl_input_and_threshold_pop.record(['v'])
 my_model_my_input_type_pop.record(['v'])
 my_model_my_synapse_type_pop.record(['v'])
 my_model_my_additional_input_pop.record(['v'])
 my_model_my_threshold_pop.record(['v'])
 
 # my_model_pop.set(my_neuron_parameter=-60.0)
+my_model_incl_input_and_threshold_pop.set(threshold_value=-30.0)
 # my_model_my_synapse_type_pop.set(my_ex_synapse_parameter=1.5)
 # my_model_my_additional_input_pop.set(my_additional_input_parameter=0.01)
 # my_model_my_threshold_pop.set(my_threshold_parameter=1.0)
@@ -153,6 +175,8 @@ print stdp_connection.get('weight', 'list')
 
 # get v for each example
 v_my_model_pop = my_model_pop.get_data('v')
+v_my_model_incl_input_and_threshold_pop = (
+    my_model_incl_input_and_threshold_pop.get_data('v'))
 v_my_model_my_input_type_pop = my_model_my_input_type_pop.get_data('v')
 v_my_model_my_synapse_type_pop = my_model_my_synapse_type_pop.get_data('v')
 v_my_model_my_additional_input_pop = my_model_my_additional_input_pop.get_data(
@@ -164,6 +188,10 @@ Figure(
     Panel(v_my_model_pop.segments[0].filter(name='v')[0],
           ylabel="Membrane potential (mV)",
           data_labels=[my_model_pop.label], yticks=True, xlim=(0, run_time)),
+    Panel(v_my_model_incl_input_and_threshold_pop.segments[0].filter(
+        name='v')[0], ylabel="Membrane potential (mV)",
+          data_labels=[my_model_incl_input_and_threshold_pop.label],
+          yticks=True, xlim=(0, run_time)),
     Panel(v_my_model_my_input_type_pop.segments[0].filter(name='v')[0],
           ylabel="Membrane potential (mV)",
           data_labels=[my_model_my_input_type_pop.label],
