@@ -134,8 +134,8 @@ static bool neuron_impl_do_timestep_update(timer_t time, index_t neuron_index)
     		&(neuron_synapse_shaping_params[neuron_index]));
 
     // Convert exc_input to current here
-    input_t exc_input = exc_value;
-    input_t inh_input = inh_value;
+    input_t exc_input = exc_value * neuron->my_multiplicator;
+    input_t inh_input = inh_value + neuron->my_input_parameter;
 
     // Call functions to get the input values to be recorded
     inputs_excitatory->inputs[neuron_index].input = exc_input;

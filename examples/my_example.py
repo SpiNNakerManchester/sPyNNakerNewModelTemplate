@@ -71,7 +71,9 @@ myModelCurrExpInclInputAndThresholdParams = {
     "my_neuron_parameter": -70.0,
     "i_offset": i_offset,
     "threshold_value": -35.0,
-    "my_threshold_parameter": 1.0
+    "my_threshold_parameter": 1.0,
+    "my_input_parameter": 0.01,
+    "my_multiplicator": 0.8
 }
 my_model_incl_input_and_threshold_pop = p.Population(
     n_neurons, My_Model_Curr_Exp_Incl_Input_And_Threshold(
