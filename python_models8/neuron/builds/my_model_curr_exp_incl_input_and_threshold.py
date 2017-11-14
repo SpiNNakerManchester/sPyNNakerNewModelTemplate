@@ -23,7 +23,7 @@ from spynnaker.pyNN.models.neuron import AbstractPopulationVertex
 
 # new model template
 from python_models8.neuron.neuron_models \
-     .my_neuron_model_incl_input_and_threshold \
+    .my_neuron_model_incl_input_and_threshold \
     import MyNeuronModelInclInputAndThreshold
 
 # TODO: synapse types (all imported for help, only use one)
