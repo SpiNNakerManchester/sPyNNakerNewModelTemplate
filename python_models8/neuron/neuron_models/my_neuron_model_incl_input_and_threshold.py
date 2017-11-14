@@ -30,7 +30,8 @@ class _MY_NEURON_MODEL_INCL_INPUT_AND_THRESHOLD_TYPES(Enum):
         return self._data_type
 
 
-class MyNeuronModelInclInputAndThreshold(AbstractNeuronModel, AbstractContainsUnits):
+class MyNeuronModelInclInputAndThreshold(AbstractNeuronModel,
+                                         AbstractContainsUnits):
 
     def __init__(
             self, n_neurons,
