@@ -1,7 +1,8 @@
-from spinn_utilities.ranged.range_dictionary import RangeDictionary
 from spynnaker.pyNN.models.neuron.additional_inputs \
     import AbstractAdditionalInput
 from spynnaker.pyNN.models.neural_properties import NeuronParameter
+from spynnaker.pyNN.utilities.ranged.spynakker_ranged_dict import \
+    SpynakkerRangeDictionary
 from data_specification.enums import DataType
 
 from enum import Enum
@@ -35,7 +36,7 @@ class MyAdditionalInput(AbstractAdditionalInput):
 
         AbstractAdditionalInput.__init__(self)
         self._n_neurons = n_neurons
-        self._data = RangeDictionary(size=n_neurons)
+        self._data = SpynakkerRangeDictionary(size=n_neurons)
         # TODO: store the parameters
 
         self._data[MY_PARAMETER_NAME] = my_additional_input_parameter

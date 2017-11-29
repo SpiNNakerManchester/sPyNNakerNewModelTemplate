@@ -1,9 +1,10 @@
 from pacman.executor.injection_decorator import inject_items
 from pacman.model.decorators.overrides import overrides
-from spinn_utilities.ranged.range_dictionary import RangeDictionary
 from spynnaker.pyNN.models.neural_properties import NeuronParameter
 from spynnaker.pyNN.models.abstract_models import AbstractContainsUnits
 from spynnaker.pyNN.models.neuron.neuron_models import AbstractNeuronModel
+from spynnaker.pyNN.utilities.ranged.spynakker_ranged_dict import \
+    SpynakkerRangeDictionary
 from data_specification.enums import DataType
 
 from enum import Enum
@@ -51,7 +52,7 @@ class MyNeuronModel(AbstractNeuronModel, AbstractContainsUnits):
 
         self._n_neurons = n_neurons
 
-        self._data = RangeDictionary(size=n_neurons)
+        self._data = SpynakkerRangeDictionary(size=n_neurons)
 
         # TODO: Store any parameters
         self._data[I_OFFSET_NAME] = i_offset
