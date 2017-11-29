@@ -1,16 +1,21 @@
 from spinn_utilities.overrides import overrides
-
 from pacman.executor.injection_decorator import inject_items
-
 from spynnaker.pyNN.models.abstract_models import AbstractContainsUnits
 from spynnaker.pyNN.models.neuron.synapse_types import AbstractSynapseType
-from spynnaker.pyNN.utilities import utility_calls
 from spynnaker.pyNN.models.neural_properties import NeuronParameter
+from spynnaker.pyNN.utilities.ranged.spynakker_ranged_dict import \
+    SpynakkerRangeDictionary
 
 from data_specification.enums import DataType
 
 import numpy
 from enum import Enum
+
+# TODO create constants to EXACTLY match the parameter names
+EX_SYNAPSE_NAME = 'my_ex_synapse_parameter'
+IN_SYNAPE_NAME = 'my_in_synapse_parameter'
+EXC_INIT_NAME = 'my_exc_init'
+INH_INIT_NAME = 'my_inh_init'
 
 
 class _MY_SYNAPSE_TYPES(Enum):
@@ -34,14 +39,23 @@ class _MY_SYNAPSE_TYPES(Enum):
 
 
 def get_exponential_decay_and_init(tau, machine_time_step):
+    """
     decay = numpy.exp(numpy.divide(-float(machine_time_step),
                                    numpy.multiply(1000.0, tau)))
+    decay = numpy.exp(-float(machine_time_step)/ (1000.0 * tau)))
     init = numpy.multiply(numpy.multiply(tau, numpy.subtract(1.0, decay)),
                           (1000.0 / float(machine_time_step)))
     scale = float(pow(2, 32))
     decay_scaled = numpy.multiply(decay, scale).astype("uint32")
     init_scaled = numpy.multiply(init, scale).astype("uint32")
-    return decay_scaled, init_scaled
+    """
+    return tau.apply_operation(
+        lambda x: int(numpy.exp(-float(machine_time_step)/(1000.0 * x)) *
+                      pow(2, 32))), \
+        tau.apply_operation(
+            lambda x: int(x * (1.0 - numpy.exp(
+                -float(machine_time_step)/(1000.0 * x))) *
+                          (1000.0 / float(machine_time_step)) * pow(2, 32)))
 
 
 class MySynapseType(AbstractSynapseType, AbstractContainsUnits):
@@ -58,60 +72,55 @@ class MySynapseType(AbstractSynapseType, AbstractContainsUnits):
         AbstractContainsUnits.__init__(self)
 
         self._units = {
-            'my_ex_synapse_parameter': "mV",
-            'my_in_synapse_parameter': 'mV',
-            'my_exc_init': "uS",
-            'my_inh_init': "uS"}
+            EX_SYNAPSE_NAME: "mV",
+            IN_SYNAPE_NAME: 'mV',
+            EXC_INIT_NAME: "uS",
+            INH_INIT_NAME: "uS"}
 
         self._n_neurons = n_neurons
+        self._data = SpynakkerRangeDictionary(size=n_neurons)
 
         # TODO: Store the parameters
-        self._my_ex_synapse_parameter = utility_calls.convert_param_to_numpy(
-            my_ex_synapse_parameter, n_neurons)
-        self._my_in_synapse_parameter = utility_calls.convert_param_to_numpy(
-            my_in_synapse_parameter, n_neurons)
-        self._my_exc_init = utility_calls.convert_param_to_numpy(
-            my_exc_init, n_neurons)
-        self._my_inh_init = utility_calls.convert_param_to_numpy(
-            my_inh_init, n_neurons)
+        self._data[EX_SYNAPSE_NAME] = my_ex_synapse_parameter
+        self._data[IN_SYNAPE_NAME] = my_in_synapse_parameter
+        self._data[EXC_INIT_NAME] = my_exc_init
+        self._data[INH_INIT_NAME] = my_inh_init
 
     # TODO: Add any getters and setters for new parameters
 
     @property
     def my_ex_synapse_parameter(self):
-        return self._my_ex_synapse_parameter
+        return self._data[EX_SYNAPSE_NAME]
 
     @my_ex_synapse_parameter.setter
     def my_ex_synapse_parameter(self, my_ex_synapse_parameter):
-        self._my_ex_synapse_parameter = utility_calls.convert_param_to_numpy(
-            my_ex_synapse_parameter, self._n_neurons)
+        self._data.set_value(
+            key=EX_SYNAPSE_NAME, value=my_ex_synapse_parameter)
 
     @property
     def my_in_synapse_parameter(self):
-        return self._my_in_synapse_parameter
+        return self._data[IN_SYNAPE_NAME]
 
     @my_in_synapse_parameter.setter
     def my_in_synapse_parameter(self, my_in_synapse_parameter):
-        self._my_in_synapse_parameter = utility_calls.convert_param_to_numpy(
-            my_in_synapse_parameter, self._n_neurons)
+        self._data.set_value(
+            key=IN_SYNAPE_NAME, value=my_in_synapse_parameter)
 
     @property
     def my_exc_init(self):
-        return self._my_exc_init
+        return self._data[EXC_INIT_NAME]
 
     @my_exc_init.setter
     def my_exc_init(self, my_exc_init):
-        self._my_exc_init = utility_calls.convert_param_to_numpy(
-            my_exc_init, self._n_neurons)
+        self._data.set_value(key=EXC_INIT_NAME, value=my_exc_init)
 
     @property
     def my_inh_init(self):
-        return self._my_inh_init
+        return self._data[INH_INIT_NAME]
 
     @my_inh_init.setter
     def my_inh_init(self, my_inh_init):
-        self._my_inh_init = utility_calls.convert_param_to_numpy(
-            my_inh_init, self._n_neurons)
+        self._data.set_value(key=INH_INIT_NAME, value=my_inh_init)
 
     def get_n_synapse_types(self):
 
@@ -143,9 +152,9 @@ class MySynapseType(AbstractSynapseType, AbstractContainsUnits):
     def get_synapse_type_parameters(self, machine_time_step):
 
         e_decay, e_init = get_exponential_decay_and_init(
-            self._my_ex_synapse_parameter, machine_time_step)
+            self._data[EX_SYNAPSE_NAME], machine_time_step)
         i_decay, i_init = get_exponential_decay_and_init(
-            self._my_in_synapse_parameter, machine_time_step)
+            self._data[IN_SYNAPE_NAME], machine_time_step)
 
         # TODO: update to return the parameters
         # Note: The order of the parameters must match the order in the
@@ -155,10 +164,10 @@ class MySynapseType(AbstractSynapseType, AbstractContainsUnits):
             NeuronParameter(e_init, _MY_SYNAPSE_TYPES.E_INIT.data_type),
             NeuronParameter(i_decay, _MY_SYNAPSE_TYPES.I_DECAY.data_type),
             NeuronParameter(i_init, _MY_SYNAPSE_TYPES.I_INIT.data_type),
-            NeuronParameter(
-                self._my_exc_init, _MY_SYNAPSE_TYPES.INITIAL_EXC.data_type),
-            NeuronParameter(
-                self._my_inh_init, _MY_SYNAPSE_TYPES.INITIAL_INH.data_type),
+            NeuronParameter(self._data[EXC_INIT_NAME],
+                            _MY_SYNAPSE_TYPES.INITIAL_EXC.data_type),
+            NeuronParameter(self._data[INH_INIT_NAME],
+                            _MY_SYNAPSE_TYPES.INITIAL_INH.data_type)
         ]
 
     def get_synapse_type_parameter_types(self):

@@ -1,10 +1,14 @@
 from spynnaker.pyNN.models.neuron.additional_inputs \
     import AbstractAdditionalInput
-from spynnaker.pyNN.utilities import utility_calls
 from spynnaker.pyNN.models.neural_properties import NeuronParameter
+from spynnaker.pyNN.utilities.ranged.spynakker_ranged_dict import \
+    SpynakkerRangeDictionary
 from data_specification.enums import DataType
 
 from enum import Enum
+
+# TODO create constants to EXACTLY match the parameter names
+MY_PARAMETER_NAME = "my_additional_input_parameter"
 
 
 class _MY_ADDITIONAL_INPUT_TYPES(Enum):
@@ -32,23 +36,21 @@ class MyAdditionalInput(AbstractAdditionalInput):
 
         AbstractAdditionalInput.__init__(self)
         self._n_neurons = n_neurons
-
+        self._data = SpynakkerRangeDictionary(size=n_neurons)
         # TODO: store the parameters
-        self._my_additional_input_parameter = \
-            utility_calls.convert_param_to_numpy(
-                my_additional_input_parameter, n_neurons)
+
+        self._data[MY_PARAMETER_NAME] = my_additional_input_parameter
 
     # TODO: Add getters and setters for the parameters
 
     @property
     def my_additional_input_parameter(self):
-        return self._my_additional_input_parameter
+        return self._data[MY_PARAMETER_NAME]
 
     @my_additional_input_parameter.setter
     def my_additional_input_parameter(self, my_additional_input_parameter):
-        self._my_additional_input_parameter = \
-            utility_calls.convert_param_to_numpy(
-                my_additional_input_parameter, self._n_neurons)
+        self._data.set_value(key=MY_PARAMETER_NAME,
+                             value=my_additional_input_parameter)
 
     def get_n_parameters(self):
         """ Get the number of parameters for the additional input
@@ -74,7 +76,7 @@ class MyAdditionalInput(AbstractAdditionalInput):
         return [
             NeuronParameter(0, DataType.S1615),
             NeuronParameter(
-                self._my_additional_input_parameter,
+                self._data[MY_PARAMETER_NAME],
                 _MY_ADDITIONAL_INPUT_TYPES.
                 MY_ADDITIONAL_INPUT_PARAMETER.data_type)
         ]
