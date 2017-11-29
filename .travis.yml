@@ -64,7 +64,7 @@ script:
   ### Disabled as not currently any tests
   # - flake8 unittests
   # XML
-  - find python_models8 -name '*.xml' | xargs -n 1 support/validate-xml.sh
+  - find python_models8 -name '*.xml' | xargs -r -n 1 support/validate-xml.sh
   # C 
   - make -C c_models
   - support/run-vera.sh c_models
