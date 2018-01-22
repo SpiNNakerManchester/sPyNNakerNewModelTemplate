@@ -22,7 +22,7 @@ class MyModelCurrMySynapseTypeBase(AbstractPopulationVertex):
         'i_offset': 0, 'my_parameter': -70.0,
         'my_exc_init': 0.0, 'my_inh_init': 0.0}
 
-    none_pynn_default_parameters = {'v_init': None}
+    non_pynn_default_parameters = {'v_init': None}
 
     def __init__(
             self, n_neurons, spikes_per_second=AbstractPopulationVertex.
@@ -54,7 +54,7 @@ class MyModelCurrMySynapseTypeBase(AbstractPopulationVertex):
                 'my_inh_init'],
 
             # state variables
-            v_init=none_pynn_default_parameters['v_init']):
+            v_init=non_pynn_default_parameters['v_init']):
 
         # create neuron model class
         neuron_model = MyNeuronModel(
@@ -75,11 +75,10 @@ class MyModelCurrMySynapseTypeBase(AbstractPopulationVertex):
         additional_input = None
 
         # instantiate the sPyNNaker system by initialising
-        #  the AbstractPopulationVertex
-        AbstractPopulationVertex.__init__(
-
+        # the AbstractPopulationVertex
+        super(MyModelCurrMySynapseTypeBase, self).__init__(
             # standard inputs, do not need to change.
-            self, n_neurons=n_neurons, label=label,
+            n_neurons=n_neurons, label=label,
             spikes_per_second=spikes_per_second,
             ring_buffer_sigma=ring_buffer_sigma,
             incoming_spike_buffer_size=incoming_spike_buffer_size,

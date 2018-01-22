@@ -13,8 +13,6 @@ class MyWeightDependence(AbstractWeightDependence, AbstractHasAPlusAMinus):
 
             # TODO: update the parameters
             w_min=0.0, w_max=1.0, my_parameter=0.1):
-
-        AbstractWeightDependence.__init__(self)
         AbstractHasAPlusAMinus.__init__(self)
 
         # TODO: Store any parameters

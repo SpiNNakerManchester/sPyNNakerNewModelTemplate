@@ -67,10 +67,6 @@ class MySynapseType(AbstractSynapseType, AbstractContainsUnits):
                  my_in_synapse_parameter=0.1,
                  my_exc_init=0.0,
                  my_inh_init=0.0):
-
-        AbstractSynapseType.__init__(self)
-        AbstractContainsUnits.__init__(self)
-
         self._units = {
             EX_SYNAPSE_NAME: "mV",
             IN_SYNAPE_NAME: 'mV',

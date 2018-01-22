@@ -42,8 +42,6 @@ class MyNeuronModel(AbstractNeuronModel, AbstractContainsUnits):
 
             # TODO: update the state variables if required
             v_init=-70.0):
-        AbstractNeuronModel.__init__(self)
-        AbstractContainsUnits.__init__(self)
 
         self._units = {
             V_INIT_NAME: 'mV',

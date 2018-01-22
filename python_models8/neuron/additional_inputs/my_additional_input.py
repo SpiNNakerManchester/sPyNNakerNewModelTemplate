@@ -33,8 +33,6 @@ class MyAdditionalInput(AbstractAdditionalInput):
 
             # TODO: update the parameters
             my_additional_input_parameter):
-
-        AbstractAdditionalInput.__init__(self)
         self._n_neurons = n_neurons
         self._data = SpynakkerRangeDictionary(size=n_neurons)
         # TODO: store the parameters
@@ -68,7 +66,7 @@ class MyAdditionalInput(AbstractAdditionalInput):
 
         :return: An array of parameters
         :rtype: array of\
-                :py:class:`spynnaker.pyNN.models.neural_properties.neural_parameter.NeuronParameter`
+            :py:class:`spynnaker.pyNN.models.neural_properties.neural_parameter.NeuronParameter`
         """
         # TODO: update the parameters
         # Note: must match the order of the additional_input_t structure in

@@ -30,12 +30,11 @@ class _MY_THRESHOLD_TYPES(Enum):
 class MyThresholdType(AbstractThresholdType):
     """ A threshold that is a static value
     """
+
     def __init__(
             self, n_neurons,
-
             # TODO: update parameters
             threshold_value, my_threshold_parameter):
-        AbstractThresholdType.__init__(self)
         self._n_neurons = n_neurons
         self._data = SpynakkerRangeDictionary(size=n_neurons)
 

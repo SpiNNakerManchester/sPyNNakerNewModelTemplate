@@ -17,7 +17,6 @@ class MyTimingDependence(AbstractTimingDependence):
             my_depression_parameter,
 
             A_plus=0.01, A_minus=0.01):
-        AbstractTimingDependence.__init__(self)
 
         # TODO: Store any parameters
         self._my_potentiation_parameter = my_potentiation_parameter

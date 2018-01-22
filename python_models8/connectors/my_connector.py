@@ -14,7 +14,7 @@ class MyConnector(AbstractConnector):
         """
         Creates a new MyConnector
         """
-        AbstractConnector.__init__(self)
+        super(MyConnector, self).__init__()
         self._weights = weights
         self._delays = delays
         self._allow_self_connections = allow_self_connections
@@ -28,18 +28,18 @@ class MyConnector(AbstractConnector):
         # TODO: update accordingly
         return 16
 
-    def create_synaptic_block(self, pre_slices, pre_slice_index, post_slices,
-                              post_slice_index, pre_vertex_slice,
-                              post_vertex_slice, synapse_type):
+    def create_synaptic_block(
+            self, pre_slices, pre_slice_index, post_slices, post_slice_index,
+            pre_vertex_slice, post_vertex_slice, synapse_type):
         """ Create a synaptic block from the data
         """
 
         # TODO: update accordingly
         pass
 
-    def get_weight_variance(self, pre_slices, pre_slice_index, post_slices,
-                            post_slice_index, pre_vertex_slice,
-                            post_vertex_slice):
+    def get_weight_variance(
+            self, pre_slices, pre_slice_index, post_slices, post_slice_index,
+            pre_vertex_slice, post_vertex_slice):
         """ Get the variance of the weights
         """
         # TODO: update accordingly
@@ -52,19 +52,17 @@ class MyConnector(AbstractConnector):
         # TODO: update accordingly
         pass
 
-    def get_weight_maximum(self, pre_slices, pre_slice_index, post_slices,
-                           post_slice_index, pre_vertex_slice,
-                           post_vertex_slice):
+    def get_weight_maximum(
+            self, pre_slices, pre_slice_index, post_slices, post_slice_index,
+            pre_vertex_slice, post_vertex_slice):
         """ Get the maximum of the weights for this connection
         """
         # TODO: update accordingly
         pass
 
-    def get_n_connections_to_post_vertex_maximum(self, pre_slices,
-                                                 pre_slice_index, post_slices,
-                                                 post_slice_index,
-                                                 pre_vertex_slice,
-                                                 post_vertex_slice):
+    def get_n_connections_to_post_vertex_maximum(
+            self, pre_slices, pre_slice_index, post_slices, post_slice_index,
+            pre_vertex_slice, post_vertex_slice):
         """ Get the maximum number of connections between those from each of\
             the neurons in the pre_vertex_slice to neurons in the\
             post_vertex_slice, for connections with a delay between min_delay\
@@ -74,20 +72,18 @@ class MyConnector(AbstractConnector):
         # TODO: update accordingly
         pass
 
-    def get_weight_mean(self, pre_slices, pre_slice_index, post_slices,
-                        post_slice_index, pre_vertex_slice, post_vertex_slice):
+    def get_weight_mean(
+            self, pre_slices, pre_slice_index, post_slices, post_slice_index,
+            pre_vertex_slice, post_vertex_slice):
         """ Get the mean of the weights for this connection
         """
         # TODO: update accordingly
         pass
 
-    def get_n_connections_from_pre_vertex_maximum(self, pre_slices,
-                                                  pre_slice_index, post_slices,
-                                                  post_slice_index,
-                                                  pre_vertex_slice,
-                                                  post_vertex_slice,
-                                                  min_delay=None,
-                                                  max_delay=None):
+    def get_n_connections_from_pre_vertex_maximum(
+            self, pre_slices, pre_slice_index, post_slices, post_slice_index,
+            pre_vertex_slice, post_vertex_slice, min_delay=None,
+            max_delay=None):
         """ Get the maximum number of connections between those to each of the\
             neurons in the post_vertex_slice from neurons in the\
             pre_vertex_slice

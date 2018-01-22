@@ -24,7 +24,7 @@ class MyModelCurrExpMyAdditionalInputBase(AbstractPopulationVertex):
         'i_offset': 0, 'my_parameter': -70.0,
         'my_additional_input_parameter': 1.0}
 
-    none_pynn_default_parameters = {'v_init': None}
+    non_pynn_default_parameters = {'v_init': None}
 
     def __init__(
             self, n_neurons, spikes_per_second=None, ring_buffer_sigma=None,
@@ -71,10 +71,10 @@ class MyModelCurrExpMyAdditionalInputBase(AbstractPopulationVertex):
 
         # instantiate the sPyNNaker system by initialising
         #  the AbstractPopulationVertex
-        AbstractPopulationVertex.__init__(
+        super(MyModelCurrExpMyAdditionalInputBase, self).__init__(
 
             # standard inputs, do not need to change.
-            self, n_neurons=n_neurons, label=label,
+            n_neurons=n_neurons, label=label,
             spikes_per_second=spikes_per_second,
             ring_buffer_sigma=ring_buffer_sigma,
             incoming_spike_buffer_size=incoming_spike_buffer_size,
