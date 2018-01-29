@@ -7,6 +7,12 @@ from spynnaker.pyNN.models.neuron.plasticity.stdp.synapse_structure\
 
 
 class MyTimingDependence(AbstractTimingDependence):
+    __slots__ = [
+        "_a_minus",
+        "_a_plus",
+        "_my_depression_parameter",
+        "_my_potentiation_parameter",
+        "_synapse_structure"]
 
     # noinspection PyPep8Naming
     def __init__(
@@ -56,9 +62,9 @@ class MyTimingDependence(AbstractTimingDependence):
         # TODO: update to check parameters are equal
         return (
             (self._my_potentiation_parameter ==
-                timing_dependence._my_potentiation_parameter) and
+                timing_dependence.my_potentiation_parameter) and
             (self._my_depression_parameter ==
-                timing_dependence._my_depression_parameter))
+                timing_dependence.my_depression_parameter))
 
     @property
     def vertex_executable_suffix(self):

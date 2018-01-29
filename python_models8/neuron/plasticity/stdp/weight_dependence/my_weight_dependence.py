@@ -6,14 +6,18 @@ from spynnaker.pyNN.models.neuron.plasticity.stdp.weight_dependence\
     import AbstractHasAPlusAMinus
 
 
-class MyWeightDependence(AbstractWeightDependence, AbstractHasAPlusAMinus):
+class MyWeightDependence(AbstractHasAPlusAMinus, AbstractWeightDependence):
+    __slots__ = [
+        "_my_parameter",
+        "_w_max",
+        "_w_min"]
 
     def __init__(
             self,
 
             # TODO: update the parameters
             w_min=0.0, w_max=1.0, my_parameter=0.1):
-        AbstractHasAPlusAMinus.__init__(self)
+        super(MyWeightDependence, self).__init__()
 
         # TODO: Store any parameters
         self._w_min = w_min
@@ -70,11 +74,10 @@ class MyWeightDependence(AbstractWeightDependence, AbstractHasAPlusAMinus):
             self, n_synapse_types, n_weight_terms):
 
         # TODO: update to match the number of bytes used by the parameters
-        if n_weight_terms == 1:
-            return 12 * n_synapse_types
-        else:
+        if n_weight_terms != 1:
             raise NotImplementedError(
                 "My weight dependence only supports one term")
+        return 12 * n_synapse_types
 
     def write_parameters(
             self, spec, machine_time_step, weight_scales, n_weight_terms):
