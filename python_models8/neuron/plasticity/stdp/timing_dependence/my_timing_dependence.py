@@ -54,7 +54,6 @@ class MyTimingDependence(AbstractTimingDependence):
         self._my_depression_parameter = my_depression_parameter
 
     def is_same_as(self, timing_dependence):
-
         # TODO: Update with the correct class name
         if not isinstance(timing_dependence, MyTimingDependence):
             return False
@@ -68,7 +67,6 @@ class MyTimingDependence(AbstractTimingDependence):
 
     @property
     def vertex_executable_suffix(self):
-
         # TODO: Add the extension to be added to the binary executable name
         # to indicate that it is compiled with this timing dependence
         # Note: The expected format of the binary name is:
@@ -77,25 +75,21 @@ class MyTimingDependence(AbstractTimingDependence):
 
     @property
     def pre_trace_n_bytes(self):
-
         # TODO: update to match the number of bytes in the pre_trace_t data
         # structure in the C code
         return 0
 
     def get_parameters_sdram_usage_in_bytes(self):
-
         # TODO: update to match the number of bytes used by the parameters
         return 8
 
     @property
     def n_weight_terms(self):
-
         # TODO: update to match the number of weight terms expected in the
         # weight rule according to the C code
         return 1
 
     def write_parameters(self, spec, machine_time_step, weight_scales):
-
         # TODO: update to write the parameters
         spec.write_value(
             self._my_potentiation_parameter, data_type=DataType.S1615)

@@ -3,9 +3,7 @@ from spynnaker.pyNN.models.neural_projections.connectors \
 
 
 class MyConnector(AbstractConnector):
-    """
-    Connects two vertices with some thing
-
+    """ Connects two vertices with some thing.
     """
 
     def __init__(self, weights=0.0, delays=1, allow_self_connections=True

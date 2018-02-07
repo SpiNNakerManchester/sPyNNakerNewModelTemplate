@@ -1,9 +1,7 @@
 from spinn_utilities.overrides import overrides
 from data_specification.enums import DataType
 from spynnaker.pyNN.models.neuron.plasticity.stdp.weight_dependence\
-    import AbstractWeightDependence
-from spynnaker.pyNN.models.neuron.plasticity.stdp.weight_dependence\
-    import AbstractHasAPlusAMinus
+    import AbstractWeightDependence, AbstractHasAPlusAMinus
 
 
 class MyWeightDependence(AbstractHasAPlusAMinus, AbstractWeightDependence):
@@ -51,7 +49,6 @@ class MyWeightDependence(AbstractHasAPlusAMinus, AbstractWeightDependence):
         self._my_parameter = my_parameter
 
     def is_same_as(self, weight_dependence):
-
         # TODO: Update with the correct class name
         if not isinstance(weight_dependence, MyWeightDependence):
             return False
@@ -72,7 +69,6 @@ class MyWeightDependence(AbstractHasAPlusAMinus, AbstractWeightDependence):
 
     def get_parameters_sdram_usage_in_bytes(
             self, n_synapse_types, n_weight_terms):
-
         # TODO: update to match the number of bytes used by the parameters
         if n_weight_terms != 1:
             raise NotImplementedError(
@@ -81,11 +77,9 @@ class MyWeightDependence(AbstractHasAPlusAMinus, AbstractWeightDependence):
 
     def write_parameters(
             self, spec, machine_time_step, weight_scales, n_weight_terms):
-
         # TODO: update to write the parameters
         # Loop through each synapse type's weight scale
         for w in weight_scales:
-
             # Scale the maximum and minimum weights to fixed-point values
             # based on the weight scaling that has been done externally
             spec.write_value(
@@ -104,7 +98,6 @@ class MyWeightDependence(AbstractHasAPlusAMinus, AbstractWeightDependence):
 
     @property
     def weight_maximum(self):
-
         # TODO: update to return the maximum weight that this rule will ever
         # give to a synapse
         return self._w_max

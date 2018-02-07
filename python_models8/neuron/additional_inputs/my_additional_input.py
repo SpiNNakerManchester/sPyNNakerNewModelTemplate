@@ -51,7 +51,8 @@ class MyAdditionalInput(AbstractAdditionalInput):
                              value=my_additional_input_parameter)
 
     def get_n_parameters(self):
-        """ Get the number of parameters for the additional input
+        """ Get the number of parameters for the additional input. This\
+            should be the length of the result of get_parameters.
 
         :return: The number of parameters
         :rtype: int
@@ -62,11 +63,11 @@ class MyAdditionalInput(AbstractAdditionalInput):
         return 2
 
     def get_parameters(self):
-        """ Get the parameters for the additional input
+        """ Get the parameters for the additional input.
 
         :return: An array of parameters
         :rtype: array of\
-            :py:class:`spynnaker.pyNN.models.neural_properties.neural_parameter.NeuronParameter`
+            :py:class:`spynnaker.pyNN.models.neural_properties.NeuronParameter`
         """
         # TODO: update the parameters
         # Note: must match the order of the additional_input_t structure in
@@ -76,8 +77,7 @@ class MyAdditionalInput(AbstractAdditionalInput):
             NeuronParameter(
                 self._data[MY_PARAMETER_NAME],
                 _MY_ADDITIONAL_INPUT_TYPES.
-                MY_ADDITIONAL_INPUT_PARAMETER.data_type)
-        ]
+                MY_ADDITIONAL_INPUT_PARAMETER.data_type)]
 
     def get_parameter_types(self):
         """ Get the parameter types for the additional input

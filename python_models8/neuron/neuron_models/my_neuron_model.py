@@ -16,7 +16,6 @@ V_INIT_NAME = "v_init"
 
 
 class _MY_NEURON_MODEL_TYPES(Enum):
-
     V_INIT = (1, DataType.S1615)
     I_OFFSET = (2, DataType.S1615)
     MY_NEURON_PARAMETER = (3, DataType.S1615)
@@ -33,7 +32,6 @@ class _MY_NEURON_MODEL_TYPES(Enum):
 
 
 class MyNeuronModel(AbstractNeuronModel, AbstractContainsUnits):
-
     def __init__(
             self, n_neurons,
 
@@ -84,40 +82,32 @@ class MyNeuronModel(AbstractNeuronModel, AbstractContainsUnits):
         self._data.set_value(key=V_INIT_NAME, value=v_init)
 
     def get_n_neural_parameters(self):
-
         # TODO: update to match the number of parameters
         # Note: this must match the number of parameters in the neuron_t
         # data structure in the C code
         return 3
 
     def get_neural_parameters(self):
-
         # TODO: update to match the parameters and state variables
         # Note: this must match the order of the parameters in the neuron_t
         # data structure in the C code
         return [
-
             # REAL V;
             NeuronParameter(self._data[V_INIT_NAME],
                             _MY_NEURON_MODEL_TYPES.V_INIT.data_type),
-
             # REAL I_offset;
             NeuronParameter(self._data[I_OFFSET_NAME],
                             _MY_NEURON_MODEL_TYPES.I_OFFSET.data_type),
-
             # REAL my_parameter;
             NeuronParameter(self._data[MY_PARAMETER_NAME],
                             _MY_NEURON_MODEL_TYPES.
-                            MY_NEURON_PARAMETER.data_type)
-        ]
+                            MY_NEURON_PARAMETER.data_type)]
 
     def get_neural_parameter_types(self):
-
         # TODO: update to match the parameter types
         return [item.data_type for item in _MY_NEURON_MODEL_TYPES]
 
     def get_n_global_parameters(self):
-
         # TODO: update to match the number of global parameters
         # Note: This must match the number of parameters in the global_neuron_t
         # data structure in the C code
@@ -125,23 +115,18 @@ class MyNeuronModel(AbstractNeuronModel, AbstractContainsUnits):
 
     @inject_items({"machine_time_step": "MachineTimeStep"})
     def get_global_parameters(self, machine_time_step):
-
         # TODO: update to match the global parameters
         # Note: This must match the order of the parameters in the
         # global_neuron_t data structure in the C code
         return [
-
             # uint32_t machine_time_step
-            NeuronParameter(machine_time_step, DataType.UINT32)
-        ]
+            NeuronParameter(machine_time_step, DataType.UINT32)]
 
     def get_global_parameter_types(self):
-
         # TODO update to match the global parameter type
         return [DataType.UINT32]
 
     def get_n_cpu_cycles_per_neuron(self):
-
         # TODO: update with the number of CPU cycles taken by the
         # neuron_model_state_update, neuron_model_get_membrane_voltage
         # and neuron_model_has_spiked functions in the C code
