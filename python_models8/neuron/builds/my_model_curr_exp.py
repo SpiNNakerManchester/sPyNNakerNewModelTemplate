@@ -60,37 +60,37 @@ class MyModelCurrExpBase(AbstractPopulationVertex):
 
     non_pynn_default_parameters = {'v_init': None}
 
+    # Merge the three dictionaries of defaults for convenience    
+    _defaults = dict(AbstractPopulationVertex.none_pynn_default_parameters)
+    _defaults.update(default_parameters)
+    _defaults.update(non_pynn_default_parameters)
+
     def __init__(
-            self, n_neurons, spikes_per_second=AbstractPopulationVertex.
-            none_pynn_default_parameters['spikes_per_second'],
-            ring_buffer_sigma=AbstractPopulationVertex.
-            none_pynn_default_parameters['ring_buffer_sigma'],
-            incoming_spike_buffer_size=AbstractPopulationVertex.
-            none_pynn_default_parameters['incoming_spike_buffer_size'],
-            constraints=AbstractPopulationVertex.none_pynn_default_parameters[
-                'constraints'],
-            label=AbstractPopulationVertex.none_pynn_default_parameters[
-                'label'],
+            self, n_neurons, spikes_per_second=_defaults['spikes_per_second'],
+            ring_buffer_sigma=_defaults['ring_buffer_sigma'],
+            incoming_spike_buffer_size=_defaults['incoming_spike_buffer_size'],
+            constraints=_defaults['constraints'],
+            label=_defaults['label'],
 
             # TODO: neuron model parameters (add / remove as required)
             # neuron model parameters
-            my_parameter=default_parameters['my_parameter'],
-            i_offset=default_parameters['i_offset'],
+            my_parameter=_defaults['my_parameter'],
+            i_offset=_defaults['i_offset'],
 
             # TODO: threshold types parameters (add / remove as required)
             # threshold types parameters
-            v_thresh=default_parameters['v_thresh'],
+            v_thresh=_defaults['v_thresh'],
 
             # TODO: synapse type parameters (add /remove as required)
             # synapse type parameters
-            tau_syn_E=default_parameters['tau_syn_E'],
-            tau_syn_I=default_parameters['tau_syn_I'],
-            isyn_exc=default_parameters['isyn_exc'],
-            isyn_inh=default_parameters['isyn_inh'],
+            tau_syn_E=_defaults['tau_syn_E'],
+            tau_syn_I=_defaults['tau_syn_I'],
+            isyn_exc=_defaults['isyn_exc'],
+            isyn_inh=_defaults['isyn_inh'],
 
             # TODO: Optionally, you can add initial values for the state
             # variables; this is not technically done in PyNN
-            v_init=non_pynn_default_parameters['v_init']):
+            v_init=_defaults['v_init']):
 
         # TODO: create your neuron model class (change if required)
         # create your neuron model class
@@ -118,14 +118,13 @@ class MyModelCurrExpBase(AbstractPopulationVertex):
         # the AbstractPopulationVertex
         super(MyModelCurrExpBase, self).__init__(
             # standard inputs, do not need to change.
-            n_neurons=n_neurons, label=label,
+            n_neurons=n_neurons, label=label, constraints=constraints,
             spikes_per_second=spikes_per_second,
             ring_buffer_sigma=ring_buffer_sigma,
             incoming_spike_buffer_size=incoming_spike_buffer_size,
 
             # TODO: Ensure the correct class is used below
-            max_atoms_per_core=(
-                MyModelCurrExpBase._model_based_max_atoms_per_core),
+            max_atoms_per_core=self.get_max_atoms_per_core(),
 
             # These are the various model types
             neuron_model=neuron_model, input_type=input_type,

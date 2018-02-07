@@ -5,27 +5,28 @@ from spynnaker8.utilities import DataHolder
 from python_models8.neuron.builds.my_model_curr_exp_my_threshold \
     import MyModelCurrExpMyThresholdBase as MyThreshold
 
+# Merge the defaults together
+_defaults = dict(Vertex.none_pynn_default_parameters)
+_defaults.update(MyThreshold.non_pynn_default_parameters)
+_defaults.update(MyThreshold.default_parameters)
+
 
 class MyModelCurrExpMyThresholdDataHolder(DataHolder):
     def __init__(
-            self, spikes_per_second=Vertex.none_pynn_default_parameters[
-                'spikes_per_second'],
-            ring_buffer_sigma=Vertex.none_pynn_default_parameters[
-                'ring_buffer_sigma'],
-            incoming_spike_buffer_size=Vertex.none_pynn_default_parameters[
-                'incoming_spike_buffer_size'],
-            constraints=Vertex.none_pynn_default_parameters['constraints'],
-            label=Vertex.none_pynn_default_parameters['label'],
-            v_init=MyThreshold.non_pynn_default_parameters['v_init'],
-            tau_syn_E=MyThreshold.default_parameters['tau_syn_E'],
-            tau_syn_I=MyThreshold.default_parameters['tau_syn_I'],
-            isyn_exc=MyThreshold.default_parameters['isyn_exc'],
-            isyn_inh=MyThreshold.default_parameters['isyn_inh'],
-            my_threshold_parameter=MyThreshold.default_parameters[
-                'my_threshold_parameter'],
-            threshold_value=MyThreshold.default_parameters['threshold_value'],
-            my_parameter=MyThreshold.default_parameters['my_parameter'],
-            i_offset=MyThreshold.default_parameters['i_offset']):
+            self, spikes_per_second=_defaults['spikes_per_second'],
+            ring_buffer_sigma=_defaults['ring_buffer_sigma'],
+            incoming_spike_buffer_size=_defaults['incoming_spike_buffer_size'],
+            constraints=_defaults['constraints'],
+            label=_defaults['label'],
+            v_init=_defaults['v_init'],
+            tau_syn_E=_defaults['tau_syn_E'],
+            tau_syn_I=_defaults['tau_syn_I'],
+            isyn_exc=_defaults['isyn_exc'],
+            isyn_inh=_defaults['isyn_inh'],
+            my_threshold_parameter=_defaults['my_threshold_parameter'],
+            threshold_value=_defaults['threshold_value'],
+            my_parameter=_defaults['my_parameter'],
+            i_offset=_defaults['i_offset']):
         super(MyModelCurrExpMyThresholdDataHolder, self).__init__({
             'spikes_per_second': spikes_per_second,
             'ring_buffer_sigma': ring_buffer_sigma,
