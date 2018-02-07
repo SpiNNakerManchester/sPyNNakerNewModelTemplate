@@ -60,7 +60,7 @@ class MyModelCurrExpBase(AbstractPopulationVertex):
 
     non_pynn_default_parameters = {'v_init': None}
 
-    # Merge the three dictionaries of defaults for convenience    
+    # Merge the three dictionaries of defaults for convenience
     _defaults = dict(AbstractPopulationVertex.none_pynn_default_parameters)
     _defaults.update(default_parameters)
     _defaults.update(non_pynn_default_parameters)
