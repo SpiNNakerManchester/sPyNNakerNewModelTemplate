@@ -20,7 +20,7 @@ class MyModelCurrExpDataHolder(DataHolder):
                 'constraints'],
             label=AbstractPopulationVertex.none_pynn_default_parameters[
                 'label'],
-            v_init=MyModelCurrExpBase.none_pynn_default_parameters['v_init'],
+            v_init=MyModelCurrExpBase.initialize_parameters['v_init'],
             v_thresh=MyModelCurrExpBase.default_parameters['v_thresh'],
             tau_syn_E=MyModelCurrExpBase.default_parameters['tau_syn_E'],
             tau_syn_I=MyModelCurrExpBase.default_parameters['tau_syn_I'],

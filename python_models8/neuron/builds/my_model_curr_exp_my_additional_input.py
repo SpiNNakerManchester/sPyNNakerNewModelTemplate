@@ -24,7 +24,7 @@ class MyModelCurrExpMyAdditionalInputBase(AbstractPopulationVertex):
         'i_offset': 0, 'my_parameter': -70.0,
         'my_additional_input_parameter': 1.0}
 
-    none_pynn_default_parameters = {'v_init': None}
+    initialize_parameters = {'v_init': None}
 
     def __init__(
             self, n_neurons, spikes_per_second=None, ring_buffer_sigma=None,
@@ -48,7 +48,7 @@ class MyModelCurrExpMyAdditionalInputBase(AbstractPopulationVertex):
                 default_parameters['my_additional_input_parameter']),
 
             # state variables
-            v_init=None):
+            v_init=initialize_parameters['v_init']):
 
         # create neuron model class
         neuron_model = MyNeuronModel(

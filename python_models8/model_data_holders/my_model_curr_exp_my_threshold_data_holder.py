@@ -21,7 +21,7 @@ class MyModelCurrExpMyThresholdDataHolder(DataHolder):
                 'constraints'],
             label=AbstractPopulationVertex.none_pynn_default_parameters[
                 'label'],
-            v_init=MyModelCurrExpMyThresholdBase.none_pynn_default_parameters[
+            v_init=MyModelCurrExpMyThresholdBase.initialize_parameters[
                 'v_init'],
             tau_syn_E=MyModelCurrExpMyThresholdBase.default_parameters[
                 'tau_syn_E'],

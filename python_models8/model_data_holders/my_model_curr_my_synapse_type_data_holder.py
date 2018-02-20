@@ -21,7 +21,7 @@ class MyModelCurrMySynapseTypeDataHolder(DataHolder):
                 'constraints'],
             label=AbstractPopulationVertex.none_pynn_default_parameters[
                 'label'],
-            v_init=MyModelCurrMySynapseTypeBase.none_pynn_default_parameters[
+            v_init=MyModelCurrMySynapseTypeBase.initialize_parameters[
                 'v_init'],
             v_thresh=MyModelCurrMySynapseTypeBase.default_parameters[
                 'v_thresh'],

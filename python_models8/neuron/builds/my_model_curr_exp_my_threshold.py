@@ -24,7 +24,7 @@ class MyModelCurrExpMyThresholdBase(AbstractPopulationVertex):
         'my_threshold_parameter': 0.5,
         'threshold_value': -10.0}
 
-    none_pynn_default_parameters = {'v_init': None}
+    initialize_parameters = {'v_init': None}
 
     def __init__(
             self, n_neurons, spikes_per_second=AbstractPopulationVertex.
@@ -54,7 +54,7 @@ class MyModelCurrExpMyThresholdBase(AbstractPopulationVertex):
             isyn_inh=default_parameters['isyn_inh'],
 
             # state variables
-            v_init=None):
+            v_init=initialize_parameters['v_init']):
 
         # create neuron model class
         neuron_model = MyNeuronModel(

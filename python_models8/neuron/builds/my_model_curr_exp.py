@@ -58,7 +58,7 @@ class MyModelCurrExpBase(AbstractPopulationVertex):
         'isyn_exc': 0.0, 'isyn_inh': 0.0,
         'i_offset': 0, 'my_parameter': -70.0}
 
-    none_pynn_default_parameters = {'v_init': None}
+    initialize_parameters = {'v_init': None}
 
     def __init__(
             self, n_neurons, spikes_per_second=AbstractPopulationVertex.
@@ -90,7 +90,7 @@ class MyModelCurrExpBase(AbstractPopulationVertex):
 
             # TODO: Optionally, you can add initial values for the state
             # variables; this is not technically done in PyNN
-            v_init=none_pynn_default_parameters['v_init']):
+            v_init=initialize_parameters['v_init']):
 
         # TODO: create your neuron model class (change if required)
         # create your neuron model class

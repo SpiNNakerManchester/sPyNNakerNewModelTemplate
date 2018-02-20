@@ -23,7 +23,7 @@ class MyModelCurrExpMyAdditionalInputDataHolder(DataHolder):
                 'label'],
             v_init=(
                 MyModelCurrExpMyAdditionalInputBase
-                .none_pynn_default_parameters['v_init']),
+                .initialize_parameters['v_init']),
             v_thresh=MyModelCurrExpMyAdditionalInputBase.default_parameters[
                 'v_thresh'],
             tau_syn_E=MyModelCurrExpMyAdditionalInputBase.default_parameters[
