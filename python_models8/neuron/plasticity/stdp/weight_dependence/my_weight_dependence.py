@@ -1,21 +1,21 @@
 from spinn_utilities.overrides import overrides
 from data_specification.enums import DataType
 from spynnaker.pyNN.models.neuron.plasticity.stdp.weight_dependence\
-    import AbstractWeightDependence
-from spynnaker.pyNN.models.neuron.plasticity.stdp.weight_dependence\
-    import AbstractHasAPlusAMinus
+    import AbstractWeightDependence, AbstractHasAPlusAMinus
 
 
-class MyWeightDependence(AbstractWeightDependence, AbstractHasAPlusAMinus):
+class MyWeightDependence(AbstractHasAPlusAMinus, AbstractWeightDependence):
+    __slots__ = [
+        "_my_parameter",
+        "_w_max",
+        "_w_min"]
 
     def __init__(
             self,
 
             # TODO: update the parameters
             w_min=0.0, w_max=1.0, my_parameter=0.1):
-
-        AbstractWeightDependence.__init__(self)
-        AbstractHasAPlusAMinus.__init__(self)
+        super(MyWeightDependence, self).__init__()
 
         # TODO: Store any parameters
         self._w_min = w_min
@@ -49,7 +49,6 @@ class MyWeightDependence(AbstractWeightDependence, AbstractHasAPlusAMinus):
         self._my_parameter = my_parameter
 
     def is_same_as(self, weight_dependence):
-
         # TODO: Update with the correct class name
         if not isinstance(weight_dependence, MyWeightDependence):
             return False
@@ -70,21 +69,17 @@ class MyWeightDependence(AbstractWeightDependence, AbstractHasAPlusAMinus):
 
     def get_parameters_sdram_usage_in_bytes(
             self, n_synapse_types, n_weight_terms):
-
         # TODO: update to match the number of bytes used by the parameters
-        if n_weight_terms == 1:
-            return 12 * n_synapse_types
-        else:
+        if n_weight_terms != 1:
             raise NotImplementedError(
                 "My weight dependence only supports one term")
+        return 12 * n_synapse_types
 
     def write_parameters(
             self, spec, machine_time_step, weight_scales, n_weight_terms):
-
         # TODO: update to write the parameters
         # Loop through each synapse type's weight scale
         for w in weight_scales:
-
             # Scale the maximum and minimum weights to fixed-point values
             # based on the weight scaling that has been done externally
             spec.write_value(
@@ -103,7 +98,6 @@ class MyWeightDependence(AbstractWeightDependence, AbstractHasAPlusAMinus):
 
     @property
     def weight_maximum(self):
-
         # TODO: update to return the maximum weight that this rule will ever
         # give to a synapse
         return self._w_max

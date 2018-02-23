@@ -30,12 +30,11 @@ class _MY_THRESHOLD_TYPES(Enum):
 class MyThresholdType(AbstractThresholdType):
     """ A threshold that is a static value
     """
+
     def __init__(
             self, n_neurons,
-
             # TODO: update parameters
             threshold_value, my_threshold_parameter):
-        AbstractThresholdType.__init__(self)
         self._n_neurons = n_neurons
         self._data = SpynakkerRangeDictionary(size=n_neurons)
 
@@ -64,32 +63,28 @@ class MyThresholdType(AbstractThresholdType):
             key=THRESHOLD_PARAM_NAME, value=my_threshold_parameter)
 
     def get_n_threshold_parameters(self):
-
         # TODO: update to return the number of parameters
         # Note: This must match the number of values in the threshold_type_t
         # data structure in the C code
         return 2
 
     def get_threshold_parameters(self):
-
         # TODO: update to return the parameters
         # Note: The order of the parameters must match the order in the
         # threshold_type_t data structure in the C code
         return [
-            NeuronParameter(self._data[THRESHOLD_VALUE_NAME],
-                            _MY_THRESHOLD_TYPES.THRESHOLD_VALUE.data_type),
-            NeuronParameter(self._data[THRESHOLD_PARAM_NAME],
-                            _MY_THRESHOLD_TYPES.
-                            MY_THRESHOLD_PARAMETER.data_type)
-        ]
+            NeuronParameter(
+                self._data[THRESHOLD_VALUE_NAME],
+                _MY_THRESHOLD_TYPES.THRESHOLD_VALUE.data_type),
+            NeuronParameter(
+                self._data[THRESHOLD_PARAM_NAME],
+                _MY_THRESHOLD_TYPES.MY_THRESHOLD_PARAMETER.data_type)]
 
     def get_threshold_parameter_types(self):
-
         # TODO: update to return the parameter types
         return [item.data_type for item in _MY_THRESHOLD_TYPES]
 
     def get_n_cpu_cycles_per_neuron(self):
-
         # TODO: update to the number of cycles used by\
         # threshold_type_is_above_threshold
         # Note: This can be guessed
