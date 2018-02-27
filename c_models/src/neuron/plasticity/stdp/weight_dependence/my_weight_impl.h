@@ -5,6 +5,9 @@
 #define SYNAPSE_TYPE_BITS 1
 #define SYNAPSE_TYPE_COUNT 2
 
+// Because spin1_memcpy() is used in various places
+#include <spin1_api.h>
+
 // Include generic plasticity maths functions
 #include <neuron/plasticity/common/maths.h>
 #include <neuron/plasticity/common/stdp_typedefs.h>

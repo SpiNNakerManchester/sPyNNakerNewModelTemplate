@@ -13,6 +13,9 @@ typedef struct post_trace_t {
 typedef struct pre_trace_t {
 } pre_trace_t;
 
+// Because spin1_memcpy() is used in various places
+#include <spin1_api.h>
+
 // weight_state_t has been (re?)defined in my_weight_impl.h, needs to be included here
 #include "../weight_dependence/my_weight_impl.h"
 
