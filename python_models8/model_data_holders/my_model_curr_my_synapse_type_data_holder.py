@@ -25,20 +25,19 @@ class MyModelCurrMySynapseTypeDataHolder(DataHolder):
             my_inh_init=_defaults['my_inh_init'],
             my_parameter=_defaults['my_parameter'],
             i_offset=_defaults['i_offset']):
-        DataHolder.__init__(
-            self, {
-                'spikes_per_second': spikes_per_second,
-                'ring_buffer_sigma': ring_buffer_sigma,
-                'incoming_spike_buffer_size': incoming_spike_buffer_size,
-                'constraints': constraints,
-                'label': label,
-                'v_thresh': v_thresh,
-                'my_ex_synapse_parameter': my_ex_synapse_parameter,
-                'my_in_synapse_parameter': my_in_synapse_parameter,
-                'my_exc_init': my_exc_init,
-                'my_inh_init': my_inh_init,
-                'i_offset': i_offset,
-                'my_parameter': my_parameter, 'v_init': v_init})
+        super(MyModelCurrMySynapseTypeDataHolder, self).__init__({
+            'spikes_per_second': spikes_per_second,
+            'ring_buffer_sigma': ring_buffer_sigma,
+            'incoming_spike_buffer_size': incoming_spike_buffer_size,
+            'constraints': constraints,
+            'label': label,
+            'v_thresh': v_thresh,
+            'my_ex_synapse_parameter': my_ex_synapse_parameter,
+            'my_in_synapse_parameter': my_in_synapse_parameter,
+            'my_exc_init': my_exc_init,
+            'my_inh_init': my_inh_init,
+            'i_offset': i_offset,
+            'my_parameter': my_parameter, 'v_init': v_init})
 
     @staticmethod
     def build_model():

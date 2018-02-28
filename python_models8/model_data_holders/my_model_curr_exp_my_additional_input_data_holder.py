@@ -27,20 +27,19 @@ class MyModelCurrExpMyAdditionalInputDataHolder(DataHolder):
                 'my_additional_input_parameter'],
             my_parameter=_defaults['my_parameter'],
             i_offset=_defaults['i_offset']):
-        DataHolder.__init__(
-            self, {
-                'spikes_per_second': spikes_per_second,
-                'ring_buffer_sigma': ring_buffer_sigma,
-                'incoming_spike_buffer_size': incoming_spike_buffer_size,
-                'constraints': constraints,
-                'label': label,
-                'v_thresh': v_thresh,
-                'tau_syn_E': tau_syn_E, 'tau_syn_I': tau_syn_I,
-                'isyn_exc': isyn_exc, 'isyn_inh': isyn_inh,
-                'i_offset': i_offset,
-                'my_parameter': my_parameter,
-                'my_additional_input_parameter': my_additional_input_parameter,
-                'v_init': v_init})
+        super(MyModelCurrExpMyAdditionalInputDataHolder, self).__init__({
+            'spikes_per_second': spikes_per_second,
+            'ring_buffer_sigma': ring_buffer_sigma,
+            'incoming_spike_buffer_size': incoming_spike_buffer_size,
+            'constraints': constraints,
+            'label': label,
+            'v_thresh': v_thresh,
+            'tau_syn_E': tau_syn_E, 'tau_syn_I': tau_syn_I,
+            'isyn_exc': isyn_exc, 'isyn_inh': isyn_inh,
+            'i_offset': i_offset,
+            'my_parameter': my_parameter,
+            'my_additional_input_parameter': my_additional_input_parameter,
+            'v_init': v_init})
 
     @staticmethod
     def build_model():

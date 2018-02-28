@@ -26,20 +26,19 @@ class MyModelCurrExpMyThresholdDataHolder(DataHolder):
             threshold_value=_defaults['threshold_value'],
             my_parameter=_defaults['my_parameter'],
             i_offset=_defaults['i_offset']):
-        DataHolder.__init__(
-            self, {
-                'spikes_per_second': spikes_per_second,
-                'ring_buffer_sigma': ring_buffer_sigma,
-                'incoming_spike_buffer_size': incoming_spike_buffer_size,
-                'constraints': constraints,
-                'label': label,
-                'tau_syn_E': tau_syn_E, 'tau_syn_I': tau_syn_I,
-                'isyn_exc': isyn_exc, 'isyn_inh': isyn_inh,
-                'i_offset': i_offset,
-                'my_parameter': my_parameter,
-                'my_threshold_parameter': my_threshold_parameter,
-                'threshold_value': threshold_value,
-                'v_init': v_init})
+        super(MyModelCurrExpMyThresholdDataHolder, self).__init__({
+            'spikes_per_second': spikes_per_second,
+            'ring_buffer_sigma': ring_buffer_sigma,
+            'incoming_spike_buffer_size': incoming_spike_buffer_size,
+            'constraints': constraints,
+            'label': label,
+            'tau_syn_E': tau_syn_E, 'tau_syn_I': tau_syn_I,
+            'isyn_exc': isyn_exc, 'isyn_inh': isyn_inh,
+            'i_offset': i_offset,
+            'my_parameter': my_parameter,
+            'my_threshold_parameter': my_threshold_parameter,
+            'threshold_value': threshold_value,
+            'v_init': v_init})
 
     @staticmethod
     def build_model():
