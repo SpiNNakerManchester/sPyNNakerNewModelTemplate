@@ -4,22 +4,16 @@ from spynnaker.pyNN.models.neuron import AbstractPopulationVertex
 from spynnaker8.utilities import DataHolder
 from python_models8.neuron.builds.my_model_curr_exp import MyModelCurrExpBase
 
+_apv_defs = AbstractPopulationVertex.non_pynn_default_parameters
+
 
 class MyModelCurrExpDataHolder(DataHolder):
     def __init__(
-            self, spikes_per_second=(
-                AbstractPopulationVertex.non_pynn_default_parameters[
-                    'spikes_per_second']),
-            ring_buffer_sigma=(
-                AbstractPopulationVertex.non_pynn_default_parameters[
-                    'ring_buffer_sigma']),
-            incoming_spike_buffer_size=(
-                AbstractPopulationVertex.non_pynn_default_parameters[
-                    'incoming_spike_buffer_size']),
-            constraints=AbstractPopulationVertex.non_pynn_default_parameters[
-                'constraints'],
-            label=AbstractPopulationVertex.non_pynn_default_parameters[
-                'label'],
+            self, spikes_per_second=_apv_defs['spikes_per_second'],
+            ring_buffer_sigma=_apv_defs['ring_buffer_sigma'],
+            incoming_spike_buffer_size=_apv_defs['incoming_spike_buffer_size'],
+            constraints=_apv_defs['constraints'],
+            label=_apv_defs['label'],
             v_init=MyModelCurrExpBase.initialize_parameters['v_init'],
             v_thresh=MyModelCurrExpBase.default_parameters['v_thresh'],
             tau_syn_E=MyModelCurrExpBase.default_parameters['tau_syn_E'],

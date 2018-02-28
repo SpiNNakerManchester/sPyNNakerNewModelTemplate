@@ -10,6 +10,8 @@ from python_models8.neuron.neuron_models.my_neuron_model \
 from python_models8.neuron.threshold_types.my_threshold_type \
     import MyThresholdType
 
+_apv_defs = AbstractPopulationVertex.non_pynn_default_parameters
+
 
 class MyModelCurrExpMyThresholdBase(AbstractPopulationVertex):
 
@@ -27,16 +29,12 @@ class MyModelCurrExpMyThresholdBase(AbstractPopulationVertex):
     initialize_parameters = {'v_init': None}
 
     def __init__(
-            self, n_neurons, spikes_per_second=AbstractPopulationVertex.
-            non_pynn_default_parameters['spikes_per_second'],
-            ring_buffer_sigma=AbstractPopulationVertex.
-            non_pynn_default_parameters['ring_buffer_sigma'],
-            incoming_spike_buffer_size=AbstractPopulationVertex.
-            non_pynn_default_parameters['incoming_spike_buffer_size'],
-            constraints=AbstractPopulationVertex.non_pynn_default_parameters[
-                'constraints'],
-            label=AbstractPopulationVertex.non_pynn_default_parameters[
-                'label'],
+            self, n_neurons,
+            spikes_per_second=_apv_defs['spikes_per_second'],
+            ring_buffer_sigma=_apv_defs['ring_buffer_sigma'],
+            incoming_spike_buffer_size=_apv_defs['incoming_spike_buffer_size'],
+            constraints=_apv_defs['constraints'],
+            label=_apv_defs['label'],
 
             # neuron model parameters
             my_parameter=default_parameters['my_parameter'],
@@ -83,6 +81,7 @@ class MyModelCurrExpMyThresholdBase(AbstractPopulationVertex):
             spikes_per_second=spikes_per_second,
             ring_buffer_sigma=ring_buffer_sigma,
             incoming_spike_buffer_size=incoming_spike_buffer_size,
+            constrains=constraints,
 
             max_atoms_per_core=(
                 MyModelCurrExpMyThresholdBase._model_based_max_atoms_per_core),

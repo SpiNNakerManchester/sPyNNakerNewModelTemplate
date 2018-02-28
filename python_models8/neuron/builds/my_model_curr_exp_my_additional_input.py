@@ -11,6 +11,8 @@ from python_models8.neuron.additional_inputs.my_additional_input \
 from python_models8.neuron.neuron_models.my_neuron_model \
     import MyNeuronModel
 
+_apv_defs = AbstractPopulationVertex.non_pynn_default_parameters
+
 
 class MyModelCurrExpMyAdditionalInputBase(AbstractPopulationVertex):
 
@@ -27,8 +29,13 @@ class MyModelCurrExpMyAdditionalInputBase(AbstractPopulationVertex):
     initialize_parameters = {'v_init': None}
 
     def __init__(
-            self, n_neurons, spikes_per_second=None, ring_buffer_sigma=None,
-            incoming_spike_buffer_size=None, constraints=None, label=None,
+            self, n_neurons,
+
+            spikes_per_second=_apv_defs['spikes_per_second'],
+            ring_buffer_sigma=_apv_defs['ring_buffer_sigma'],
+            incoming_spike_buffer_size=_apv_defs['incoming_spike_buffer_size'],
+            constraints=_apv_defs['constraints'],
+            label=_apv_defs['label'],
 
             # neuron model parameters
             my_parameter=default_parameters['my_parameter'],
@@ -52,7 +59,7 @@ class MyModelCurrExpMyAdditionalInputBase(AbstractPopulationVertex):
 
         # create neuron model class
         neuron_model = MyNeuronModel(
-            n_neurons, i_offset, my_parameter)
+            n_neurons, i_offset, my_parameter, v_init)
 
         # create synapse type model
         synapse_type = SynapseTypeExponential(
@@ -78,6 +85,7 @@ class MyModelCurrExpMyAdditionalInputBase(AbstractPopulationVertex):
             spikes_per_second=spikes_per_second,
             ring_buffer_sigma=ring_buffer_sigma,
             incoming_spike_buffer_size=incoming_spike_buffer_size,
+            constraints=constraints,
 
             max_atoms_per_core=(
                 MyModelCurrExpMyAdditionalInputBase.
