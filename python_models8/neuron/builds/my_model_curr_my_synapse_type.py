@@ -9,6 +9,8 @@ from python_models8.neuron.neuron_models.my_neuron_model \
 from python_models8.neuron.synapse_types.my_synapse_type \
     import MySynapseType
 
+_apv_defs = AbstractPopulationVertex.non_pynn_default_parameters
+
 
 class MyModelCurrMySynapseTypeBase(AbstractPopulationVertex):
 
@@ -22,35 +24,36 @@ class MyModelCurrMySynapseTypeBase(AbstractPopulationVertex):
         'i_offset': 0, 'my_parameter': -70.0,
         'my_exc_init': 0.0, 'my_inh_init': 0.0}
 
-    non_pynn_default_parameters = {'v_init': None}
-
-    # Merge the three dictionaries of defaults for convenience
-    _defaults = dict(AbstractPopulationVertex.none_pynn_default_parameters)
-    _defaults.update(default_parameters)
-    _defaults.update(non_pynn_default_parameters)
+    initialize_parameters = {'v_init': None}
 
     def __init__(
-            self, n_neurons, spikes_per_second=_defaults['spikes_per_second'],
-            ring_buffer_sigma=_defaults['ring_buffer_sigma'],
-            incoming_spike_buffer_size=_defaults['incoming_spike_buffer_size'],
-            constraints=_defaults['constraints'],
-            label=_defaults['label'],
+            self, n_neurons,
+            spikes_per_second=_apv_defs['spikes_per_second'],
+            ring_buffer_sigma=_apv_defs['ring_buffer_sigma'],
+            incoming_spike_buffer_size=_apv_defs['incoming_spike_buffer_size'],
+            constraints=_apv_defs['constraints'],
+            label=_apv_defs['label'],
+
 
             # neuron model parameters
-            my_parameter=_defaults['my_parameter'],
-            i_offset=_defaults['i_offset'],
+            my_parameter=default_parameters['my_parameter'],
+            i_offset=default_parameters['i_offset'],
 
             # threshold types parameters
-            v_thresh=_defaults['v_thresh'],
+            v_thresh=default_parameters['v_thresh'],
 
             # synapse type parameters
-            my_ex_synapse_parameter=_defaults['my_ex_synapse_parameter'],
-            my_in_synapse_parameter=_defaults['my_in_synapse_parameter'],
-            my_exc_init=_defaults['my_exc_init'],
-            my_inh_init=_defaults['my_inh_init'],
+            my_ex_synapse_parameter=default_parameters[
+                'my_ex_synapse_parameter'],
+            my_in_synapse_parameter=default_parameters[
+                'my_in_synapse_parameter'],
+            my_exc_init=default_parameters[
+                'my_exc_init'],
+            my_inh_init=default_parameters[
+                'my_inh_init'],
 
             # state variables
-            v_init=_defaults['v_init']):
+            v_init=initialize_parameters['v_init']):
 
         # create neuron model class
         neuron_model = MyNeuronModel(
@@ -79,7 +82,8 @@ class MyModelCurrMySynapseTypeBase(AbstractPopulationVertex):
             ring_buffer_sigma=ring_buffer_sigma,
             incoming_spike_buffer_size=incoming_spike_buffer_size,
 
-            max_atoms_per_core=self.get_max_atoms_per_core(),
+            max_atoms_per_core=(
+                MyModelCurrMySynapseTypeBase._model_based_max_atoms_per_core),
 
             # the various model types
             neuron_model=neuron_model, input_type=input_type,
