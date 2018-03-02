@@ -43,6 +43,12 @@ typedef struct synapse_param_t {
     input_t my_input_buffer_inhibitory_value;
 } synapse_param_t;
 
+// Define receptor split
+#define NUM_EXCITATORY_RECEPTORS 1
+#define NUM_INHIBITORY_RECEPTORS 1
+input_t excitatory_response[NUM_EXCITATORY_RECEPTORS];
+input_t inhibitory_response[NUM_INHIBITORY_RECEPTORS];
+
 // Include this here after defining the above items
 #include <neuron/synapse_types/synapse_types.h>
 
@@ -92,18 +98,20 @@ static inline void synapse_types_add_neuron_input(
 
 //! \brief Gets the excitatory input for a given neuron
 //! \param[in] pointer to parameters the synapse parameters passed in
-//! \return the excitatory input value
-static inline input_t synapse_types_get_excitatory_input(
+//! \return the first entry in the array of excitatory input values
+static inline input_t* synapse_types_get_excitatory_input(
         synapse_param_pointer_t parameter) {
-    return parameter->my_input_buffer_excitatory_value;
+	excitatory_response[0] = parameter->my_input_buffer_excitatory_value;
+    return &excitatory_response[0];
 }
 
 //! \brief Gets the inhibitory input for a given neuron
 //! \param[in] pointer to parameters the synapse parameters passed in
-//! \return the inhibitory input value
-static inline input_t synapse_types_get_inhibitory_input(
+//! \return the first entry in array of inhibitory input values
+static inline input_t* synapse_types_get_inhibitory_input(
         synapse_param_pointer_t parameter) {
-    return parameter->my_input_buffer_inhibitory_value;
+	inhibitory_response[0] = parameter->my_input_buffer_inhibitory_value;
+    return &inhibitory_response[0];
 }
 
 //! \brief returns a human readable character for the type of synapse, for
