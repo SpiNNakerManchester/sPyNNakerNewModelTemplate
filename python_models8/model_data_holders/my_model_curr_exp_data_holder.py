@@ -8,6 +8,7 @@ _apv_defs = AbstractPopulationVertex.non_pynn_default_parameters
 _defaults = MyModelCurrExpBase.default_parameters
 _inits = MyModelCurrExpBase.initialize_parameters
 
+
 class MyModelCurrExpDataHolder(DataHolder):
     def __init__(
             self, spikes_per_second=_apv_defs['spikes_per_second'],
