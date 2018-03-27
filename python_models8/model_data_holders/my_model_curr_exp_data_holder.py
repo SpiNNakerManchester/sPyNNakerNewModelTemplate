@@ -5,7 +5,8 @@ from spynnaker8.utilities import DataHolder
 from python_models8.neuron.builds.my_model_curr_exp import MyModelCurrExpBase
 
 _apv_defs = AbstractPopulationVertex.non_pynn_default_parameters
-
+_defaults = _defaults
+_inits = MyModelCurrExpBase.initialize_parameters
 
 class MyModelCurrExpDataHolder(DataHolder):
     def __init__(
@@ -14,14 +15,14 @@ class MyModelCurrExpDataHolder(DataHolder):
             incoming_spike_buffer_size=_apv_defs['incoming_spike_buffer_size'],
             constraints=_apv_defs['constraints'],
             label=_apv_defs['label'],
-            v_init=MyModelCurrExpBase.initialize_parameters['v_init'],
-            v_thresh=MyModelCurrExpBase.default_parameters['v_thresh'],
-            tau_syn_E=MyModelCurrExpBase.default_parameters['tau_syn_E'],
-            tau_syn_I=MyModelCurrExpBase.default_parameters['tau_syn_I'],
-            isyn_exc=MyModelCurrExpBase.default_parameters['isyn_exc'],
-            isyn_inh=MyModelCurrExpBase.default_parameters['isyn_inh'],
-            my_parameter=MyModelCurrExpBase.default_parameters['my_parameter'],
-            i_offset=MyModelCurrExpBase.default_parameters['i_offset']):
+            v_init=_inits['v_init'],
+            v_thresh=_defaults['v_thresh'],
+            tau_syn_E=_defaults['tau_syn_E'],
+            tau_syn_I=_defaults['tau_syn_I'],
+            isyn_exc=_defaults['isyn_exc'],
+            isyn_inh=_defaults['isyn_inh'],
+            my_parameter=_defaults['my_parameter'],
+            i_offset=_defaults['i_offset']):
         super(MyModelCurrExpDataHolder, self).__init__({
             'spikes_per_second': spikes_per_second,
             'ring_buffer_sigma': ring_buffer_sigma,
