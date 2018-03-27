@@ -11,7 +11,7 @@ from enum import Enum
 
 # TODO create constants to EXACTLY match the parameter names
 I_OFFSET_NAME = "i_offset"
-MY_PARAMETER_NAME = "my_parameter_1"
+MY_PARAMETER_NAME = "my_parameter"
 V_INIT_NAME = "v_init"
 
 
