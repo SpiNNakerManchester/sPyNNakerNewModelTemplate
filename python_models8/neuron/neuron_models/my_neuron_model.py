@@ -11,7 +11,7 @@ from enum import Enum
 
 # TODO create constants to EXACTLY match the parameter names
 I_OFFSET_NAME = "i_offset"
-MY_PARAMETER_NAME = "my_parameter"
+MY_NEURON_PARAMETER_NAME = "my_neuron_parameter"
 V_INIT_NAME = "v_init"
 
 
@@ -43,7 +43,7 @@ class MyNeuronModel(AbstractNeuronModel, AbstractContainsUnits):
 
         self._units = {
             V_INIT_NAME: 'mV',
-            MY_PARAMETER_NAME: 'mV',
+            MY_NEURON_PARAMETER_NAME: 'mV',
             I_OFFSET_NAME: 'nA'}
 
         self._n_neurons = n_neurons
@@ -52,7 +52,7 @@ class MyNeuronModel(AbstractNeuronModel, AbstractContainsUnits):
 
         # TODO: Store any parameters
         self._data[I_OFFSET_NAME] = i_offset
-        self._data[MY_PARAMETER_NAME] = my_neuron_parameter
+        self._data[MY_NEURON_PARAMETER_NAME] = my_neuron_parameter
 
         # TODO: Store any state variables
         self._data[V_INIT_NAME] = v_init
@@ -69,12 +69,12 @@ class MyNeuronModel(AbstractNeuronModel, AbstractContainsUnits):
 
     @property
     def my_neuron_parameter(self):
-        return self._data[MY_PARAMETER_NAME]
+        return self._data[MY_NEURON_PARAMETER_NAME]
 
     @my_neuron_parameter.setter
     def my_neuron_parameter(self, my_neuron_parameter):
         self._data.set_value(
-            key=MY_PARAMETER_NAME, value=my_neuron_parameter)
+            key=MY_NEURON_PARAMETER_NAME, value=my_neuron_parameter)
 
     # TODO: Add initialisers for the state variables
 
@@ -99,7 +99,7 @@ class MyNeuronModel(AbstractNeuronModel, AbstractContainsUnits):
             NeuronParameter(self._data[I_OFFSET_NAME],
                             _MY_NEURON_MODEL_TYPES.I_OFFSET.data_type),
             # REAL my_parameter;
-            NeuronParameter(self._data[MY_PARAMETER_NAME],
+            NeuronParameter(self._data[MY_NEURON_PARAMETER_NAME],
                             _MY_NEURON_MODEL_TYPES.
                             MY_NEURON_PARAMETER.data_type)]
 
