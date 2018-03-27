@@ -5,7 +5,7 @@ from spynnaker8.utilities import DataHolder
 from python_models8.neuron.builds.my_model_curr_exp import MyModelCurrExpBase
 
 _apv_defs = AbstractPopulationVertex.non_pynn_default_parameters
-_defaults = _defaults
+_defaults = MyModelCurrExpBase.default_parameters
 _inits = MyModelCurrExpBase.initialize_parameters
 
 class MyModelCurrExpDataHolder(DataHolder):
