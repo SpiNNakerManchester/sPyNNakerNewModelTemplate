@@ -61,7 +61,7 @@ typedef enum input_buffer_regions {
 //! \param[in] pointer to parameters the synapse parameter pointer passed in
 //! \return Nothing
 static inline void synapse_types_shape_input(
-		synapse_param_pointer_t parameter) {
+        synapse_param_pointer_t parameter) {
 
     parameter->my_input_buffer_excitatory_value = decay_s1615(
         parameter->my_input_buffer_excitatory_value,
@@ -101,7 +101,7 @@ static inline void synapse_types_add_neuron_input(
 //! \return the first entry in the array of excitatory input values
 static inline input_t* synapse_types_get_excitatory_input(
         synapse_param_pointer_t parameter) {
-	excitatory_response[0] = parameter->my_input_buffer_excitatory_value;
+    excitatory_response[0] = parameter->my_input_buffer_excitatory_value;
     return &excitatory_response[0];
 }
 
@@ -110,7 +110,7 @@ static inline input_t* synapse_types_get_excitatory_input(
 //! \return the first entry in array of inhibitory input values
 static inline input_t* synapse_types_get_inhibitory_input(
         synapse_param_pointer_t parameter) {
-	inhibitory_response[0] = parameter->my_input_buffer_inhibitory_value;
+    inhibitory_response[0] = parameter->my_input_buffer_inhibitory_value;
     return &inhibitory_response[0];
 }
 
