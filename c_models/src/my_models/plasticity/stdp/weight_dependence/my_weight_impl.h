@@ -9,8 +9,8 @@
 #include <spin1_api.h>
 
 // Include generic plasticity maths functions
-#include <neuron/plasticity/common/maths.h>
-#include <neuron/plasticity/common/stdp_typedefs.h>
+#include <neuron/plasticity/stdp/maths.h>
+#include <neuron/plasticity/stdp/stdp_typedefs.h>
 #include <neuron/synapse_row.h>
 
 #include <debug.h>

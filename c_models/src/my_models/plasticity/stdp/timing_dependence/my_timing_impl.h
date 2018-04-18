@@ -16,11 +16,8 @@ typedef struct pre_trace_t {
 // Because spin1_memcpy() is used in various places
 #include <spin1_api.h>
 
-// weight_state_t has been (re?)defined in my_weight_impl.h, needs to be included here
-#include "../weight_dependence/my_weight_impl.h"
-
 // Include generic plasticity maths functions
-#include <neuron/plasticity/common/maths.h>
+#include <neuron/plasticity/stdp/maths.h>
 
 // TODO: Ensure the correct number of weight terms is chosen
 #include <neuron/plasticity/stdp/weight_dependence/weight_one_term.h>
