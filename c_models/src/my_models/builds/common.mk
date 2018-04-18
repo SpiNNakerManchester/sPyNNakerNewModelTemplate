@@ -7,7 +7,7 @@ CURRENT_DIR := $(dir $(MAKEFILE_PATH))
 EXTRA_SRC_DIR := $(abspath $(CURRENT_DIR)/../../)
 SOURCE_DIRS += $(EXTRA_SRC_DIR)
 APP_OUTPUT_DIR := $(abspath $(CURRENT_DIR)../../../../python_models8/model_binaries/)/
-CFLAGS += -I$(EXTRA_SRC_DIR)/neuron
+CFLAGS += -I$(EXTRA_SRC_DIR)
 
 EXTRA_SYNAPSE_TYPE_OBJECTS += 
                        

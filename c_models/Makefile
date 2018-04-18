@@ -1,4 +1,4 @@
-BUILDS = neuron
+BUILDS = my_models
 DIRS = $(BUILDS:%=src/%)
 
 all: $(DIRS)
