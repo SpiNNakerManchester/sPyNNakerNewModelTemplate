@@ -42,10 +42,6 @@ endef
 
 include $(NEURAL_MODELLING_DIRS)/makefiles/neuron/neural_build.mk
 
-# TODO
-LFLAGS += $(MODIFIED_DIR)
-
-
 # EXTRA_SYNAPSE_TYPE_OBJECTS is depricated!
 # Instead add a new rule
 #$(BUILD_DIR).....o: $(EXTRA_MODIFIED_DIR)...c $(C_FILES_MODIFIED)
@@ -75,11 +71,9 @@ $(BUILD_DIR)%.o: $(EXTRA_MODIFIED_DIR)%.c $(C_FILES_MODIFIED)
 	-mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -o $@ $<
 
+alist = test jump
 test:
-	# $(NEURON_MODEL) 
-	# $(NEURON_MODEL_O)
-	# $(call extra_convert_to_object, $(NEURON_MODEL_O))
-	# $(EXTRA_MODIFIED_DIR)
+	# $(OBJECTS) 
 
 # NOTE:
 # $(NEURAL_MODELLING_DIRS)/makefiles/neuron/neural_build.mk brings in all code for $(NEURAL_MODELLING_DIRS).....
