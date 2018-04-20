@@ -10,6 +10,8 @@ from python_models8.neuron.neuron_models.my_neuron_model \
 from python_models8.neuron.threshold_types.my_threshold_type \
     import MyThresholdType
 
+_apv_defs = AbstractPopulationVertex.non_pynn_default_parameters
+
 
 class MyModelCurrExpMyThresholdBase(AbstractPopulationVertex):
 
@@ -24,19 +26,15 @@ class MyModelCurrExpMyThresholdBase(AbstractPopulationVertex):
         'my_threshold_parameter': 0.5,
         'threshold_value': -10.0}
 
-    none_pynn_default_parameters = {'v_init': None}
+    initialize_parameters = {'v_init': None}
 
     def __init__(
-            self, n_neurons, spikes_per_second=AbstractPopulationVertex.
-            none_pynn_default_parameters['spikes_per_second'],
-            ring_buffer_sigma=AbstractPopulationVertex.
-            none_pynn_default_parameters['ring_buffer_sigma'],
-            incoming_spike_buffer_size=AbstractPopulationVertex.
-            none_pynn_default_parameters['incoming_spike_buffer_size'],
-            constraints=AbstractPopulationVertex.none_pynn_default_parameters[
-                'constraints'],
-            label=AbstractPopulationVertex.none_pynn_default_parameters[
-                'label'],
+            self, n_neurons,
+            spikes_per_second=_apv_defs['spikes_per_second'],
+            ring_buffer_sigma=_apv_defs['ring_buffer_sigma'],
+            incoming_spike_buffer_size=_apv_defs['incoming_spike_buffer_size'],
+            constraints=_apv_defs['constraints'],
+            label=_apv_defs['label'],
 
             # neuron model parameters
             my_parameter=default_parameters['my_parameter'],
@@ -54,7 +52,7 @@ class MyModelCurrExpMyThresholdBase(AbstractPopulationVertex):
             isyn_inh=default_parameters['isyn_inh'],
 
             # state variables
-            v_init=None):
+            v_init=initialize_parameters['v_init']):
 
         # create neuron model class
         neuron_model = MyNeuronModel(
@@ -76,10 +74,10 @@ class MyModelCurrExpMyThresholdBase(AbstractPopulationVertex):
 
         # instantiate the sPyNNaker system by initialising
         #  the AbstractPopulationVertex
-        AbstractPopulationVertex.__init__(
+        super(MyModelCurrExpMyThresholdBase, self).__init__(
 
             # standard inputs, do not need to change.
-            self, n_neurons=n_neurons, label=label,
+            n_neurons=n_neurons, label=label, constraints=constraints,
             spikes_per_second=spikes_per_second,
             ring_buffer_sigma=ring_buffer_sigma,
             incoming_spike_buffer_size=incoming_spike_buffer_size,
@@ -100,7 +98,6 @@ class MyModelCurrExpMyThresholdBase(AbstractPopulationVertex):
 
     @staticmethod
     def get_max_atoms_per_core():
-
         return MyModelCurrExpMyThresholdBase._model_based_max_atoms_per_core
 
     @staticmethod

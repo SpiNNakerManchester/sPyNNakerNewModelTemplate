@@ -173,7 +173,7 @@ my_model_incl_input_and_threshold_pop.set(threshold_value=-30.0)
 
 p.run(run_time)
 
-print stdp_connection.get('weight', 'list')
+print(stdp_connection.get('weight', 'list'))
 
 # get v for each example
 v_my_model_pop = my_model_pop.get_data('v')

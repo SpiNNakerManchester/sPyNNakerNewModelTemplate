@@ -3,10 +3,15 @@ from spynnaker.pyNN.models.neuron.input_types.abstract_input_type \
 from spynnaker.pyNN.utilities import utility_calls
 from spynnaker.pyNN.models.neural_properties.neural_parameter \
     import NeuronParameter
+from spynnaker.pyNN.utilities.ranged.spynakker_ranged_dict import \
+    SpynakkerRangeDictionary
 
 from data_specification.enums.data_type import DataType
 
 from enum import Enum
+
+MY_MULTIPLICATOR = "my_multiplicator"
+MY_INPUT_PARAMETER = "my_input_parameter"
 
 
 class _MY_INPUT_TYPES(Enum):
@@ -14,10 +19,11 @@ class _MY_INPUT_TYPES(Enum):
     MY_MULTIPLICATOR = (1, DataType.S1615)
     MY_INPUT_PARAMETER = (2, DataType.S1615)
 
-    def __new__(cls, value, data_type):
+    def __new__(cls, value, data_type, doc=""):
         obj = object.__new__(cls)
         obj._value_ = value
         obj._data_type = data_type
+        obj.__doc__ = doc
         return obj
 
     @property
@@ -36,36 +42,29 @@ class MyInputType(AbstractInputType):
 
         AbstractInputType.__init__(self)
         self._n_neurons = n_neurons
+        self._data = SpynakkerRangeDictionary(size=n_neurons)
 
         # TODO: store the parameters
-        self._my_multiplicator = \
-            utility_calls.convert_param_to_numpy(
-                my_multiplicator, n_neurons)
-        self._my_input_parameter = \
-            utility_calls.convert_param_to_numpy(
-                my_input_parameter, n_neurons)
+        self._data[MY_MULTIPLICATOR] = my_multiplicator
+        self._data[MY_INPUT_PARAMETER] = my_input_parameter
 
     # TODO: Add getters and setters for the parameters
 
     @property
     def my_multiplicator(self):
-        return self._my_multiplicator
+        return self._data[MY_MULTIPLICATOR]
 
     @property
     def my_input_parameter(self):
-        return self._my_input_parameter
+        return self._data[MY_INPUT_PARAMETER]
 
     @my_multiplicator.setter
     def my_multiplicator(self, my_multiplicator):
-        self._my_multiplicator = \
-            utility_calls.convert_param_to_numpy(
-                my_multiplicator, self._n_neurons)
+        self._data.set_value(key=MY_MULTIPLICATOR, value=my_multiplicator)
 
     @my_input_parameter.setter
     def my_input_parameter(self, my_input_parameter):
-        self._my_input_parameter = \
-            utility_calls.convert_param_to_numpy(
-                my_input_parameter, self._n_neurons)
+        self._data.set_value(key=MY_INPUT_PARAMETER, value=my_input_parameter)
 
     def get_global_weight_scale(self):
         return 1.0
@@ -93,13 +92,11 @@ class MyInputType(AbstractInputType):
         # the C code
         return [
             NeuronParameter(
-                self._my_multiplicator,
-                _MY_INPUT_TYPES.
-                MY_MULTIPLICATOR.data_type),
+                self._data[MY_MULTIPLICATOR],
+                _MY_INPUT_TYPES.MY_MULTIPLICATOR.data_type),
             NeuronParameter(
-                self._my_input_parameter,
-                _MY_INPUT_TYPES.
-                MY_INPUT_PARAMETER.data_type)
+                self._data[MY_INPUT_PARAMETER],
+                _MY_INPUT_TYPES.MY_INPUT_PARAMETER.data_type)
         ]
 
     def get_input_type_parameter_types(self):

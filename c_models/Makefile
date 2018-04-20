@@ -1,14 +1,14 @@
-BUILDS = neuron
+BUILDS = my_models
 DIRS = $(BUILDS:%=src/%)
 
 all: $(DIRS)
-	for d in $(DIRS); do (cd $$d; "$(MAKE)") || exit $$?; done
+	for d in $(DIRS); do $(MAKE) -C $$d || exit $$?; done
 
 %.aplx: %
-	cd $*; "$(MAKE)"
+	$(MAKE) -C $*
 
 %.aplx: neuron/builds/%
-	cd neuron/builds/$*; "$(MAKE)"
+	$(MAKE) -C neuron/builds/$*
 
 clean: $(DIRS)
-	for d in $(DIRS); do (cd $$d; "$(MAKE)" clean) || exit $$?; done
+	for d in $(DIRS); do $(MAKE) -C $$d clean || exit $$?; done

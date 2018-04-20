@@ -6,25 +6,19 @@ from spynnaker8.utilities.data_holder import DataHolder
 from python_models8.neuron.builds.my_model_curr_exp_my_input_type \
     import MyModelCurrExpMyInputTypeBase
 
+_apv_defs = AbstractPopulationVertex.non_pynn_default_parameters
+
 
 class MyModelCurrExpMyInputTypeDataHolder(DataHolder):
     def __init__(
-            self, spikes_per_second=(
-                AbstractPopulationVertex.none_pynn_default_parameters[
-                    'spikes_per_second']),
-            ring_buffer_sigma=(
-                AbstractPopulationVertex.none_pynn_default_parameters[
-                    'ring_buffer_sigma']),
+            self, spikes_per_second=(_apv_defs['spikes_per_second']),
+            ring_buffer_sigma=(_apv_defs['ring_buffer_sigma']),
             incoming_spike_buffer_size=(
-                AbstractPopulationVertex.none_pynn_default_parameters[
-                    'incoming_spike_buffer_size']),
-            constraints=AbstractPopulationVertex.none_pynn_default_parameters[
-                'constraints'],
-            label=AbstractPopulationVertex.none_pynn_default_parameters[
-                'label'],
+                _apv_defs['incoming_spike_buffer_size']),
+            constraints=_apv_defs['constraints'],
+            label=_apv_defs['label'],
             v_init=(
-                MyModelCurrExpMyInputTypeBase
-                .none_pynn_default_parameters['v_init']),
+                MyModelCurrExpMyInputTypeBase.initialize_parameters['v_init']),
             v_thresh=MyModelCurrExpMyInputTypeBase.default_parameters[
                 'v_thresh'],
             tau_syn_E=MyModelCurrExpMyInputTypeBase.default_parameters[
@@ -46,7 +40,7 @@ class MyModelCurrExpMyInputTypeDataHolder(DataHolder):
                     'my_parameter']),
             i_offset=MyModelCurrExpMyInputTypeBase.default_parameters[
                 'i_offset']):
-        DataHolder.__init__(
+        super(MyModelCurrExpMyInputTypeDataHolder, self).__init__(
             self, {
                 'spikes_per_second': spikes_per_second,
                 'ring_buffer_sigma': ring_buffer_sigma,

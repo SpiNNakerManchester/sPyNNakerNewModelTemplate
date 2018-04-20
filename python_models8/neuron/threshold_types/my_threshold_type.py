@@ -1,9 +1,14 @@
-from spynnaker.pyNN.utilities import utility_calls
 from spynnaker.pyNN.models.neural_properties import NeuronParameter
 from data_specification.enums import DataType
 from spynnaker.pyNN.models.neuron.threshold_types import AbstractThresholdType
+from spynnaker.pyNN.utilities.ranged.spynakker_ranged_dict import \
+    SpynakkerRangeDictionary
 
 from enum import Enum
+
+# TODO create constants to EXACTLY match the parameter names
+THRESHOLD_VALUE_NAME = "threshold_value"
+THRESHOLD_PARAM_NAME = "my_threshold_parameter"
 
 
 class _MY_THRESHOLD_TYPES(Enum):
@@ -25,67 +30,61 @@ class _MY_THRESHOLD_TYPES(Enum):
 class MyThresholdType(AbstractThresholdType):
     """ A threshold that is a static value
     """
+
     def __init__(
             self, n_neurons,
-
             # TODO: update parameters
             threshold_value, my_threshold_parameter):
-        AbstractThresholdType.__init__(self)
         self._n_neurons = n_neurons
+        self._data = SpynakkerRangeDictionary(size=n_neurons)
 
         # TODO: Store any parameters
-        self._threshold_value = utility_calls.convert_param_to_numpy(
-            threshold_value, n_neurons)
-        self._my_threshold_parameter = utility_calls.convert_param_to_numpy(
-            my_threshold_parameter, n_neurons)
+        self._data[THRESHOLD_VALUE_NAME] = threshold_value
+        self._data[THRESHOLD_PARAM_NAME] = my_threshold_parameter
 
     # TODO: Add getters and setters for the parameters
 
     @property
     def threshold_value(self):
-        return self._threshold_value
+        return self._data[THRESHOLD_VALUE_NAME]
 
     @threshold_value.setter
     def threshold_value(self, threshold_value):
-        self._threshold_value = utility_calls.convert_param_to_numpy(
-            threshold_value, self._n_neurons)
+        self._data.set_value(
+            ey=THRESHOLD_VALUE_NAME, value=threshold_value)
 
     @property
     def my_threshold_parameter(self):
-        return self._my_threshold_parameter
+        return self._data[THRESHOLD_PARAM_NAME]
 
     @my_threshold_parameter.setter
     def my_threshold_parameter(self, my_threshold_parameter):
-        self._my_threshold_parameter = utility_calls.convert_param_to_numpy(
-            my_threshold_parameter, self._n_neurons)
+        self._data.set_value(
+            key=THRESHOLD_PARAM_NAME, value=my_threshold_parameter)
 
     def get_n_threshold_parameters(self):
-
         # TODO: update to return the number of parameters
         # Note: This must match the number of values in the threshold_type_t
         # data structure in the C code
         return 2
 
     def get_threshold_parameters(self):
-
         # TODO: update to return the parameters
         # Note: The order of the parameters must match the order in the
         # threshold_type_t data structure in the C code
         return [
-            NeuronParameter(self._threshold_value,
-                            _MY_THRESHOLD_TYPES.THRESHOLD_VALUE.data_type),
-            NeuronParameter(self._my_threshold_parameter,
-                            _MY_THRESHOLD_TYPES.
-                            MY_THRESHOLD_PARAMETER.data_type)
-        ]
+            NeuronParameter(
+                self._data[THRESHOLD_VALUE_NAME],
+                _MY_THRESHOLD_TYPES.THRESHOLD_VALUE.data_type),
+            NeuronParameter(
+                self._data[THRESHOLD_PARAM_NAME],
+                _MY_THRESHOLD_TYPES.MY_THRESHOLD_PARAMETER.data_type)]
 
     def get_threshold_parameter_types(self):
-
         # TODO: update to return the parameter types
         return [item.data_type for item in _MY_THRESHOLD_TYPES]
 
     def get_n_cpu_cycles_per_neuron(self):
-
         # TODO: update to the number of cycles used by\
         # threshold_type_is_above_threshold
         # Note: This can be guessed
