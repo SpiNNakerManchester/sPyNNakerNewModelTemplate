@@ -45,6 +45,8 @@ from spynnaker.pyNN.models.neuron.synapse_types import SynapseTypeExponential
 # from python_models8.neuron.threshold_types.my_threshold_type\
 #     import MyThresholdType
 
+_apv_defs = AbstractPopulationVertex.non_pynn_default_parameters
+
 
 class MyModelCurrExpInclInputAndThresholdBase(AbstractPopulationVertex):
 
@@ -64,16 +66,11 @@ class MyModelCurrExpInclInputAndThresholdBase(AbstractPopulationVertex):
     initialize_parameters = {'v_init': None}
 
     def __init__(
-            self, n_neurons, spikes_per_second=AbstractPopulationVertex.
-            none_pynn_default_parameters['spikes_per_second'],
-            ring_buffer_sigma=AbstractPopulationVertex.
-            none_pynn_default_parameters['ring_buffer_sigma'],
-            incoming_spike_buffer_size=AbstractPopulationVertex.
-            none_pynn_default_parameters['incoming_spike_buffer_size'],
-            constraints=AbstractPopulationVertex.none_pynn_default_parameters[
-                'constraints'],
-            label=AbstractPopulationVertex.none_pynn_default_parameters[
-                'label'],
+            self, n_neurons, spikes_per_second=_apv_defs['spikes_per_second'],
+            ring_buffer_sigma=_apv_defs['ring_buffer_sigma'],
+            incoming_spike_buffer_size=_apv_defs['incoming_spike_buffer_size'],
+            constraints=_apv_defs['constraints'],
+            label=_apv_defs['label'],
 
             # TODO: neuron model parameters (add / remove as required)
             # neuron model parameters
@@ -97,7 +94,7 @@ class MyModelCurrExpInclInputAndThresholdBase(AbstractPopulationVertex):
 
             # TODO: Optionally, you can add initial values for the state
             # variables; this is not technically done in PyNN
-            v_init=none_pynn_default_parameters['v_init']):
+            v_init=initialize_parameters['v_init']):
 
         # TODO: create your neuron model class (change if required)
         # create your neuron model class
@@ -124,10 +121,10 @@ class MyModelCurrExpInclInputAndThresholdBase(AbstractPopulationVertex):
 
         # instantiate the sPyNNaker system by initialising
         #  the AbstractPopulationVertex
-        AbstractPopulationVertex.__init__(
+        super(MyModelCurrExpInclInputAndThresholdBase, self).__init__(
 
             # standard inputs, do not need to change.
-            self, n_neurons=n_neurons, label=label,
+            n_neurons=n_neurons, label=label,
             spikes_per_second=spikes_per_second,
             ring_buffer_sigma=ring_buffer_sigma,
             incoming_spike_buffer_size=incoming_spike_buffer_size,

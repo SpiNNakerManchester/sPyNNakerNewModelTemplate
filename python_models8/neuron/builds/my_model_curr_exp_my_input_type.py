@@ -12,6 +12,8 @@ from spynnaker.pyNN.models.neuron.synapse_types.synapse_type_exponential\
 from spynnaker.pyNN.models.neuron.threshold_types.threshold_type_static\
     import ThresholdTypeStatic
 
+_apv_defs = AbstractPopulationVertex.non_pynn_default_parameters
+
 
 class MyModelCurrExpMyInputTypeBase(AbstractPopulationVertex):
 
@@ -28,8 +30,11 @@ class MyModelCurrExpMyInputTypeBase(AbstractPopulationVertex):
     initialize_parameters = {'v_init': None}
 
     def __init__(
-            self, n_neurons, spikes_per_second=None, ring_buffer_sigma=None,
-            incoming_spike_buffer_size=None, constraints=None, label=None,
+            self, n_neurons, spikes_per_second=_apv_defs['spikes_per_second'],
+            ring_buffer_sigma=_apv_defs['ring_buffer_sigma'],
+            incoming_spike_buffer_size=_apv_defs['incoming_spike_buffer_size'],
+            constraints=_apv_defs['constraints'],
+            label=_apv_defs['label'],
 
             # neuron model parameters
             my_parameter=default_parameters['my_parameter'],
@@ -72,10 +77,10 @@ class MyModelCurrExpMyInputTypeBase(AbstractPopulationVertex):
 
         # instantiate the sPyNNaker system by initialising
         #  the AbstractPopulationVertex
-        AbstractPopulationVertex.__init__(
+        super(MyModelCurrExpMyInputTypeBase, self).__init__(
 
             # standard inputs, do not need to change.
-            self, n_neurons=n_neurons, label=label,
+            n_neurons=n_neurons, label=label,
             spikes_per_second=spikes_per_second,
             ring_buffer_sigma=ring_buffer_sigma,
             incoming_spike_buffer_size=incoming_spike_buffer_size,
