@@ -17,7 +17,7 @@ class MyModelCurrExpMyAdditionalInputDataHolder(DataHolder):
             incoming_spike_buffer_size=_apv_defs['incoming_spike_buffer_size'],
             constraints=_apv_defs['constraints'],
             label=_apv_defs['label'],
-            v_init=_inits.initialize_parameters['v_init'],
+            v_init=_inits['v_init'],
             v_thresh=_defaults['v_thresh'],
             tau_syn_E=_defaults['tau_syn_E'],
             tau_syn_I=_defaults['tau_syn_I'],
