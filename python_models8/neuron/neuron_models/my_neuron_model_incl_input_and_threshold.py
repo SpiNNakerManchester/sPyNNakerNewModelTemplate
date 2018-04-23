@@ -3,10 +3,20 @@ from pacman.model.decorators.overrides import overrides
 from spynnaker.pyNN.models.neural_properties import NeuronParameter
 from spynnaker.pyNN.models.abstract_models import AbstractContainsUnits
 from spynnaker.pyNN.models.neuron.neuron_models import AbstractNeuronModel
-from spynnaker.pyNN.utilities import utility_calls
+from spynnaker.pyNN.utilities.ranged.spynakker_ranged_dict import \
+    SpynakkerRangeDictionary
 from data_specification.enums import DataType
 
 from enum import Enum
+
+# TODO create constants to EXACTLY match the parameter names
+I_OFFSET_NAME = "i_offset"
+MY_NEURON_PARAMETER_NAME = "my_neuron_parameter"
+V_INIT_NAME = "v_init"
+MY_MULTIPLICATOR_NAME = "my_multiplicator"
+MY_INPUT_PARAMETER_NAME = "my_input_parameter"
+THRESHOLD_VALUE_NAME = "threshold_value"
+MY_THRESHOLD_PARAMETER_NAME = "my_threshold_parameter"
 
 
 class _MY_NEURON_MODEL_INCL_INPUT_AND_THRESHOLD_TYPES(Enum):
@@ -43,13 +53,10 @@ class MyNeuronModelInclInputAndThreshold(AbstractNeuronModel,
 
             # TODO: update the state variables if required
             v_init=-70.0):
-        AbstractNeuronModel.__init__(self)
-        AbstractContainsUnits.__init__(self)
 
         self._units = {
             'v_init': 'mV',
             'my_neuron_parameter': 'mV',
-            'v_thresh': 'mV',
             'my_multiplicator': '',
             'my_input_parmaeter': 'nA',
             'threshold_value': 'mV',
@@ -58,24 +65,20 @@ class MyNeuronModelInclInputAndThreshold(AbstractNeuronModel,
 
         self._n_neurons = n_neurons
 
+        self._data = SpynakkerRangeDictionary(size=n_neurons)
+
         # TODO: Store any parameters
-        self._i_offset = utility_calls.convert_param_to_numpy(
-            i_offset, n_neurons)
-        self._my_neuron_parameter = utility_calls.convert_param_to_numpy(
-            my_neuron_parameter, n_neurons)
-        self._my_multiplicator = utility_calls.convert_param_to_numpy(
-            my_multiplicator, n_neurons)
-        self._my_input_parameter = utility_calls.convert_param_to_numpy(
-            my_input_parameter, n_neurons)
-        self._threshold_value = utility_calls.convert_param_to_numpy(
-            threshold_value, n_neurons)
-        self._my_threshold_parameter = utility_calls.convert_param_to_numpy(
-            my_threshold_parameter, n_neurons)
+        self._data[I_OFFSET_NAME] = i_offset
+        self._data[MY_NEURON_PARAMETER_NAME] = my_neuron_parameter
+        self._data[MY_MULTIPLICATOR_NAME] = my_multiplicator
+        self._data[MY_INPUT_PARAMETER_NAME] = my_input_parameter
+        self._data[THRESHOLD_VALUE_NAME] = threshold_value
+        self._data[MY_THRESHOLD_PARAMETER_NAME] = my_threshold_parameter
 
         # TODO: Store any state variables
-        self._v_init = utility_calls.convert_param_to_numpy(v_init, n_neurons)
+        self._data[V_INIT_NAME] = v_init
 
-    # Need to define this function here now!
+    # Need to define this function here for this model!
     def get_global_weight_scale(self):
         return 1.0
 
@@ -83,63 +86,60 @@ class MyNeuronModelInclInputAndThreshold(AbstractNeuronModel,
 
     @property
     def i_offset(self):
-        return self._i_offset
+        return self._data[I_OFFSET_NAME]
 
     @i_offset.setter
     def i_offset(self, i_offset):
-        self._i_offset = utility_calls.convert_param_to_numpy(
-            i_offset, self._n_neurons)
+        self._data.set_value(key=I_OFFSET_NAME, value=i_offset)
 
     @property
     def my_neuron_parameter(self):
-        return self._my_neuron_parameter
+        return self._data[MY_NEURON_PARAMETER_NAME]
 
     @my_neuron_parameter.setter
     def my_neuron_parameter(self, my_neuron_parameter):
-        self._my_neuron_parameter = utility_calls.convert_param_to_numpy(
-            my_neuron_parameter, self._n_neurons)
+        self._data.set_value(key=MY_NEURON_PARAMETER_NAME,
+                             value=my_neuron_parameter)
 
     @property
     def my_multiplicator(self):
-        return self._my_multiplicator
+        return self._data[MY_MULTIPLICATOR_NAME]
 
     @my_multiplicator.setter
     def my_multiplicator(self, my_multiplicator):
-        self._my_multiplicator = utility_calls.convert_param_to_numpy(
-            my_multiplicator, self._n_neurons)
+        self._data.set_value(key=MY_MULTIPLICATOR_NAME,
+                             value=my_multiplicator)
 
     @property
     def my_input_parameter(self):
-        return self._my_input_parameter
+        return self._data[MY_INPUT_PARAMETER_NAME]
 
     @my_input_parameter.setter
     def my_input_parameter(self, my_input_parameter):
-        self._my_input_parameter = utility_calls.convert_param_to_numpy(
-            my_input_parameter, self._n_neurons)
+        self._data.set_value(key=MY_INPUT_PARAMETER_NAME,
+                             value=my_input_parameter)
 
     @property
     def threshold_value(self):
-        return self._threshold_value
+        return self._data[THRESHOLD_VALUE_NAME]
 
     @threshold_value.setter
     def threshold_value(self, threshold_value):
-        self._threshold_value = utility_calls.convert_param_to_numpy(
-            threshold_value, self._n_neurons)
+        self._data.set_value(key=THRESHOLD_VALUE_NAME, value=threshold_value)
 
     @property
     def my_threshold_parameter(self):
-        return self._my_threshold_parameter
+        return self._data[MY_THRESHOLD_PARAMETER_NAME]
 
     @my_threshold_parameter.setter
     def my_threshold_parameter(self, my_threshold_parameter):
-        self._my_threshold_parameter = utility_calls.convert_param_to_numpy(
-            my_threshold_parameter, self._n_neurons)
+        self._data.set_value(key=MY_THRESHOLD_PARAMETER_NAME,
+                             value=my_threshold_parameter)
 
     # TODO: Add initialisers for the state variables
 
     def initialize_v(self, v_init):
-        self._v_init = utility_calls.convert_param_to_numpy(
-            v_init, self._n_neurons)
+        self._data.set_value(key=V_INIT_NAME, value=v_init)
 
     def get_n_neural_parameters(self):
 
@@ -156,37 +156,37 @@ class MyNeuronModelInclInputAndThreshold(AbstractNeuronModel,
         return [
 
             # REAL V;
-            NeuronParameter(self._v_init,
+            NeuronParameter(self._data[V_INIT_NAME],
                             _MY_NEURON_MODEL_INCL_INPUT_AND_THRESHOLD_TYPES.
                             V_INIT.data_type),
 
             # REAL I_offset;
-            NeuronParameter(self._i_offset,
+            NeuronParameter(self._data[I_OFFSET_NAME],
                             _MY_NEURON_MODEL_INCL_INPUT_AND_THRESHOLD_TYPES.
                             I_OFFSET.data_type),
 
             # REAL my_parameter;
-            NeuronParameter(self._my_neuron_parameter,
+            NeuronParameter(self._data[MY_NEURON_PARAMETER_NAME],
                             _MY_NEURON_MODEL_INCL_INPUT_AND_THRESHOLD_TYPES.
                             MY_NEURON_PARAMETER.data_type),
 
             # REAL my_multiplicator;
-            NeuronParameter(self._my_multiplicator,
+            NeuronParameter(self._data[MY_MULTIPLICATOR_NAME],
                             _MY_NEURON_MODEL_INCL_INPUT_AND_THRESHOLD_TYPES.
                             MY_MULTIPLICATOR.data_type),
 
             # REAL my_input_parameter;
-            NeuronParameter(self._my_input_parameter,
+            NeuronParameter(self._data[MY_INPUT_PARAMETER_NAME],
                             _MY_NEURON_MODEL_INCL_INPUT_AND_THRESHOLD_TYPES.
                             MY_INPUT_PARAMETER.data_type),
 
             # REAL threshold_value;
-            NeuronParameter(self._threshold_value,
+            NeuronParameter(self._data[THRESHOLD_VALUE_NAME],
                             _MY_NEURON_MODEL_INCL_INPUT_AND_THRESHOLD_TYPES.
                             THRESHOLD_VALUE.data_type),
 
             # REAL my_threshold_parameter;
-            NeuronParameter(self._my_threshold_parameter,
+            NeuronParameter(self._data[MY_THRESHOLD_PARAMETER_NAME],
                             _MY_NEURON_MODEL_INCL_INPUT_AND_THRESHOLD_TYPES.
                             MY_THRESHOLD_PARAMETER.data_type)
 

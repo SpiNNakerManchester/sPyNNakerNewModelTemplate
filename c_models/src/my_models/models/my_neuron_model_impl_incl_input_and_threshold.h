@@ -38,4 +38,3 @@ typedef struct global_neuron_params_t {
 } global_neuron_params_t;
 
 #endif // _NEURON_MODEL_MY_IMPL_H_
-

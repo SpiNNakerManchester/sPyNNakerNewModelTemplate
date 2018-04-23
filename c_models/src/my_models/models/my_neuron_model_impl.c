@@ -38,7 +38,7 @@ state_t neuron_model_state_update(
     // TODO: Solve your equation here
     neuron->V += input_this_timestep;
 
-    log_info("TESTING TESTING V = %11.4k mv", neuron->V);
+    log_debug("TESTING TESTING V = %11.4k mv", neuron->V);
 
     // Return the state variable to be compared with the threshold value
     // to determine if the neuron has spikes (commonly the membrane voltage)

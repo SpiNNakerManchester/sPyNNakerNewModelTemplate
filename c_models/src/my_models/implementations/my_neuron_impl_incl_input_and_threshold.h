@@ -317,6 +317,9 @@ static void neuron_impl_wait_for_recordings_and_reset_out_spikes() {
 //! \return bool value for whether a spike has occurred
 static bool neuron_impl_do_timestep_update(timer_t time, index_t neuron_index)
 {
+	// Array for index recording
+    indexes_t* indexes = &indexes_array[neuron_index];
+
 	// Get the neuron itself
     neuron_pointer_t neuron = &neuron_array[neuron_index];
 
@@ -324,7 +327,7 @@ static bool neuron_impl_do_timestep_update(timer_t time, index_t neuron_index)
     state_t voltage = neuron_impl_get_membrane_voltage(neuron_index);
 
     // If we should be recording potential, record this neuron parameter
-    voltages->states[neuron_index] = voltage;
+    voltages->states[indexes->v] = voltage;
 
     // Get the exc and inh values from the synapses
     input_t* exc_value = synapse_types_get_excitatory_input(
@@ -340,16 +343,16 @@ static bool neuron_impl_do_timestep_update(timer_t time, index_t neuron_index)
     	total_exc += exc_input[i];
     }
 
-    input_t inh_input[NUM_EXCITATORY_RECEPTORS];
+    input_t inh_input[NUM_INHIBITORY_RECEPTORS];
     input_t total_inh = 0;
-    for (int i=0; i<NUM_EXCITATORY_RECEPTORS; i++) {
-    	inh_input[i] = exc_value[i] * neuron->my_multiplicator;
+    for (int i=0; i<NUM_INHIBITORY_RECEPTORS; i++) {
+    	inh_input[i] = inh_value[i] * neuron->my_multiplicator;
     	total_inh += inh_input[i];
     }
 
     // Call functions to get the input values to be recorded
-    inputs_excitatory->inputs[neuron_index].input = total_exc;
-    inputs_inhibitory->inputs[neuron_index].input = total_inh;
+    inputs_excitatory->inputs[indexes->exc].input = total_exc;
+    inputs_inhibitory->inputs[indexes->inh].input = total_inh;
 
     // Get external bias from any source of intrinsic plasticity
     input_t external_bias =
