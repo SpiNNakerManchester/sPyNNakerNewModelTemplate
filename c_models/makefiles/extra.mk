@@ -5,7 +5,7 @@ endif
 MAKEFILE_PATH := $(abspath $(lastword $(MAKEFILE_LIST)))
 
 # Make sure that APP_OUTPUT_DIR points to where you want the aplx files to go
-APP_OUTPUT_DIR := $(abspath $(dir $(MAKEFILE_PATH)))/../../../../python_models8/model_binaries/)/
+APP_OUTPUT_DIR := $(dir $(MAKEFILE_PATH))/../../../../python_models8/model_binaries/
 
 # For multiple src dirs see note below.
 # Make sure EXTRA_SRC_DIR points to the source dir where your unmodified files are found

@@ -12,4 +12,4 @@ TIMING_DEPENDENCE_H = $(EXTRA_SRC_DIR)/my_models/plasticity/stdp/timing_dependen
 WEIGHT_DEPENDENCE = $(EXTRA_SRC_DIR)/my_models/plasticity/stdp/weight_dependence/my_weight_impl.c
 WEIGHT_DEPENDENCE_H = $(EXTRA_SRC_DIR)/my_models/plasticity/stdp/weight_dependence/my_weight_impl.h
 
-include ../common.mk
+include ../extra.mk

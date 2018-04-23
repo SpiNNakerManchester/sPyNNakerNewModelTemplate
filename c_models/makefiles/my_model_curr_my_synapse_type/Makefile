@@ -8,4 +8,4 @@ THRESHOLD_TYPE_H = $(NEURON_DIR)/neuron/threshold_types/threshold_type_static.h
 SYNAPSE_TYPE_H = $(NEURON_DIR)/my_models/synapse_types/synapse_types_my_impl.h
 SYNAPSE_DYNAMICS = $(NEURON_DIR)/neuron/plasticity/synapse_dynamics_static_impl.c
 
-include ../common.mk
+include ../extra.mk
