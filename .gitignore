@@ -1,7 +1,9 @@
 *.aplx
+*.dict
 .project
 .pydevproject
 build/
+modified_src/
 application_generated_data_files/
 reports/
 *.pyc
