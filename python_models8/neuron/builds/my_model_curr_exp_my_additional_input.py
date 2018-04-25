@@ -59,7 +59,7 @@ class MyModelCurrExpMyAdditionalInputBase(AbstractPopulationVertex):
 
         # create neuron model class
         neuron_model = MyNeuronModel(
-            n_neurons, i_offset, my_parameter, v_init)
+            n_neurons, i_offset, my_parameter)
 
         # create synapse type model
         synapse_type = SynapseTypeExponential(
