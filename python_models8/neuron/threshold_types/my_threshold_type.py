@@ -1,9 +1,7 @@
 from spynnaker.pyNN.models.neural_properties import NeuronParameter
 from data_specification.enums import DataType
 from spynnaker.pyNN.models.neuron.threshold_types import AbstractThresholdType
-from spynnaker.pyNN.utilities.ranged.spynakker_ranged_dict import \
-    SpynakkerRangeDictionary
-
+from spynnaker.pyNN.utilities.ranged import SpynnakerRangeDictionary
 from enum import Enum
 
 # TODO create constants to EXACTLY match the parameter names
@@ -36,7 +34,7 @@ class MyThresholdType(AbstractThresholdType):
             # TODO: update parameters
             threshold_value, my_threshold_parameter):
         self._n_neurons = n_neurons
-        self._data = SpynakkerRangeDictionary(size=n_neurons)
+        self._data = SpynnakerRangeDictionary(size=n_neurons)
 
         # TODO: Store any parameters
         self._data[THRESHOLD_VALUE_NAME] = threshold_value

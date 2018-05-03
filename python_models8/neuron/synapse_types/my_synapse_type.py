@@ -3,8 +3,7 @@ from pacman.executor.injection_decorator import inject_items
 from spynnaker.pyNN.models.abstract_models import AbstractContainsUnits
 from spynnaker.pyNN.models.neuron.synapse_types import AbstractSynapseType
 from spynnaker.pyNN.models.neural_properties import NeuronParameter
-from spynnaker.pyNN.utilities.ranged.spynakker_ranged_dict import \
-    SpynakkerRangeDictionary
+from spynnaker.pyNN.utilities.ranged import SpynnakerRangeDictionary
 
 from data_specification.enums import DataType
 
@@ -80,7 +79,7 @@ class MySynapseType(AbstractSynapseType, AbstractContainsUnits):
             INH_INIT_NAME: "uS"}
 
         self._n_neurons = n_neurons
-        self._data = SpynakkerRangeDictionary(size=n_neurons)
+        self._data = SpynnakerRangeDictionary(size=n_neurons)
 
         # TODO: Store the parameters
         self._data[EX_SYNAPSE_NAME] = my_ex_synapse_parameter
