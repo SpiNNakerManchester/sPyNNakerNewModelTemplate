@@ -1,14 +1,12 @@
+from enum import Enum
+import numpy
 from spinn_utilities.overrides import overrides
 from pacman.executor.injection_decorator import inject_items
+from data_specification.enums import DataType
 from spynnaker.pyNN.models.abstract_models import AbstractContainsUnits
 from spynnaker.pyNN.models.neuron.synapse_types import AbstractSynapseType
 from spynnaker.pyNN.models.neural_properties import NeuronParameter
 from spynnaker.pyNN.utilities.ranged import SpynnakerRangeDictionary
-
-from data_specification.enums import DataType
-
-import numpy
-from enum import Enum
 
 # TODO create constants to EXACTLY match the parameter names
 EX_SYNAPSE_NAME = 'my_ex_synapse_parameter'
@@ -123,10 +121,12 @@ class MySynapseType(AbstractSynapseType, AbstractContainsUnits):
     def my_inh_init(self, my_inh_init):
         self._data.set_value(key=INH_INIT_NAME, value=my_inh_init)
 
+    @overrides(AbstractSynapseType.get_n_synapse_types)
     def get_n_synapse_types(self):
         # TODO: Update with the number of supported synapse types
         return 2
 
+    @overrides(AbstractSynapseType.get_synapse_id_by_target)
     def get_synapse_id_by_target(self, target):
         # TODO: update the mapping from name to id
         if target == "excitatory":
@@ -135,10 +135,12 @@ class MySynapseType(AbstractSynapseType, AbstractContainsUnits):
             return 1
         return None
 
+    @overrides(AbstractSynapseType.get_synapse_targets)
     def get_synapse_targets(self):
         # TODO: update to return the same names as above
         return "excitatory", "inhibitory"
 
+    @overrides(AbstractSynapseType.get_n_synapse_type_parameters)
     def get_n_synapse_type_parameters(self):
         # TODO: Return the number of parameters
         # Note: This must match the number of parameters in the
@@ -165,10 +167,12 @@ class MySynapseType(AbstractSynapseType, AbstractContainsUnits):
             NeuronParameter(self._data[INH_INIT_NAME],
                             _MY_SYNAPSE_TYPES.INITIAL_INH.data_type)]
 
+    @overrides(AbstractSynapseType.get_synapse_type_parameter_types)
     def get_synapse_type_parameter_types(self):
         # TODO: update to return the parameter types
         return [item.data_type for item in _MY_SYNAPSE_TYPES]
 
+    @overrides(AbstractSynapseType.get_n_cpu_cycles_per_neuron)
     def get_n_cpu_cycles_per_neuron(self):
         # TODO: update to match the number of cycles used by
         # synapse_types_shape_input, synapse_types_add_neuron_input,

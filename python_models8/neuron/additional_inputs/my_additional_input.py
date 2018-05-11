@@ -1,10 +1,9 @@
-from spynnaker.pyNN.models.neuron.additional_inputs \
-    import AbstractAdditionalInput
-from spynnaker.pyNN.models.neural_properties import NeuronParameter
-from spynnaker.pyNN.utilities.ranged import SpynnakerRangeDictionary
-from data_specification.enums import DataType
-
 from enum import Enum
+from data_specification.enums import DataType
+from spynnaker.pyNN.utilities.ranged import SpynnakerRangeDictionary
+from spynnaker.pyNN.models.neuron.additional_inputs import (
+    AbstractAdditionalInput)
+from spynnaker.pyNN.models.neural_properties import NeuronParameter
 
 # TODO create constants to EXACTLY match the parameter names
 MY_PARAMETER_NAME = "my_additional_input_parameter"

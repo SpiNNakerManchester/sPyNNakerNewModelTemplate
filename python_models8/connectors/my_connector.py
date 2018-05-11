@@ -1,5 +1,5 @@
-from spynnaker.pyNN.models.neural_projections.connectors \
-    import AbstractConnector
+from spynnaker.pyNN.models.neural_projections.connectors import (
+    AbstractConnector)
 
 
 class MyConnector(AbstractConnector):
@@ -9,8 +9,15 @@ class MyConnector(AbstractConnector):
     def __init__(self, weights=0.0, delays=1, allow_self_connections=True
                  # TODO: Add your parameters here
                  ):
-        """
-        Creates a new MyConnector
+        """ Creates a new MyConnector
+
+        :param weights: The weight of the connector.
+        :type weights: float or iterable(float)
+        :param delays: The inherent delay of the connector, in ms.
+        :type delays: float or iterable(float)
+        :param allow_self_connections: \
+            Whether this connector allows a vertex to connect to itself.
+        :type allow_self_connections: bool
         """
         super(MyConnector, self).__init__()
         self._weights = weights
@@ -31,7 +38,6 @@ class MyConnector(AbstractConnector):
             pre_vertex_slice, post_vertex_slice, synapse_type):
         """ Create a synaptic block from the data
         """
-
         # TODO: update accordingly
         pass
 

@@ -1,8 +1,9 @@
-from spynnaker.pyNN.models.neural_properties import NeuronParameter
+from enum import Enum
+from spinn_utilities.overrides import overrides
 from data_specification.enums import DataType
+from spynnaker.pyNN.models.neural_properties import NeuronParameter
 from spynnaker.pyNN.models.neuron.threshold_types import AbstractThresholdType
 from spynnaker.pyNN.utilities.ranged import SpynnakerRangeDictionary
-from enum import Enum
 
 # TODO create constants to EXACTLY match the parameter names
 THRESHOLD_VALUE_NAME = "threshold_value"
@@ -60,12 +61,14 @@ class MyThresholdType(AbstractThresholdType):
         self._data.set_value(
             key=THRESHOLD_PARAM_NAME, value=my_threshold_parameter)
 
+    @overrides(AbstractThresholdType.get_n_threshold_parameters)
     def get_n_threshold_parameters(self):
         # TODO: update to return the number of parameters
         # Note: This must match the number of values in the threshold_type_t
         # data structure in the C code
         return 2
 
+    @overrides(AbstractThresholdType.get_threshold_parameters)
     def get_threshold_parameters(self):
         # TODO: update to return the parameters
         # Note: The order of the parameters must match the order in the
@@ -78,10 +81,12 @@ class MyThresholdType(AbstractThresholdType):
                 self._data[THRESHOLD_PARAM_NAME],
                 _MY_THRESHOLD_TYPES.MY_THRESHOLD_PARAMETER.data_type)]
 
+    @overrides(AbstractThresholdType.get_threshold_parameter_types)
     def get_threshold_parameter_types(self):
         # TODO: update to return the parameter types
         return [item.data_type for item in _MY_THRESHOLD_TYPES]
 
+    @overrides(AbstractThresholdType.get_n_cpu_cycles_per_neuron)
     def get_n_cpu_cycles_per_neuron(self):
         # TODO: update to the number of cycles used by\
         # threshold_type_is_above_threshold

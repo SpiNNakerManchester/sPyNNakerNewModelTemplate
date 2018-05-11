@@ -1,15 +1,12 @@
-# main interface to use the spynnaker related tools.
+# main interface to use the sPyNNaker related tools.
 # ALL MODELS MUST INHERIT FROM THIS
 from spynnaker.pyNN.models.neuron import AbstractPopulationVertex
-
 from spynnaker.pyNN.models.neuron.input_types import InputTypeCurrent
 from spynnaker.pyNN.models.neuron.synapse_types import SynapseTypeExponential
 from spynnaker.pyNN.models.neuron.threshold_types import ThresholdTypeStatic
-
-from python_models8.neuron.additional_inputs.my_additional_input \
-    import MyAdditionalInput
-from python_models8.neuron.neuron_models.my_neuron_model \
-    import MyNeuronModel
+from python_models8.neuron.additional_inputs.my_additional_input import (
+    MyAdditionalInput)
+from python_models8.neuron.neuron_models.my_neuron_model import MyNeuronModel
 
 _apv_defs = AbstractPopulationVertex.non_pynn_default_parameters
 

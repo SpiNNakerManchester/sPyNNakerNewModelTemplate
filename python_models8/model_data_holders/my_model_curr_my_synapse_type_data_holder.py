@@ -1,9 +1,9 @@
-# main interface to use the spynnaker related tools.
+# main interface to use the sPyNNaker related tools.
 # ALL MODELS MUST INHERIT FROM THIS
 from spynnaker.pyNN.models.neuron import AbstractPopulationVertex
 from spynnaker8.utilities import DataHolder
-from python_models8.neuron.builds.my_model_curr_my_synapse_type \
-    import MyModelCurrMySynapseTypeBase
+from python_models8.neuron.builds.my_model_curr_my_synapse_type import (
+    MyModelCurrMySynapseTypeBase)
 
 _apv_defs = AbstractPopulationVertex.non_pynn_default_parameters
 _defaults = MyModelCurrMySynapseTypeBase.default_parameters

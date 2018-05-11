@@ -4,24 +4,27 @@ from pyNN.utility.plotting import Figure, Panel
 import matplotlib.pyplot as plt
 
 # import models
-from python_models8.model_data_holders.my_model_curr_exp_data_holder \
-    import MyModelCurrExpDataHolder as My_Model_Curr_Exp
+from python_models8.model_data_holders.my_model_curr_exp_data_holder import (
+    MyModelCurrExpDataHolder as
+    My_Model_Curr_Exp)
 from python_models8.model_data_holders\
-    .my_model_curr_exp_my_additional_input_data_holder \
-    import MyModelCurrExpMyAdditionalInputDataHolder as \
-    My_Model_Curr_Exp_My_Additional_Input
+    .my_model_curr_exp_my_additional_input_data_holder import (
+        MyModelCurrExpMyAdditionalInputDataHolder as
+        My_Model_Curr_Exp_My_Additional_Input)
 from python_models8.model_data_holders\
-    .my_model_curr_exp_my_threshold_data_holder \
-    import MyModelCurrExpMyThresholdDataHolder \
-    as My_Model_Curr_Exp_My_Threshold
+    .my_model_curr_exp_my_threshold_data_holder import (
+        MyModelCurrExpMyThresholdDataHolder as
+        My_Model_Curr_Exp_My_Threshold)
 from python_models8.model_data_holders\
-    .my_model_curr_my_synapse_type_data_holder \
-    import MyModelCurrMySynapseTypeDataHolder as My_Model_Curr_My_Synapse_Type
+    .my_model_curr_my_synapse_type_data_holder import (
+        MyModelCurrMySynapseTypeDataHolder as
+        My_Model_Curr_My_Synapse_Type)
 from python_models8.neuron.plasticity.stdp.timing_dependence\
-    .my_timing_dependence import MyTimingDependence
+    .my_timing_dependence import (
+        MyTimingDependence)
 from python_models8.neuron.plasticity.stdp.weight_dependence\
-    .my_weight_dependence import MyWeightDependence
-
+    .my_weight_dependence import (
+        MyWeightDependence)
 
 # Set the run time of the execution
 run_time = 1000
