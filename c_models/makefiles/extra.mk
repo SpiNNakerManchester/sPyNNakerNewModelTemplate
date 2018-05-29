@@ -93,13 +93,13 @@ include $(NEURAL_MODELLING_DIRS)/makefiles/neuron/neural_build.mk
 # compressed on SpiNNaker).
 #
 $(EXTRA_MODIFIED_DIR)%.c: $(EXTRA_SRC_DIR)%.c
-	python -m spinn_utilities.make_tools.convertor $(EXTRA_SRC_DIR) $(EXTRA_MODIFIED_DIR) $(EXTRA_LOG_DICT_FILE) 
+	python -m spinn_utilities.make_tools.converter $(EXTRA_SRC_DIR) $(EXTRA_MODIFIED_DIR) $(EXTRA_LOG_DICT_FILE)
 
 $(EXTRA_MODIFIED_DIR)%.h: $(EXTRA_SRC_DIR)%.h
-	python -m spinn_utilities.make_tools.convertor $(EXTRA_SRC_DIR) $(EXTRA_MODIFIED_DIR) $(EXTRA_LOG_DICT_FILE) 
+	python -m spinn_utilities.make_tools.converter $(EXTRA_SRC_DIR) $(EXTRA_MODIFIED_DIR) $(EXTRA_LOG_DICT_FILE)
 
 $(EXTRA_LOG_DICT_FILE): $(EXTRA_SRC_DIR)
-	python -m spinn_utilities.make_tools.convertor $(EXTRA_SRC_DIR) $(EXTRA_MODIFIED_DIR) $(EXTRA_LOG_DICT_FILE) 
+	python -m spinn_utilities.make_tools.converter $(EXTRA_SRC_DIR) $(EXTRA_MODIFIED_DIR) $(EXTRA_LOG_DICT_FILE)
 
 # ----------------------------------------------------------------------
 # Build rule for the transformed extra source files.
