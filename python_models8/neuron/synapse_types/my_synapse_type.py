@@ -128,7 +128,7 @@ class MySynapseType(AbstractSynapseType, AbstractContainsUnits):
         return 2
 
     def get_synapse_id_by_target(self, target):
-        # TODO: update the mapping from name to id
+        # TODO: update the mapping from name to ID
         if target == "excitatory":
             return 0
         elif target == "inhibitory":
