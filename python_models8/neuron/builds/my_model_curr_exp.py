@@ -1,4 +1,4 @@
-# main interface to use the spynnaker related tools.
+# main interface to use the sPyNNaker related tools.
 # ALL MODELS MUST INHERIT FROM THIS
 from spynnaker.pyNN.models.neuron import AbstractPopulationVertex
 

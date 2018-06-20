@@ -1,4 +1,4 @@
-# main interface to use the spynnaker related tools.
+# main interface to use the sPyNNaker related tools.
 from spynnaker.pyNN.models.neuron import AbstractPopulationVertex
 
 from spynnaker.pyNN.models.neuron.input_types import InputTypeCurrent
