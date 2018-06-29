@@ -14,10 +14,11 @@ _apv_defs = AbstractPopulationVertex.non_pynn_default_parameters
 
 class MyModelCurrMySynapseTypeBase(AbstractPopulationVertex):
 
-    # the maximum number of atoms per core that can be supported
+    #: The maximum number of atoms per core that can be supported
     _model_based_max_atoms_per_core = 256
 
-    # default parameters for this build. Used when end user has not entered any
+    #: Default parameters for this build. Used when end user has not entered
+    #: any.
     default_parameters = {
         'v_thresh': -50.0, 'my_ex_synapse_parameter': 0.1,
         'my_in_synapse_parameter': 0.1,

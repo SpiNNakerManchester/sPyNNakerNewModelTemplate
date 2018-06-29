@@ -53,6 +53,7 @@ class MyTimingDependence(AbstractTimingDependence):
     def my_depression_parameter(self, my_depression_parameter):
         self._my_depression_parameter = my_depression_parameter
 
+    @overrides(AbstractTimingDependence.is_same_as)
     def is_same_as(self, timing_dependence):
         # TODO: Update with the correct class name
         if not isinstance(timing_dependence, MyTimingDependence):
@@ -67,6 +68,8 @@ class MyTimingDependence(AbstractTimingDependence):
 
     @property
     def vertex_executable_suffix(self):
+        """ The suffix to be appended to the vertex executable for this rule
+        """
         # TODO: Add the extension to be added to the binary executable name
         # to indicate that it is compiled with this timing dependence
         # Note: The expected format of the binary name is:
@@ -75,20 +78,26 @@ class MyTimingDependence(AbstractTimingDependence):
 
     @property
     def pre_trace_n_bytes(self):
+        """ The number of bytes used by the pre-trace of the rule per neuron
+        """
         # TODO: update to match the number of bytes in the pre_trace_t data
         # structure in the C code
         return 0
 
+    @overrides(AbstractTimingDependence.get_parameters_sdram_usage_in_bytes)
     def get_parameters_sdram_usage_in_bytes(self):
         # TODO: update to match the number of bytes used by the parameters
         return 8
 
     @property
     def n_weight_terms(self):
+        """ The number of weight terms expected by this timing rule
+        """
         # TODO: update to match the number of weight terms expected in the
         # weight rule according to the C code
         return 1
 
+    @overrides(AbstractTimingDependence.write_parameters)
     def write_parameters(self, spec, machine_time_step, weight_scales):
         # TODO: update to write the parameters
         spec.write_value(
@@ -102,6 +111,8 @@ class MyTimingDependence(AbstractTimingDependence):
 
     @property
     def synaptic_structure(self):
+        """ Get the synaptic structure of the plastic part of the rows
+        """
         return self._synapse_structure
 
     @property

@@ -15,10 +15,11 @@ _apv_defs = AbstractPopulationVertex.non_pynn_default_parameters
 
 class MyModelCurrExpMyThresholdBase(AbstractPopulationVertex):
 
-    # the maximum number of atoms per core that can be supported
+    #: The maximum number of atoms per core that can be supported
     _model_based_max_atoms_per_core = 256
 
-    # default parameters for this build. Used when end user has not entered any
+    #: Default parameters for this build. Used when end user has not entered
+    #: any.
     default_parameters = {
         'tau_syn_E': 5.0, 'tau_syn_I': 5.0,
         'isyn_exc': 0.0, 'isyn_inh': 0.0,
@@ -26,6 +27,7 @@ class MyModelCurrExpMyThresholdBase(AbstractPopulationVertex):
         'my_threshold_parameter': 0.5,
         'threshold_value': -10.0}
 
+    #: State-variable initialisation parameters.
     initialize_parameters = {'v_init': None}
 
     def __init__(

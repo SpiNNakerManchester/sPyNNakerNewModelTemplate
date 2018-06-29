@@ -6,12 +6,13 @@ from data_specification.enums import DataType
 
 from enum import Enum
 
-# TODO create constants to EXACTLY match the parameter names
+#: TODO create constants to EXACTLY match the parameter names
 MY_PARAMETER_NAME = "my_additional_input_parameter"
 
 
 class _MY_ADDITIONAL_INPUT_TYPES(Enum):
 
+    #: An example of a parameter definition
     MY_ADDITIONAL_INPUT_PARAMETER = (1, DataType.S1615)
 
     def __new__(cls, value, data_type):
@@ -50,8 +51,11 @@ class MyAdditionalInput(AbstractAdditionalInput):
                              value=my_additional_input_parameter)
 
     def get_n_parameters(self):
-        """ Get the number of parameters for the additional input. This\
-            should be the length of the result of get_parameters.
+        """ Get the number of parameters for the additional input.
+
+        .. note::
+            This should be the length of the result of\
+            :py:meth:`get_parameters`.
 
         :return: The number of parameters
         :rtype: int
@@ -81,6 +85,10 @@ class MyAdditionalInput(AbstractAdditionalInput):
     def get_parameter_types(self):
         """ Get the parameter types for the additional input
 
+        .. note::
+            This should be the same length as the result of\
+            :py:meth:`get_parameters`.
+
         :return: An array of parameter types
         """
         # TODO: update the parameter types
@@ -88,8 +96,8 @@ class MyAdditionalInput(AbstractAdditionalInput):
 
     def get_n_cpu_cycles_per_neuron(self):
         """ Get the number of CPU cycles executed by\
-            additional_input_get_input_value_as_current and\
-            additional_input_has_spiked
+            `additional_input_get_input_value_as_current` and\
+            `additional_input_has_spiked` in the C code.
         """
         # TODO: update to reflect the C code
         # Note: can be guessed to some extent

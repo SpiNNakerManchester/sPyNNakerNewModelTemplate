@@ -11,9 +11,13 @@ import numpy
 from enum import Enum
 
 # TODO create constants to EXACTLY match the parameter names
+#: the name of your custom excitatory synapse parameter
 EX_SYNAPSE_NAME = 'my_ex_synapse_parameter'
+#: the name of your custom inhibitory synapse parameter
 IN_SYNAPE_NAME = 'my_in_synapse_parameter'
+#: the name of the initialisation value for the excitatory synapse state
 EXC_INIT_NAME = 'my_exc_init'
+#: the name of the initialisation value for the inhibitory synapse state
 INH_INIT_NAME = 'my_inh_init'
 
 
@@ -123,10 +127,12 @@ class MySynapseType(AbstractSynapseType, AbstractContainsUnits):
     def my_inh_init(self, my_inh_init):
         self._data.set_value(key=INH_INIT_NAME, value=my_inh_init)
 
+    @overrides(AbstractSynapseType.get_n_synapse_types)
     def get_n_synapse_types(self):
         # TODO: Update with the number of supported synapse types
         return 2
 
+    @overrides(AbstractSynapseType.get_synapse_id_by_target)
     def get_synapse_id_by_target(self, target):
         # TODO: update the mapping from name to ID
         if target == "excitatory":
@@ -135,10 +141,12 @@ class MySynapseType(AbstractSynapseType, AbstractContainsUnits):
             return 1
         return None
 
+    @overrides(AbstractSynapseType.get_synapse_targets)
     def get_synapse_targets(self):
         # TODO: update to return the same names as above
         return "excitatory", "inhibitory"
 
+    @overrides(AbstractSynapseType.get_n_synapse_type_parameters)
     def get_n_synapse_type_parameters(self):
         # TODO: Return the number of parameters
         # Note: This must match the number of parameters in the
@@ -147,6 +155,12 @@ class MySynapseType(AbstractSynapseType, AbstractContainsUnits):
 
     @inject_items({"machine_time_step": "MachineTimeStep"})
     def get_synapse_type_parameters(self, machine_time_step):
+        """ Get the synapse type parameters.
+
+        :return: The parameters
+        :rtype: \
+            list(:py:class:`spynnaker.pyNN.models.neural_properties.NeuronParameter`)
+        """
         e_decay, e_init = get_exponential_decay_and_init(
             self._data[EX_SYNAPSE_NAME], machine_time_step)
         i_decay, i_init = get_exponential_decay_and_init(
@@ -165,10 +179,12 @@ class MySynapseType(AbstractSynapseType, AbstractContainsUnits):
             NeuronParameter(self._data[INH_INIT_NAME],
                             _MY_SYNAPSE_TYPES.INITIAL_INH.data_type)]
 
+    @overrides(AbstractSynapseType.get_synapse_type_parameter_types)
     def get_synapse_type_parameter_types(self):
         # TODO: update to return the parameter types
         return [item.data_type for item in _MY_SYNAPSE_TYPES]
 
+    @overrides(AbstractSynapseType.get_n_cpu_cycles_per_neuron)
     def get_n_cpu_cycles_per_neuron(self):
         # TODO: update to match the number of cycles used by
         # synapse_types_shape_input, synapse_types_add_neuron_input,

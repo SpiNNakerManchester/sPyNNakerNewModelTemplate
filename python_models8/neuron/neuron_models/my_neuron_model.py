@@ -9,14 +9,20 @@ from data_specification.enums import DataType
 from enum import Enum
 
 # TODO create constants to EXACTLY match the parameter names
+#: The name of the current offset parameter.
 I_OFFSET_NAME = "i_offset"
+#: The name of your custom parameter.
 MY_NEURON_PARAMETER_NAME = "my_neuron_parameter"
+#: The name of the state variable initialisation parameter.
 V_INIT_NAME = "v_init"
 
 
 class _MY_NEURON_MODEL_TYPES(Enum):
+    #: The type of the state variable initialisation parameter.
     V_INIT = (1, DataType.S1615)
+    #: The type of the current offset parameter.
     I_OFFSET = (2, DataType.S1615)
+    #: The type of your custom parameter.
     MY_NEURON_PARAMETER = (3, DataType.S1615)
 
     def __new__(cls, value, data_type):
@@ -81,12 +87,23 @@ class MyNeuronModel(AbstractNeuronModel, AbstractContainsUnits):
         self._data.set_value(key=V_INIT_NAME, value=v_init)
 
     def get_n_neural_parameters(self):
+        """ Get the number of neural parameters.
+
+        :return: The number of parameters
+        :rtype: int
+        """
         # TODO: update to match the number of parameters
         # Note: this must match the number of parameters in the neuron_t
         # data structure in the C code
         return 3
 
     def get_neural_parameters(self):
+        """ Get the neural parameters.
+
+        :return: an array of parameters
+        :rtype: \
+            list(:py:class:`spynnaker.pyNN.models.neural_properties.NeuronParameter`)
+        """
         # TODO: update to match the parameters and state variables
         # Note: this must match the order of the parameters in the neuron_t
         # data structure in the C code
@@ -103,10 +120,20 @@ class MyNeuronModel(AbstractNeuronModel, AbstractContainsUnits):
                             MY_NEURON_PARAMETER.data_type)]
 
     def get_neural_parameter_types(self):
+        """ Get the types of the neural parameters.
+
+        :return: A list of DataType objects, in the order of the parameters
+        :rtype: list(:py:class:`data_specification.enums.DataType`)
+        """
         # TODO: update to match the parameter types
         return [item.data_type for item in _MY_NEURON_MODEL_TYPES]
 
     def get_n_global_parameters(self):
+        """ Get the number of global parameters.
+
+        :return: The number of global parameters
+        :rtype: int
+        """
         # TODO: update to match the number of global parameters
         # Note: This must match the number of parameters in the global_neuron_t
         # data structure in the C code
@@ -114,6 +141,12 @@ class MyNeuronModel(AbstractNeuronModel, AbstractContainsUnits):
 
     @inject_items({"machine_time_step": "MachineTimeStep"})
     def get_global_parameters(self, machine_time_step):
+        """ Get the global parameters.
+
+        :return: an array of parameters
+        :rtype: \
+            list(:py:class:`spynnaker.pyNN.models.neural_properties.NeuronParameter`)
+        """
         # TODO: update to match the global parameters
         # Note: This must match the order of the parameters in the
         # global_neuron_t data structure in the C code
@@ -122,10 +155,22 @@ class MyNeuronModel(AbstractNeuronModel, AbstractContainsUnits):
             NeuronParameter(machine_time_step, DataType.UINT32)]
 
     def get_global_parameter_types(self):
+        """ Get the types of the global parameters.
+
+        :return: A list of DataType objects, in the order of the parameters
+        :rtype: list(:py:class:`data_specification.enums.DataType`)
+        """
         # TODO update to match the global parameter type
         return [DataType.UINT32]
 
     def get_n_cpu_cycles_per_neuron(self):
+        """ Get the (estimated) total number of CPU cycles executed by \
+            ``neuron_model_state_update`` and ``neuron_model_has_spiked``,\
+            per neuron in the C code.
+
+        :return: The number of CPU cycles executed
+        :rtype: int
+        """
         # TODO: update with the number of CPU cycles taken by the
         # neuron_model_state_update, neuron_model_get_membrane_voltage
         # and neuron_model_has_spiked functions in the C code

@@ -50,12 +50,13 @@ _apv_defs = AbstractPopulationVertex.non_pynn_default_parameters
 
 class MyModelCurrExpBase(AbstractPopulationVertex):
 
-    # TODO: Set the maximum number of atoms per core that can be supported.
-    # For more complex models, you might need to reduce this number.
+    #: TODO: Set the maximum number of atoms per core that can be supported.
+    #: For more complex models, you might need to reduce this number.
     _model_based_max_atoms_per_core = 256
 
-    # TODO: update accordingly
-    # default parameters for this build. Used when end user has not entered any
+    #: TODO: update accordingly
+    #: Default parameters for this build. Used when end user has not entered
+    #: any.
     default_parameters = {
         'v_thresh': -50.0, 'tau_syn_E': 5.0, 'tau_syn_I': 5.0,
         'isyn_exc': 0.0, 'isyn_inh': 0.0,

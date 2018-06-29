@@ -48,6 +48,7 @@ class MyWeightDependence(AbstractHasAPlusAMinus, AbstractWeightDependence):
     def my_parameter(self, my_parameter):
         self._my_parameter = my_parameter
 
+    @overrides(AbstractWeightDependence.is_same_as)
     def is_same_as(self, weight_dependence):
         # TODO: Update with the correct class name
         if not isinstance(weight_dependence, MyWeightDependence):
@@ -61,12 +62,15 @@ class MyWeightDependence(AbstractHasAPlusAMinus, AbstractWeightDependence):
 
     @property
     def vertex_executable_suffix(self):
+        """ The suffix to be appended to the vertex executable for this rule
+        """
         # TODO: Add the extension to be added to the binary executable name
         # to indicate that it is compiled with this weight dependence
         # Note: The expected format of the binary name is:
         #    <neuron_model>_stdp[_mad|]_<timing_dependence>_<weight_dependence>
         return "my_weight"
 
+    @overrides(AbstractWeightDependence.get_parameters_sdram_usage_in_bytes)
     def get_parameters_sdram_usage_in_bytes(
             self, n_synapse_types, n_weight_terms):
         # TODO: update to match the number of bytes used by the parameters
@@ -75,6 +79,7 @@ class MyWeightDependence(AbstractHasAPlusAMinus, AbstractWeightDependence):
                 "My weight dependence only supports one term")
         return 12 * n_synapse_types
 
+    @overrides(AbstractWeightDependence.write_parameters)
     def write_parameters(
             self, spec, machine_time_step, weight_scales, n_weight_terms):
         # TODO: update to write the parameters
@@ -98,6 +103,9 @@ class MyWeightDependence(AbstractHasAPlusAMinus, AbstractWeightDependence):
 
     @property
     def weight_maximum(self):
+        """ The maximum weight that will ever be set in a synapse as a result\
+            of this rule
+        """
         # TODO: update to return the maximum weight that this rule will ever
         # give to a synapse
         return self._w_max
