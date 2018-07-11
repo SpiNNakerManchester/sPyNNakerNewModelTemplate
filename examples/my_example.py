@@ -4,31 +4,19 @@ from pyNN.utility.plotting import Figure, Panel
 import matplotlib.pyplot as plt
 
 # import models
-from python_models8.model_data_holders.my_model_curr_exp_data_holder \
-    import MyModelCurrExpDataHolder as My_Model_Curr_Exp
-from python_models8.model_data_holders\
-    .my_model_curr_exp_incl_input_and_threshold_data_holder \
-    import MyModelCurrExpInclInputAndThresholdDataHolder as \
-    My_Model_Curr_Exp_Incl_Input_And_Threshold
-from python_models8.model_data_holders\
-    .my_model_curr_exp_my_input_type_data_holder \
-    import MyModelCurrExpMyInputTypeDataHolder as \
-    My_Model_Curr_Exp_My_Input_Type
-from python_models8.model_data_holders\
-    .my_model_curr_exp_my_additional_input_data_holder \
-    import MyModelCurrExpMyAdditionalInputDataHolder as \
-    My_Model_Curr_Exp_My_Additional_Input
-from python_models8.model_data_holders\
-    .my_model_curr_exp_my_threshold_data_holder \
-    import MyModelCurrExpMyThresholdDataHolder \
-    as My_Model_Curr_Exp_My_Threshold
-from python_models8.model_data_holders\
-    .my_model_curr_my_synapse_type_data_holder \
-    import MyModelCurrMySynapseTypeDataHolder as My_Model_Curr_My_Synapse_Type
 from python_models8.neuron.plasticity.stdp.timing_dependence\
     .my_timing_dependence import MyTimingDependence
 from python_models8.neuron.plasticity.stdp.weight_dependence\
     .my_weight_dependence import MyWeightDependence
+from python_models8.neuron.builds.my_model_curr_exp import MyModelCurrExp
+from python_models8.neuron.builds.my_model_curr_exp_my_input_type \
+    import MyModelCurrExpMyInputType
+from python_models8.neuron.builds.my_model_curr_my_synapse_type \
+    import MyModelCurrMySynapseType
+from python_models8.neuron.builds.my_model_curr_exp_my_additional_input \
+    import MyModelCurrExpMyAdditionalInput
+from python_models8.neuron.builds.my_model_curr_exp_my_threshold \
+    import MyModelCurrExpMyThreshold
 
 
 # Set the run time of the execution
@@ -55,29 +43,19 @@ spikeArray = {"spike_times": spike_times}
 input_pop = p.Population(
     n_neurons, p.SpikeSourceArray(**spikeArray), label="input")
 
-myModelCurrExpParams = {
-    "my_parameter": -70.0,
-    "i_offset": i_offset
-}
 my_model_pop = p.Population(
-    n_neurons, My_Model_Curr_Exp(**myModelCurrExpParams),
+    n_neurons, MyModelCurrExp(my_parameter=-70.0, i_offset=i_offset),
     label="my_model_pop")
 p.Projection(
     input_pop, my_model_pop,
     p.OneToOneConnector(), receptor_type='excitatory',
     synapse_type=p.StaticSynapse(weight=weight))
 
-myModelCurrExpInclInputAndThresholdParams = {
-    "my_neuron_parameter": -70.0,
-    "i_offset": i_offset,
-    "threshold_value": -35.0,
-    "my_threshold_parameter": 1.0,
-    "my_input_parameter": 0.01,
-    "my_multiplicator": 0.8
-}
 my_model_incl_input_and_threshold_pop = p.Population(
-    n_neurons, My_Model_Curr_Exp_Incl_Input_And_Threshold(
-        **myModelCurrExpInclInputAndThresholdParams),
+    n_neurons, MyModelCurrExpInclInputAndThreshold(
+        my_neuron_parameter=-70.0, i_offset=i_offset, threshold_value=-35.0,
+        my_threshold_parameter=1.0, my_input_parameter=0.01,
+        my_multipicator=0.8),
     label="my_model_incl_input_and_threshold_pop")
 p.Projection(
     input_pop, my_model_incl_input_and_threshold_pop,
@@ -89,51 +67,37 @@ myModelCurrExpMyInputTypeParams = {
     "my_multiplicator": 1.0
 }
 my_model_my_input_type_pop = p.Population(
-    n_neurons, My_Model_Curr_Exp_My_Input_Type(
-        **myModelCurrExpMyInputTypeParams),
+    n_neurons, MyModelCurrExpMyInputType(
+        my_input_parameter=1.0, my_multiplicator=1.0),
     label="my_model_my_input_type_pop")
 p.Projection(
     input_pop, my_model_my_input_type_pop,
     p.OneToOneConnector(), receptor_type='excitatory',
     synapse_type=p.StaticSynapse(weight=weight))
 
-myModelCurrMySynapseTypeParams = {
-    "my_parameter": -70.0,
-    "i_offset": i_offset,
-    "my_ex_synapse_parameter": 0.5
-}
 my_model_my_synapse_type_pop = p.Population(
-    n_neurons, My_Model_Curr_My_Synapse_Type(
-        **myModelCurrMySynapseTypeParams),
+    n_neurons, MyModelCurrMySynapseType(
+        my_parameter=-70.0, i_offset=i_offset, my_ex_synapse_parameter=0.5),
     label="my_model_my_synapse_type_pop")
 p.Projection(
     input_pop, my_model_my_synapse_type_pop,
     p.OneToOneConnector(), receptor_type='excitatory',
     synapse_type=p.StaticSynapse(weight=weight))
 
-myModelCurrExpMyAdditionalInputParams = {
-    "my_parameter": -70.0,
-    "i_offset": i_offset,
-    "my_additional_input_parameter": 0.05
-}
 my_model_my_additional_input_pop = p.Population(
-    n_neurons, My_Model_Curr_Exp_My_Additional_Input(
-        **myModelCurrExpMyAdditionalInputParams),
+    n_neurons, MyModelCurrExpMyAdditionalInput(
+        my_parameter=-70.0, i_offset=i_offset,
+        my_additional_input_parameter=0.05),
     label="my_model_my_additional_input_pop")
 p.Projection(
     input_pop, my_model_my_additional_input_pop,
     p.OneToOneConnector(), receptor_type='excitatory',
     synapse_type=p.StaticSynapse(weight=weight))
 
-myModelCurrExpMyThresholdParams = {
-    "my_parameter": -70.0,
-    "i_offset": i_offset,
-    "threshold_value": -10.0,
-    "my_threshold_parameter": 0.4
-}
 my_model_my_threshold_pop = p.Population(
-    n_neurons, My_Model_Curr_Exp_My_Threshold(
-        **myModelCurrExpMyThresholdParams),
+    n_neurons, MyModelCurrExpMyThreshold(
+        my_parameter=-70.0, i_offset=i_offset, threshold_value=-10.0,
+        my_threshold_parameter=0.4),
     label="my_model_my_threshold_pop")
 p.Projection(
     input_pop, my_model_my_threshold_pop,
@@ -141,8 +105,7 @@ p.Projection(
     synapse_type=p.StaticSynapse(weight=weight))
 
 my_model_stdp_pop = p.Population(
-    n_neurons, My_Model_Curr_Exp(**myModelCurrExpParams),
-    label="my_model_pop")
+    n_neurons, MyModelCurrExp(i_offset=i_offset), label="my_model_pop")
 stdp = p.STDPMechanism(
     timing_dependence=MyTimingDependence(
         my_potentiation_parameter=2.0,
@@ -165,11 +128,7 @@ my_model_my_synapse_type_pop.record(['v'])
 my_model_my_additional_input_pop.record(['v'])
 my_model_my_threshold_pop.record(['v'])
 
-# my_model_pop.set(my_neuron_parameter=-60.0)
 my_model_incl_input_and_threshold_pop.set(threshold_value=-30.0)
-# my_model_my_synapse_type_pop.set(my_ex_synapse_parameter=1.5)
-# my_model_my_additional_input_pop.set(my_additional_input_parameter=0.01)
-# my_model_my_threshold_pop.set(my_threshold_parameter=1.0)
 
 p.run(run_time)
 

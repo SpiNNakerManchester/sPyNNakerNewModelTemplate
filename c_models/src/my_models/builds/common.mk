@@ -9,8 +9,4 @@ SOURCE_DIRS += $(EXTRA_SRC_DIR)
 APP_OUTPUT_DIR := $(abspath $(CURRENT_DIR)../../../../python_models8/model_binaries/)/
 CFLAGS += -I$(EXTRA_SRC_DIR)
 
-EXTRA_SYNAPSE_TYPE_OBJECTS += 
-                       
-EXTRA_STDP += 
-
 include $(NEURAL_MODELLING_DIRS)/src/neuron/builds/common.mk

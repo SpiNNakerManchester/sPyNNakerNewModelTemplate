@@ -17,8 +17,6 @@ from spynnaker.pyNN.models.neuron import AbstractPopulationVertex
 # from spynnaker.pyNN.models.neuron.neuron_models \
 #     import NeuronModelLeakyIntegrateAndFire
 # from spynnaker.pyNN.models.neuron.neuron_models \
-#     import NeuronModelLeakyIntegrate
-# from spynnaker.pyNN.models.neuron.neuron_models \
 #     import NeuronModelIzh
 
 # new model template
