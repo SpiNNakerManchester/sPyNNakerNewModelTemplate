@@ -10,7 +10,9 @@
 
 //! neuron_impl_t struct
 typedef struct neuron_impl_t {
-    accum test;
+    accum inputs[2];
+    accum v;
+    accum threshold;
 } neuron_impl_t;
 
 //! Array of neuron states
@@ -31,16 +33,31 @@ static bool neuron_impl_initialise(uint32_t n_neurons) {
     return true;
 }
 
+static void neuron_impl_load_neuron_parameters(
+        address_t address, uint32_t next, uint32_t n_neurons) {
+
+    // Copy parameters to DTCM from SDRAM
+    spin1_memcpy(neuron_array, &address[next],
+        n_neurons * sizeof(neuron_impl_t));
+}
+
+static void neuron_impl_store_neuron_parameters(
+        address_t address, uint32_t next, uint32_t n_neurons) {
+
+    // Copy parameters to SDRAM from DTCM
+    spin1_memcpy(&address[next], neuron_array,
+        n_neurons * sizeof(neuron_impl_t));
+}
+
 static void neuron_impl_add_inputs(
         index_t synapse_type_index, index_t neuron_index,
         input_t weights_this_timestep) {
-}
 
-static void neuron_impl_load_neuron_parameters(
-        address_t address, uint32_t next, uint32_t n_neurons) {
-    spin1_memcpy(neuron_array, &address[next],
-        n_neurons * sizeof(neuron_impl_t));
+    // Get the neuron itself
+    neuron_impl_t *neuron = &neuron_array[neuron_index];
 
+    // Do something to store the inputs for the next state update
+    neuron->inputs[synapse_type_index] += weights_this_timestep;
 }
 
 static bool neuron_impl_do_timestep_update(
@@ -50,14 +67,22 @@ static bool neuron_impl_do_timestep_update(
     // Get the neuron itself
     neuron_impl_t *neuron = &neuron_array[neuron_index];
 
-    // Return if spiked
-    return false;
-}
+    // Store the recorded membrane voltage
+    recorded_variable_values[0] = neuron->v;
 
-static void neuron_impl_store_neuron_parameters(
-        address_t address, uint32_t next, uint32_t n_neurons) {
-    spin1_memcpy(&address[next], neuron_array,
-        n_neurons * sizeof(neuron_impl_t));
+    // Do something to update the state
+    neuron->v += external_bias + neuron->inputs[0] - neuron->inputs[1];
+    neuron->inputs[0] = 0;
+    neuron->inputs[1] = 0;
+
+    // Determine if the neuron has spiked
+    if (neuron->v > neuron->threshold) {
+
+        // Reset if spiked
+        neuron->v = 0k;
+        return true;
+    }
+    return false;
 }
 
 #endif // _MY_FULL_NEURON_IMPL_

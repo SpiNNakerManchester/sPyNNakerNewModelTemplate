@@ -4,6 +4,7 @@ from spynnaker.pyNN.models.neuron import AbstractPyNNNeuronModelStandard
 # Components from main tools
 from spynnaker.pyNN.models.neuron.input_types import InputTypeCurrent
 from spynnaker.pyNN.models.neuron.synapse_types import SynapseTypeExponential
+from spynnaker.pyNN.models.defaults import default_initial_values
 
 # Additional components
 from python_models8.neuron.neuron_models.my_neuron_model \
@@ -14,11 +15,12 @@ from python_models8.neuron.threshold_types.my_threshold_type \
 
 class MyModelCurrExpMyThreshold(AbstractPyNNNeuronModelStandard):
 
+    @default_initial_values({"v", "isyn_exc", "isyn_inh"})
     def __init__(
             self,
 
             # neuron model parameters and state variables
-            my_parameter=-70.0,
+            my_neuron_parameter=-70.0,
             i_offset=0.0,
             v=-70.0,
 
@@ -33,7 +35,7 @@ class MyModelCurrExpMyThreshold(AbstractPyNNNeuronModelStandard):
             isyn_inh=0.0):
 
         # create neuron model class
-        neuron_model = MyNeuronModel(i_offset, my_parameter, v)
+        neuron_model = MyNeuronModel(i_offset, my_neuron_parameter, v)
 
         # create synapse type model
         synapse_type = SynapseTypeExponential(

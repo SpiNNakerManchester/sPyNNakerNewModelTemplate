@@ -6,6 +6,7 @@ from spynnaker.pyNN.models.neuron.synapse_types.synapse_type_exponential\
     import SynapseTypeExponential
 from spynnaker.pyNN.models.neuron.threshold_types.threshold_type_static\
     import ThresholdTypeStatic
+from spynnaker.pyNN.models.defaults import default_initial_values
 
 # Additional components
 from python_models8.neuron.input_types.my_input_type \
@@ -16,11 +17,12 @@ from python_models8.neuron.neuron_models.my_neuron_model \
 
 class MyModelCurrExpMyInputType(AbstractPyNNNeuronModelStandard):
 
+    @default_initial_values({"v", "isyn_exc", "isyn_inh", "my_multiplicator"})
     def __init__(
             self,
 
             # neuron model parameters and state variables
-            my_parameter=-70.0,
+            my_neuron_parameter=-70.0,
             i_offset=0.0,
             v=-70.0,
 
@@ -38,7 +40,7 @@ class MyModelCurrExpMyInputType(AbstractPyNNNeuronModelStandard):
             my_input_parameter=0.0):
 
         # create neuron model class
-        neuron_model = MyNeuronModel(i_offset, my_parameter, v)
+        neuron_model = MyNeuronModel(i_offset, my_neuron_parameter, v)
 
         # create synapse type model
         synapse_type = SynapseTypeExponential(

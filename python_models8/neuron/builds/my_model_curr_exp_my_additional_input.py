@@ -5,6 +5,7 @@ from spynnaker.pyNN.models.neuron import AbstractPyNNNeuronModelStandard
 from spynnaker.pyNN.models.neuron.input_types import InputTypeCurrent
 from spynnaker.pyNN.models.neuron.synapse_types import SynapseTypeExponential
 from spynnaker.pyNN.models.neuron.threshold_types import ThresholdTypeStatic
+from spynnaker.pyNN.models.defaults import default_initial_values
 
 # Additional components
 from python_models8.neuron.additional_inputs.my_additional_input \
@@ -15,6 +16,7 @@ from python_models8.neuron.neuron_models.my_neuron_model \
 
 class MyModelCurrExpMyAdditionalInput(AbstractPyNNNeuronModelStandard):
 
+    @default_initial_values({"v", "isyn_inh", "isyn_exc", "input_current"})
     def __init__(
             self,
 
@@ -50,7 +52,7 @@ class MyModelCurrExpMyAdditionalInput(AbstractPyNNNeuronModelStandard):
         threshold_type = ThresholdTypeStatic(v_thresh)
 
         # create additional inputs
-        additional_input = MyAdditionalInput(
+        additional_input_type = MyAdditionalInput(
             my_additional_input_parameter, input_current)
 
         # Create the model using the superclass
@@ -65,4 +67,4 @@ class MyModelCurrExpMyAdditionalInput(AbstractPyNNNeuronModelStandard):
             # the various model types
             neuron_model=neuron_model, input_type=input_type,
             synapse_type=synapse_type, threshold_type=threshold_type,
-            additional_input=additional_input)
+            additional_input_type=additional_input_type)
