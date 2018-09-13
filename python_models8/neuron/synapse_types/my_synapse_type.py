@@ -113,8 +113,9 @@ class MySynapseType(AbstractSynapseType):
     def get_values(self, parameters, state_variables, vertex_slice, ts):
         # TODO: Return, in order of the struct, the values from the parameters,
         # state variables, or other
-        decay = lambda x: numpy.exp(-ts / x)  # noqa E731
-        init = lambda x: (x / ts) * (1.0 - numpy.exp(-ts / x))  # noqa E731
+        tsfloat = float(ts) / 1000.0
+        decay = lambda x: numpy.exp(-tsfloat / x)  # noqa E731
+        init = lambda x: (x / tsfloat) * (1.0 - numpy.exp(-tsfloat / x))  # noqa E731
         return [parameters[EX_SYNAPSE].apply_operation(decay),
                 parameters[EX_SYNAPSE].apply_operation(init),
                 parameters[IN_SYNAPSE].apply_operation(decay),
