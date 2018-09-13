@@ -123,7 +123,7 @@ title:
   Support for adding new neuron models to the PyNN 0.8 and PyNN0.9
   Implementation for executing on SpiNNaker machines.
 version:
-date-released: 2017-09-17
+date-released:
 url: http://spinnakermanchester.github.io/
 repository: https://github.com/SpiNNakerManchester/sPyNNaker8NewModelTemplate
 contact:
