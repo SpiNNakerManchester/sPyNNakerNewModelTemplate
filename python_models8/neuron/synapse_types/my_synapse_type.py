@@ -30,10 +30,10 @@ class MySynapseType(AbstractSynapseType):
 
         # TODO: Update the data types - this must match the struct exactly
         super(MySynapseType, self).__init__([
-            DataType.S1615,  # my_exc_decay
-            DataType.S1615,  # my_exc_init
-            DataType.S1615,  # my_inh_decay
-            DataType.S1615,  # my_inh_init
+            DataType.U032,  # my_exc_decay
+            DataType.U032,  # my_exc_init
+            DataType.U032,  # my_inh_decay
+            DataType.U032,  # my_inh_init
             DataType.S1615,  # my_input_buffer_excitatory_value
             DataType.S1615   # my_input_buffer_inhibitory_value;
         ])
