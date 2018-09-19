@@ -157,14 +157,14 @@ Figure(
           data_labels=[my_model_my_additional_input_pop.label],
           yticks=True, xlim=(0, run_time)),
     Panel(v_my_model_my_threshold_pop.segments[0].filter(name='v')[0],
-          xlabel="Time (ms)",
           ylabel="Membrane potential (mV)",
           data_labels=[my_model_my_threshold_pop.label],
-          yticks=True, xlim=(0, run_time), xticks=True),
-    Panel(v_my_full_neuron_pop.segments[0].filter(
-        name='v')[0], ylabel="Membrane potential (mV)",
-          data_labels=[my_full_neuron_pop.label],
           yticks=True, xlim=(0, run_time)),
+    Panel(v_my_full_neuron_pop.segments[0].filter(name='v')[0],
+          xlabel="Time (ms)",
+          ylabel="Membrane potential (mV)",
+          data_labels=[my_full_neuron_pop.label],
+          yticks=True, xlim=(0, run_time), xticks=True),
     title="Simple my model examples",
     annotations="Simulated with {}".format(p.name())
 )
