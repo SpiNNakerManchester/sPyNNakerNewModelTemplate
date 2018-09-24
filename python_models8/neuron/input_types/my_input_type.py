@@ -68,8 +68,8 @@ class MyInputType(AbstractInputType):
     def get_values(self, parameters, state_variables, vertex_slice):
         # TODO: Return, in order of the struct, the values from the parameters,
         # state variables, or other
-        return [parameters[MY_INPUT_PARAMETER],
-                state_variables[MY_MULTIPLICATOR]]
+        return [state_variables[MY_MULTIPLICATOR],
+                parameters[MY_INPUT_PARAMETER]]
 
     def update_values(self, values, parameters, state_variables):
         # TODO: From the list of values given in order of the struct, update
