@@ -6,10 +6,8 @@ MODELS = my_model_curr_exp \
     my_model_curr_exp_stdp_mad_my_timing_my_weight \
     my_full_neuron_impl
 
-BUILD_DIRS := $(addprefix builds/, $(MODELS))
+all:
+	for d in $(MODELS); do $(MAKE) -C $$d || exit $$?; done
 
-all: $(BUILD_DIRS)
-	for d in $(BUILD_DIRS); do $(MAKE) -C $$d || exit $$?; done
-
-clean: $(BUILD_DIRS)
-	for d in $(BUILD_DIRS); do $(MAKE) -C $$d clean || exit $$?; done
+clean:
+	for d in $(MODELS); do $(MAKE) -C $$d clean || exit $$?; done

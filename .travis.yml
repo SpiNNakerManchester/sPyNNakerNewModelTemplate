@@ -71,5 +71,5 @@ script:
   - find python_models8 -name '*.xml' | xargs -r -n 1 support/validate-xml.sh
   # C 
   - make -C c_models
-  - support/run-vera.sh c_models
+  - support/run-vera.sh c_models/src
   # Documentation build tests would go here
