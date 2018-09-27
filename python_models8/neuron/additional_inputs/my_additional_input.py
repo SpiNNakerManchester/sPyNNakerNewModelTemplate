@@ -1,96 +1,87 @@
-from spynnaker.pyNN.models.neuron.additional_inputs \
+from spynnaker.pyNN.models.neuron.additional_inputs\
     import AbstractAdditionalInput
-from spynnaker.pyNN.models.neural_properties import NeuronParameter
-from spynnaker.pyNN.utilities.ranged import SpynnakerRangeDictionary
 from data_specification.enums import DataType
 
-from enum import Enum
+# TODO: create constants to match the parameter names
+MY_ADDITIONAL_INPUT_PARAMETER = "my_additional_input_parameter"
+INPUT_CURRENT = "input_current"
 
-# TODO create constants to EXACTLY match the parameter names
-MY_PARAMETER_NAME = "my_additional_input_parameter"
-
-
-class _MY_ADDITIONAL_INPUT_TYPES(Enum):
-
-    MY_ADDITIONAL_INPUT_PARAMETER = (1, DataType.S1615)
-
-    def __new__(cls, value, data_type):
-        obj = object.__new__(cls)
-        obj._value_ = value
-        obj._data_type = data_type
-        return obj
-
-    @property
-    def data_type(self):
-        return self._data_type
+# TODO: create units for each parameter
+UNITS = {
+    MY_ADDITIONAL_INPUT_PARAMETER: "nA",
+    INPUT_CURRENT: "nA"
+}
 
 
 class MyAdditionalInput(AbstractAdditionalInput):
 
     def __init__(
-            self, n_neurons,
+            self,
 
             # TODO: update the parameters
-            my_additional_input_parameter):
-        self._n_neurons = n_neurons
-        self._data = SpynnakerRangeDictionary(size=n_neurons)
-        # TODO: store the parameters
+            my_additional_input_parameter, input_current):
 
-        self._data[MY_PARAMETER_NAME] = my_additional_input_parameter
+        # TODO: Update the data types - this must match the struct exactly
+        super(MyAdditionalInput, self).__init__([
+            DataType.S1615,  # my_parameter
+            DataType.S1615,  # input_current
+        ])
+
+        # TODO: store the parameters
+        self._my_additional_input_parameter = my_additional_input_parameter
+        self._input_current = input_current
 
     # TODO: Add getters and setters for the parameters
 
     @property
     def my_additional_input_parameter(self):
-        return self._data[MY_PARAMETER_NAME]
+        return self._my_additional_input_parameter
 
     @my_additional_input_parameter.setter
     def my_additional_input_parameter(self, my_additional_input_parameter):
-        self._data.set_value(key=MY_PARAMETER_NAME,
-                             value=my_additional_input_parameter)
+        self._my_additional_input_parameter = my_additional_input_parameter
 
-    def get_n_parameters(self):
-        """ Get the number of parameters for the additional input. This\
-            should be the length of the result of get_parameters.
+    @property
+    def input_current(self):
+        return self._input_current
 
-        :return: The number of parameters
-        :rtype: int
-        """
-        # TODO: update the number of parameters this additional input holds
-        # Note: must match the number in the additional_input_t structure
-        # in the C code
-        return 2
+    @input_current.setter
+    def input_current(self, input_current):
+        self._input_current = input_current
 
-    def get_parameters(self):
-        """ Get the parameters for the additional input.
+    def get_n_cpu_cycles(self, n_neurons):
+        # TODO: Calculate (or guess) the CPU cycles
+        return 10 * n_neurons
 
-        :return: An array of parameters
-        :rtype: array of\
-            :py:class:`spynnaker.pyNN.models.neural_properties.NeuronParameter`
-        """
-        # TODO: update the parameters
-        # Note: must match the order of the additional_input_t structure in
-        # the C code
-        return [
-            NeuronParameter(0, DataType.S1615),
-            NeuronParameter(
-                self._data[MY_PARAMETER_NAME],
-                _MY_ADDITIONAL_INPUT_TYPES.
-                MY_ADDITIONAL_INPUT_PARAMETER.data_type)]
+    def add_parameters(self, parameters):
+        # TODO: Add initial values of the parameters that the user can change
+        parameters[MY_ADDITIONAL_INPUT_PARAMETER] = (
+            self._my_additional_input_parameter)
 
-    def get_parameter_types(self):
-        """ Get the parameter types for the additional input
+    def add_state_variables(self, state_variables):
+        # TODO: Add initial values of the state variables that the user can
+        # change
+        state_variables[INPUT_CURRENT] = self._input_current
 
-        :return: An array of parameter types
-        """
-        # TODO: update the parameter types
-        return [item.data_type for item in _MY_ADDITIONAL_INPUT_TYPES]
+    def get_values(self, parameters, state_variables, vertex_slice):
+        # TODO: Return, in order of the struct, the values from the parameters,
+        # state variables, or other
+        return [parameters[MY_ADDITIONAL_INPUT_PARAMETER],
+                state_variables[INPUT_CURRENT]]
 
-    def get_n_cpu_cycles_per_neuron(self):
-        """ Get the number of CPU cycles executed by\
-            additional_input_get_input_value_as_current and\
-            additional_input_has_spiked
-        """
-        # TODO: update to reflect the C code
-        # Note: can be guessed to some extent
-        return 10
+    def update_values(self, values, parameters, state_variables):
+        # TODO: From the list of values given in order of the struct, update
+        # the parameters and state variables
+        (_my_parameter, input_current) = values
+
+        # NOTE: If you know that the value doesn't change, you don't have to
+        # assign it (hint: often only state variables are likely to change)!
+        state_variables[INPUT_CURRENT] = input_current
+
+    def has_variable(self, variable):
+        # This works from the UNITS dict, so no changes are required
+        return variable in UNITS
+
+    def get_units(self, variable):
+        # This works from the UNITS dict, so no changes are required
+        return UNITS[variable]

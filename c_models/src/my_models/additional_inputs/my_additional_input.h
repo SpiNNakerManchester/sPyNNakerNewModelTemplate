@@ -5,9 +5,9 @@
 
 typedef struct additional_input_t {
 
-    REAL input_current;
-
     REAL my_parameter;
+
+    REAL input_current;
 
 } additional_input_t;
 

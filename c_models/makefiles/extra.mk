@@ -21,6 +21,7 @@ EXTRA_SRC_DIR := $(abspath $(dir $(EXTRA_MAKEFILE_PATH))/../src/)
 # ----------------------------------------------------------------------
 # Add EXTRA_SRC_DIR to the SOURCE_DIRS to ensure that it gets used correctly
 SOURCE_DIRS += $(EXTRA_SRC_DIR)
+CFLAGS += -I$(EXTRA_SRC_DIR)
 
 # ----------------------------------------------------------------------
 # Make sure each neuron model has a unique build directory.
