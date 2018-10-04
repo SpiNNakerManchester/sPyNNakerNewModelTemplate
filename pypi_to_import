@@ -4,7 +4,6 @@ SpiNNMan:spinnman
 SpiNNStorageHandlers:spinn_storage_handlers
 SpiNNaker_PACMAN:pacman
 SpiNNaker_DataSpecification:data_specification
-spalloc:spalloc
 SpiNNFrontEndCommon:spinn_front_end_common
 sPyNNaker:spynnaker
 SpyNNaker8:spynnaker8
