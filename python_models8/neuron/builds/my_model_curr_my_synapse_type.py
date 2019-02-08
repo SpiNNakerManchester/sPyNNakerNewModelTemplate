@@ -7,10 +7,8 @@ from spynnaker.pyNN.models.neuron.threshold_types import ThresholdTypeStatic
 from spynnaker.pyNN.models.defaults import default_initial_values
 
 # Additional components
-from python_models8.neuron.neuron_models.my_neuron_model \
-    import MyNeuronModel
-from python_models8.neuron.synapse_types.my_synapse_type \
-    import MySynapseType
+from python_models8.neuron.neuron_models.my_neuron_model import MyNeuronModel
+from python_models8.neuron.synapse_types.my_synapse_type import MySynapseType
 
 
 class MyModelCurrMySynapseType(AbstractPyNNNeuronModelStandard):

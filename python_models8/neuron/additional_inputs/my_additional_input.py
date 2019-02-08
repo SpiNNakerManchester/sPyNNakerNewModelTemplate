@@ -1,6 +1,6 @@
-from spynnaker.pyNN.models.neuron.additional_inputs\
-    import AbstractAdditionalInput
 from data_specification.enums import DataType
+from spynnaker.pyNN.models.neuron.additional_inputs import (
+    AbstractAdditionalInput)
 
 # TODO: create constants to match the parameter names
 MY_ADDITIONAL_INPUT_PARAMETER = "my_additional_input_parameter"

@@ -1,7 +1,7 @@
 from spinn_utilities.overrides import overrides
 from data_specification.enums import DataType
-from spynnaker.pyNN.models.neuron.plasticity.stdp.weight_dependence\
-    import AbstractWeightDependence, AbstractHasAPlusAMinus
+from spynnaker.pyNN.models.neuron.plasticity.stdp.weight_dependence import (
+    AbstractWeightDependence, AbstractHasAPlusAMinus)
 
 
 class MyWeightDependence(AbstractHasAPlusAMinus, AbstractWeightDependence):

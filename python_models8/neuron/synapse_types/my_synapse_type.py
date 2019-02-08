@@ -1,8 +1,8 @@
-from pacman.executor.injection_decorator import inject_items
-from spynnaker.pyNN.models.neuron.synapse_types import AbstractSynapseType
-from data_specification.enums import DataType
-
 import numpy
+from pacman.executor.injection_decorator import inject_items
+from pacman.model.decorators.overrides import overrides
+from data_specification.enums import DataType
+from spynnaker.pyNN.models.neuron.synapse_types import AbstractSynapseType
 
 # TODO: create constants to match the parameter names
 EX_SYNAPSE = 'my_ex_synapse_parameter'
@@ -78,10 +78,12 @@ class MySynapseType(AbstractSynapseType):
     def my_inh_init(self, my_inh_init):
         self._my_inh_init = my_inh_init
 
+    @overrides(AbstractSynapseType.get_n_synapse_types)
     def get_n_synapse_types(self):
         # TODO: Update with the number of supported synapse types
         return 2
 
+    @overrides(AbstractSynapseType.get_synapse_id_by_target)
     def get_synapse_id_by_target(self, target):
         # TODO: update the mapping from name to id
         if target == "excitatory":
@@ -90,6 +92,7 @@ class MySynapseType(AbstractSynapseType):
             return 1
         return None
 
+    @overrides(AbstractSynapseType.get_synapse_targets)
     def get_synapse_targets(self):
         # TODO: update to return the same names as above
         return "excitatory", "inhibitory"

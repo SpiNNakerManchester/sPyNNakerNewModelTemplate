@@ -1,9 +1,9 @@
 from spinn_utilities.overrides import overrides
 from data_specification.enums import DataType
-from spynnaker.pyNN.models.neuron.plasticity.stdp.timing_dependence\
-    import AbstractTimingDependence
-from spynnaker.pyNN.models.neuron.plasticity.stdp.synapse_structure\
-    import SynapseStructureWeightOnly
+from spynnaker.pyNN.models.neuron.plasticity.stdp.timing_dependence import (
+    AbstractTimingDependence)
+from spynnaker.pyNN.models.neuron.plasticity.stdp.synapse_structure import (
+    SynapseStructureWeightOnly)
 
 
 class MyTimingDependence(AbstractTimingDependence):

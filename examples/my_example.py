@@ -5,19 +5,22 @@ import matplotlib.pyplot as plt
 
 # import models
 from python_models8.neuron.plasticity.stdp.timing_dependence\
-    .my_timing_dependence import MyTimingDependence
+    .my_timing_dependence import (
+        MyTimingDependence)
 from python_models8.neuron.plasticity.stdp.weight_dependence\
-    .my_weight_dependence import MyWeightDependence
+    .my_weight_dependence import (
+        MyWeightDependence)
 from python_models8.neuron.builds.my_model_curr_exp import MyModelCurrExp
 from python_models8.neuron.builds.my_full_neuron import MyFullNeuron
-from python_models8.neuron.builds.my_model_curr_exp_my_input_type \
-    import MyModelCurrExpMyInputType
-from python_models8.neuron.builds.my_model_curr_my_synapse_type \
-    import MyModelCurrMySynapseType
+from python_models8.neuron.builds.my_model_curr_exp_my_input_type import (
+    MyModelCurrExpMyInputType)
+from python_models8.neuron.builds.my_model_curr_my_synapse_type import (
+    MyModelCurrMySynapseType)
 from python_models8.neuron.builds.my_model_curr_exp_my_additional_input \
-    import MyModelCurrExpMyAdditionalInput
-from python_models8.neuron.builds.my_model_curr_exp_my_threshold \
-    import MyModelCurrExpMyThreshold
+    import (
+        MyModelCurrExpMyAdditionalInput)
+from python_models8.neuron.builds.my_model_curr_exp_my_threshold import (
+    MyModelCurrExpMyThreshold)
 
 
 # Set the run time of the execution
