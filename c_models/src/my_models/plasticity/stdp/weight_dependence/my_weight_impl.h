@@ -1,10 +1,6 @@
 #ifndef _MY_WEIGHT_H_
 #define _MY_WEIGHT_H_
 
-// These need to be defined before any synapse includes
-#define SYNAPSE_TYPE_BITS 1
-#define SYNAPSE_TYPE_COUNT 2
-
 // Because spin1_memcpy() is used in various places
 #include <spin1_api.h>
 
@@ -44,8 +40,7 @@ typedef struct {
 #include <neuron/plasticity/stdp/weight_dependence/weight_one_term.h>
 
 // The external variables of the weight rule
-extern plasticity_weight_region_data_t
-    plasticity_weight_region_data[SYNAPSE_TYPE_COUNT];
+extern plasticity_weight_region_data_t *plasticity_weight_region_data;
 
 //---------------------------------------
 // STDP weight dependence functions

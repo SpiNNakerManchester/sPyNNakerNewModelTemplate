@@ -1,14 +1,7 @@
-BUILDS = my_models
-DIRS = $(BUILDS:%=src/%)
+DIRS = makefiles
 
 all: $(DIRS)
 	for d in $(DIRS); do $(MAKE) -C $$d || exit $$?; done
-
-%.aplx: %
-	$(MAKE) -C $*
-
-%.aplx: neuron/builds/%
-	$(MAKE) -C neuron/builds/$*
 
 clean: $(DIRS)
 	for d in $(DIRS); do $(MAKE) -C $$d clean || exit $$?; done

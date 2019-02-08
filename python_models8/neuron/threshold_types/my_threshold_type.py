@@ -1,29 +1,15 @@
-from enum import Enum
-from spinn_utilities.overrides import overrides
 from data_specification.enums import DataType
-from spynnaker.pyNN.models.neural_properties import NeuronParameter
 from spynnaker.pyNN.models.neuron.threshold_types import AbstractThresholdType
-from spynnaker.pyNN.utilities.ranged import SpynnakerRangeDictionary
 
-# TODO create constants to EXACTLY match the parameter names
-THRESHOLD_VALUE_NAME = "threshold_value"
-THRESHOLD_PARAM_NAME = "my_threshold_parameter"
+# TODO create constants to match the parameter names
+THRESHOLD_VALUE = "threshold_value"
+THRESHOLD_PARAM = "my_threshold_parameter"
 
-
-class _MY_THRESHOLD_TYPES(Enum):
-
-    THRESHOLD_VALUE = (1, DataType.S1615)
-    MY_THRESHOLD_PARAMETER = (2, DataType.S1615)
-
-    def __new__(cls, value, data_type):
-        obj = object.__new__(cls)
-        obj._value_ = value
-        obj._data_type = data_type
-        return obj
-
-    @property
-    def data_type(self):
-        return self._data_type
+# TODO: create units for each parameter
+UNITS = {
+    THRESHOLD_VALUE: "mV",
+    THRESHOLD_PARAM: ""
+}
 
 
 class MyThresholdType(AbstractThresholdType):
@@ -31,64 +17,71 @@ class MyThresholdType(AbstractThresholdType):
     """
 
     def __init__(
-            self, n_neurons,
+            self,
+
             # TODO: update parameters
             threshold_value, my_threshold_parameter):
-        self._n_neurons = n_neurons
-        self._data = SpynnakerRangeDictionary(size=n_neurons)
+
+        # TODO: Update the data types - this must match the structs exactly
+        super(MyThresholdType, self).__init__([
+            DataType.S1615,  # threshold_value
+            DataType.S1615,  # my_param
+        ])
 
         # TODO: Store any parameters
-        self._data[THRESHOLD_VALUE_NAME] = threshold_value
-        self._data[THRESHOLD_PARAM_NAME] = my_threshold_parameter
+        self._threshold_value = threshold_value
+        self._my_threshold_parameter = my_threshold_parameter
 
     # TODO: Add getters and setters for the parameters
 
     @property
     def threshold_value(self):
-        return self._data[THRESHOLD_VALUE_NAME]
+        return self._threshold_value
 
     @threshold_value.setter
     def threshold_value(self, threshold_value):
-        self._data.set_value(
-            ey=THRESHOLD_VALUE_NAME, value=threshold_value)
+        self._threshold_value = threshold_value
 
     @property
     def my_threshold_parameter(self):
-        return self._data[THRESHOLD_PARAM_NAME]
+        return self._my_threshold_parameter
 
     @my_threshold_parameter.setter
     def my_threshold_parameter(self, my_threshold_parameter):
-        self._data.set_value(
-            key=THRESHOLD_PARAM_NAME, value=my_threshold_parameter)
+        self._my_threshold_parameter = my_threshold_parameter
 
-    @overrides(AbstractThresholdType.get_n_threshold_parameters)
-    def get_n_threshold_parameters(self):
-        # TODO: update to return the number of parameters
-        # Note: This must match the number of values in the threshold_type_t
-        # data structure in the C code
-        return 2
+    def get_n_cpu_cycles(self, n_neurons):
+        # TODO: Calculate (or guess) the CPU cycles
+        return 10 * n_neurons
 
-    @overrides(AbstractThresholdType.get_threshold_parameters)
-    def get_threshold_parameters(self):
-        # TODO: update to return the parameters
-        # Note: The order of the parameters must match the order in the
-        # threshold_type_t data structure in the C code
-        return [
-            NeuronParameter(
-                self._data[THRESHOLD_VALUE_NAME],
-                _MY_THRESHOLD_TYPES.THRESHOLD_VALUE.data_type),
-            NeuronParameter(
-                self._data[THRESHOLD_PARAM_NAME],
-                _MY_THRESHOLD_TYPES.MY_THRESHOLD_PARAMETER.data_type)]
+    def add_parameters(self, parameters):
+        # TODO: Add initial values of the parameters that the user can change
+        parameters[THRESHOLD_PARAM] = self._my_threshold_parameter
+        parameters[THRESHOLD_VALUE] = self._threshold_value
 
-    @overrides(AbstractThresholdType.get_threshold_parameter_types)
-    def get_threshold_parameter_types(self):
-        # TODO: update to return the parameter types
-        return [item.data_type for item in _MY_THRESHOLD_TYPES]
+    def add_state_variables(self, state_variables):
+        # TODO: Add initial values of the state variables that the user can
+        # change
+        pass
 
-    @overrides(AbstractThresholdType.get_n_cpu_cycles_per_neuron)
-    def get_n_cpu_cycles_per_neuron(self):
-        # TODO: update to the number of cycles used by\
-        # threshold_type_is_above_threshold
-        # Note: This can be guessed
-        return 10
+    def get_values(self, parameters, state_variables, vertex_slice):
+        # TODO: Return, in order of the struct, the values from the parameters,
+        # state variables, or other
+        return [parameters[THRESHOLD_VALUE],
+                parameters[THRESHOLD_PARAM]]
+
+    def update_values(self, values, parameters, state_variables):
+        # TODO: From the list of values given in order of the struct, update
+        # the parameters and state variables
+        (_threshold_value, _threshold_param) = values
+
+        # NOTE: If you know that the value doesn't change, you don't have to
+        # assign it (hint: often only state variables are likely to change)!
+
+    def has_variable(self, variable):
+        # This works from the UNITS dict, so no changes are required
+        return variable in UNITS
+
+    def get_units(self, variable):
+        # This works from the UNITS dict, so no changes are required
+        return UNITS[variable]

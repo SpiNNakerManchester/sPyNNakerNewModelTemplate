@@ -3,6 +3,11 @@ python:
   - 2.7
   - 3.6
 dist: trusty
+matrix:
+  include:
+    - python: 3.7
+      dist: xenial
+      sudo: true
 cache: pip
 
 addons:
@@ -71,5 +76,5 @@ script:
   - find python_models8 -name '*.xml' | xargs -r -n 1 support/validate-xml.sh
   # C 
   - make -C c_models
-  - support/run-vera.sh c_models
+  - support/run-vera.sh c_models/src
   # Documentation build tests would go here

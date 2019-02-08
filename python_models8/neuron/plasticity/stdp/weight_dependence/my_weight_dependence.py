@@ -6,7 +6,7 @@ from spynnaker.pyNN.models.neuron.plasticity.stdp.weight_dependence import (
 
 class MyWeightDependence(AbstractHasAPlusAMinus, AbstractWeightDependence):
     __slots__ = [
-        "_my_parameter",
+        "_my_weight_parameter",
         "_w_max",
         "_w_min"]
 
@@ -14,13 +14,13 @@ class MyWeightDependence(AbstractHasAPlusAMinus, AbstractWeightDependence):
             self,
 
             # TODO: update the parameters
-            w_min=0.0, w_max=1.0, my_parameter=0.1):
+            w_min=0.0, w_max=1.0, my_weight_parameter=0.1):
         super(MyWeightDependence, self).__init__()
 
         # TODO: Store any parameters
         self._w_min = w_min
         self._w_max = w_max
-        self._my_parameter = my_parameter
+        self._my_weight_parameter = my_weight_parameter
 
     # TODO: Add getters and setters for the parameters
 
@@ -41,12 +41,12 @@ class MyWeightDependence(AbstractHasAPlusAMinus, AbstractWeightDependence):
         self._w_max = w_max
 
     @property
-    def my_parameter(self):
-        return self._my_parameter
+    def my_weight_parameter(self):
+        return self._my_weight_parameter
 
-    @my_parameter.setter
-    def my_parameter(self, my_parameter):
-        self._my_parameter = my_parameter
+    @my_weight_parameter.setter
+    def my_weight_parameter(self, my_weight_parameter):
+        self._my_weight_parameter = my_weight_parameter
 
     def is_same_as(self, weight_dependence):
         # TODO: Update with the correct class name
@@ -57,7 +57,8 @@ class MyWeightDependence(AbstractHasAPlusAMinus, AbstractWeightDependence):
         return (
             (self._w_min == weight_dependence._w_min) and
             (self._w_max == weight_dependence._w_max) and
-            (self._my_parameter == weight_dependence._my_parameter))
+            (self._my_weight_parameter ==
+             weight_dependence._my_weight_parameter))
 
     @property
     def vertex_executable_suffix(self):
@@ -89,7 +90,7 @@ class MyWeightDependence(AbstractHasAPlusAMinus, AbstractWeightDependence):
 
             # Write my parameter as an appropriately scaled fixed-point number
             spec.write_value(
-                data=int(round(self._my_parameter * w)),
+                data=int(round(self._my_weight_parameter * w)),
                 data_type=DataType.INT32)
 
             if n_weight_terms != 1:
@@ -104,4 +105,4 @@ class MyWeightDependence(AbstractHasAPlusAMinus, AbstractWeightDependence):
 
     @overrides(AbstractWeightDependence.get_parameter_names)
     def get_parameter_names(self):
-        return ['w_min', 'w_max', 'my_parameter']
+        return ['w_min', 'w_max', 'my_weight_parameter']
