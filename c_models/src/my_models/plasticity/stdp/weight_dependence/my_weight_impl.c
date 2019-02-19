@@ -21,7 +21,7 @@ address_t weight_initialise(
         return NULL;
     }
     int32_t *plasticity_word = (int32_t*) address;
-    for (uint32_t s = 0; s < SYNAPSE_TYPE_COUNT; s++) {
+    for (uint32_t s = 0; s < n_synapse_types; s++) {
         plasticity_weight_region_data[s].min_weight = *plasticity_word++;
         plasticity_weight_region_data[s].max_weight = *plasticity_word++;
         plasticity_weight_region_data[s].my_parameter = *plasticity_word++;
