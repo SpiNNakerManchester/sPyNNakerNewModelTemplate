@@ -81,24 +81,30 @@ void print_voltage (uint32_t v)
 
     tmp.u = v;
 
-    if (tmp.i >= 0)
+    if (tmp.i >= 0) {
         io_printf (IO_BUF, "t = %d", tmp.i);
+    }
     else {
         long_temp = ((int64_t)(-tmp.i) * 100000) / (int64_t)1686367527;
 		v_i = (int)(long_temp / 10000);
 		v_f = (int)(long_temp - v_i * 10000);
 		v_i += 55;
 		io_printf (IO_BUF, "-%2d.", v_i);
-		if (v_f == 0)
+		if (v_f == 0) {
 			io_printf (IO_BUF, "0000\n");
-		else if (v_f < 10)
+		}
+		else if (v_f < 10) {
 			io_printf (IO_BUF, "000%d\n", v_f);
-		else if (v_f < 100)
+		}
+		else if (v_f < 100) {
 			io_printf (IO_BUF, "00%d\n", v_f);
-		else if (v_f < 1000)
+		}
+		else if (v_f < 1000) {
 			io_printf (IO_BUF, "0%d\n", v_f);
-		else
+		}
+		else {
 			io_printf (IO_BUF, "%d\n", v_f);
+		}
     }
 }
 
@@ -130,8 +136,8 @@ void print_voltage (uint32_t v)
 //!   50c:       smlawb  r3, r7, r9, r7          ; decay voltage (due to voltage value)
 //!   510:       smlawt  r3, r8, r9, r3          ; decay voltage (due to psp value)
 //!   514:       str     r8, [r2], #4            ; store psp back now, post-incrementing
-//!   518:       subslt  r3, r3, #16777216       ; if non-refractory subtract drift term from voltage
-//!                                              ;    and also setting flags
+//!   518:       subslt  r3, r3, #16777216       ; if non-refractory subtract drift term from
+//!                                              ;    voltage and also setting flags
 //!   51c:       blge    678 <L_special>         ; branch-and-link to special handling sub-routine
 //!                                              ;    if either the original voltage >= 0; or
 //!                                              ;    the new voltage is >= 0.
@@ -266,7 +272,7 @@ void print_voltage (uint32_t v)
 		    "str r8, [r2], #4\n\t"				\
 		    "sublts r3, r3, #0x1000000\n\t"			\
 		    : : : "memory");					\
-      asm goto     ("blge %l[L_special]\n\t" : : : "cc" : L_special);	\
+      asm goto ("blge %l[L_special]\n\t" : : : "cc" : L_special);	\
       asm volatile ("str r3, [r2], #4\n\t"				\
 		    : : : "memory");					\
     } while (false)
@@ -475,13 +481,14 @@ static bool neuron_impl_initialise(uint32_t n_neurons) {
 			neuron_proc_array[n].in[i] = 0; // 0x70000000;  // this value is also -65 ?
 			neuron_proc_array[n].s[i] = 0;
 			neuron_proc_array[n].n[i].psp = 0;
-			neuron_proc_array[n].n[i].v = neuron_parameter[2]; // (uint32_t)(-1);//20; // start of refractory period
+			neuron_proc_array[n].n[i].v = neuron_parameter[2]; // (uint32_t)(-1);
 		}
 		// kp = neuron_parameter;
 		// I'm a little bit confused by this too to be honest, but
 		// it works at the moment
-		for (uint32_t i = 0 ; i < 3; i++)
+		for (uint32_t i = 0 ; i < 3; i++) {
 			neuron_proc_array[n].k[i] = neuron_parameter[i];
+		}
     }
 
     return true;

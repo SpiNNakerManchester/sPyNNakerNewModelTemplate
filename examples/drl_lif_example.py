@@ -35,7 +35,7 @@ for n in range(n_neurons//2):
     all_spikes.append(spike_times1)
     all_spikes.append(spike_times2)
 
-spikeArray = {"spike_times": all_spikes} # [spike_times1, spike_times2]}
+spikeArray = {"spike_times": all_spikes}  # [spike_times1, spike_times2]}
 input_pop = p.Population(
     n_neurons, p.SpikeSourceArray(**spikeArray), label="input")
 
@@ -61,10 +61,10 @@ p.Projection(
     synapse_type=p.StaticSynapse(weight=weight, delay=1))
 
 standard_ifcurr_pop.set(v_thresh=-55.0)
-#standard_ifcurr_pop.set(tau_syn_E=5.0)
+# standard_ifcurr_pop.set(tau_syn_E=5.0)
 standard_ifcurr_pop.set(tau_m=20.0)
-#standard_ifcurr_pop.set(cm=5.0)
-#standard_ifcurr_pop.set(tau_refrac=20.0)
+# standard_ifcurr_pop.set(cm=5.0)
+# standard_ifcurr_pop.set(tau_refrac=20.0)
 
 
 my_full_neuron_pop.record(['v', 'spikes'])
@@ -116,7 +116,7 @@ Figure(
           ylabel="Membrane potential (mV)",
           data_labels=[my_full_neuron_pop.label],
           yticks=True, xlim=(0, run_time), xticks=True),
-    title="Simple my model examples (IFCurr, DRL)", # ", full)",
+    title="Simple my model examples (IFCurr, DRL, full)",
     annotations="Simulated with {}".format(p.name())
 )
 plt.show()
