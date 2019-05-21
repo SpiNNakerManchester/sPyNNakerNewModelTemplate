@@ -35,7 +35,7 @@ url = "https://github.com/SpiNNakerManchester/sPyNNaker8NewModelTemplate"
 setup(
     name="sPyNNaker8NewModelTemplate",
     version=__version__,
-    description="Spinnaker 8 Template for New Models",
+    description="SpiNNaker 8 Template for New Models",
     url=url,
     packages=packages,
     package_data=package_data,

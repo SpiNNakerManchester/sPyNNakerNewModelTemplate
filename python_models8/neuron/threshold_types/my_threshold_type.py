@@ -1,8 +1,10 @@
 from data_specification.enums import DataType
 from spynnaker.pyNN.models.neuron.threshold_types import AbstractThresholdType
 
-# TODO create constants to match the parameter names
+# TODO create constants to EXACTLY match the parameter names
+# The name of a threshold value
 THRESHOLD_VALUE = "threshold_value"
+# The name of your custom threshold parameter
 THRESHOLD_PARAM = "my_threshold_parameter"
 
 # TODO: create units for each parameter
@@ -13,7 +15,7 @@ UNITS = {
 
 
 class MyThresholdType(AbstractThresholdType):
-    """ A threshold that is a static value
+    """ A threshold that is a static value.
     """
 
     def __init__(
