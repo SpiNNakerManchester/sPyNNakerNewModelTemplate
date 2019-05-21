@@ -1,182 +1,106 @@
-from spinn_utilities.overrides import overrides
 from pacman.executor.injection_decorator import inject_items
-from spynnaker.pyNN.models.neural_properties import NeuronParameter
-from spynnaker.pyNN.models.abstract_models import AbstractContainsUnits
-from spynnaker.pyNN.models.neuron.neuron_models import AbstractNeuronModel
-from spynnaker.pyNN.utilities.ranged import SpynnakerRangeDictionary
 from data_specification.enums import DataType
+from spynnaker.pyNN.models.neuron.neuron_models import AbstractNeuronModel
 
-from enum import Enum
+# TODO: create constants to match the parameter names
+I_OFFSET = "i_offset"
+MY_NEURON_PARAMETER = "my_neuron_parameter"
+V = "v"
 
-# TODO create constants to EXACTLY match the parameter names
-#: The name of the current offset parameter.
-I_OFFSET_NAME = "i_offset"
-#: The name of your custom parameter.
-MY_NEURON_PARAMETER_NAME = "my_neuron_parameter"
-#: The name of the state variable initialisation parameter.
-V_INIT_NAME = "v_init"
-
-
-class _MY_NEURON_MODEL_TYPES(Enum):
-    #: The type of the state variable initialisation parameter.
-    V_INIT = (1, DataType.S1615)
-    #: The type of the current offset parameter.
-    I_OFFSET = (2, DataType.S1615)
-    #: The type of your custom parameter.
-    MY_NEURON_PARAMETER = (3, DataType.S1615)
-
-    def __new__(cls, value, data_type):
-        obj = object.__new__(cls)
-        obj._value_ = value
-        obj._data_type = data_type
-        return obj
-
-    @property
-    def data_type(self):
-        return self._data_type
+# TODO: create units for each parameter
+UNITS = {
+    I_OFFSET: "nA",
+    MY_NEURON_PARAMETER: "mV",
+    V: "mV"
+}
 
 
-class MyNeuronModel(AbstractNeuronModel, AbstractContainsUnits):
+class MyNeuronModel(AbstractNeuronModel):
     def __init__(
-            self, n_neurons,
+            self,
 
-            # TODO: update the parameters
-            i_offset, my_neuron_parameter,
+            # TODO: update the parameters and state variables
+            i_offset, my_neuron_parameter, v):
 
-            # TODO: update the state variables if required
-            v_init=-70.0):
+        # TODO: Update the data types - this must match the structs exactly
+        super(MyNeuronModel, self).__init__(
+            data_types=[
+                DataType.S1615,   # v
+                DataType.S1615,   # i_offset
+                DataType.S1615],  # my_parameter
+            global_data_types=[
+                DataType.UINT32   # machine_time_step
+            ])
 
-        self._units = {
-            V_INIT_NAME: 'mV',
-            MY_NEURON_PARAMETER_NAME: 'mV',
-            I_OFFSET_NAME: 'nA'}
-
-        self._n_neurons = n_neurons
-
-        self._data = SpynnakerRangeDictionary(size=n_neurons)
-
-        # TODO: Store any parameters
-        self._data[I_OFFSET_NAME] = i_offset
-        self._data[MY_NEURON_PARAMETER_NAME] = my_neuron_parameter
-
-        # TODO: Store any state variables
-        self._data[V_INIT_NAME] = v_init
+        # TODO: Store any parameters and state variables
+        self._i_offset = i_offset
+        self._my_neuron_parameter = my_neuron_parameter
+        self._v = v
 
     # TODO: Add getters and setters for the parameters
 
     @property
     def i_offset(self):
-        return self._data[I_OFFSET_NAME]
+        return self._i_offset
 
     @i_offset.setter
     def i_offset(self, i_offset):
-        self._data.set_value(key=I_OFFSET_NAME, value=i_offset)
+        self._i_offset = i_offset
 
     @property
     def my_neuron_parameter(self):
-        return self._data[MY_NEURON_PARAMETER_NAME]
+        return self._my_neuron_parameter
 
     @my_neuron_parameter.setter
     def my_neuron_parameter(self, my_neuron_parameter):
-        self._data.set_value(
-            key=MY_NEURON_PARAMETER_NAME, value=my_neuron_parameter)
+        self._my_neuron_parameter = my_neuron_parameter
 
-    # TODO: Add initialisers for the state variables
+    @property
+    def v(self):
+        return self._v
 
-    def initialize_v(self, v_init):
-        self._data.set_value(key=V_INIT_NAME, value=v_init)
+    @v.setter
+    def v(self, v):
+        self._v = v
 
-    def get_n_neural_parameters(self):
-        """ Get the number of neural parameters.
+    def get_n_cpu_cycles(self, n_neurons):
+        # TODO: Calculate (or guess) the CPU cycles
+        return 10 * n_neurons
 
-        :return: The number of parameters
-        :rtype: int
-        """
-        # TODO: update to match the number of parameters
-        # Note: this must match the number of parameters in the neuron_t
-        # data structure in the C code
-        return 3
+    def add_parameters(self, parameters):
+        # TODO: Add initial values of the parameters that the user can change
+        parameters[I_OFFSET] = self._i_offset
+        parameters[MY_NEURON_PARAMETER] = self._my_neuron_parameter
 
-    def get_neural_parameters(self):
-        """ Get the neural parameters.
+    def add_state_variables(self, state_variables):
+        # TODO: Add initial values of the state variables that the user can
+        # change
+        state_variables[V] = self._v
 
-        :return: an array of parameters
-        :rtype: \
-            list(:py:class:`spynnaker.pyNN.models.neural_properties.NeuronParameter`)
-        """
-        # TODO: update to match the parameters and state variables
-        # Note: this must match the order of the parameters in the neuron_t
-        # data structure in the C code
-        return [
-            # REAL V;
-            NeuronParameter(self._data[V_INIT_NAME],
-                            _MY_NEURON_MODEL_TYPES.V_INIT.data_type),
-            # REAL I_offset;
-            NeuronParameter(self._data[I_OFFSET_NAME],
-                            _MY_NEURON_MODEL_TYPES.I_OFFSET.data_type),
-            # REAL my_parameter;
-            NeuronParameter(self._data[MY_NEURON_PARAMETER_NAME],
-                            _MY_NEURON_MODEL_TYPES.
-                            MY_NEURON_PARAMETER.data_type)]
-
-    def get_neural_parameter_types(self):
-        """ Get the types of the neural parameters.
-
-        :return: A list of DataType objects, in the order of the parameters
-        :rtype: list(:py:class:`data_specification.enums.DataType`)
-        """
-        # TODO: update to match the parameter types
-        return [item.data_type for item in _MY_NEURON_MODEL_TYPES]
-
-    def get_n_global_parameters(self):
-        """ Get the number of global parameters.
-
-        :return: The number of global parameters
-        :rtype: int
-        """
-        # TODO: update to match the number of global parameters
-        # Note: This must match the number of parameters in the global_neuron_t
-        # data structure in the C code
-        return 1
+    def get_values(self, parameters, state_variables, vertex_slice):
+        # TODO: Return, in order of the struct, the values from the parameters,
+        # state variables, or other
+        return [state_variables[V],
+                parameters[I_OFFSET],
+                parameters[MY_NEURON_PARAMETER]]
 
     @inject_items({"machine_time_step": "MachineTimeStep"})
-    def get_global_parameters(self, machine_time_step):
-        """ Get the global parameters.
+    def get_global_values(self, machine_time_step):
+        return [machine_time_step]
 
-        :return: an array of parameters
-        :rtype: \
-            list(:py:class:`spynnaker.pyNN.models.neural_properties.NeuronParameter`)
-        """
-        # TODO: update to match the global parameters
-        # Note: This must match the order of the parameters in the
-        # global_neuron_t data structure in the C code
-        return [
-            # uint32_t machine_time_step
-            NeuronParameter(machine_time_step, DataType.UINT32)]
+    def update_values(self, values, parameters, state_variables):
+        # TODO: From the list of values given in order of the struct, update
+        # the parameters and state variables
+        (v, _i_offset, _my_parameter) = values
 
-    def get_global_parameter_types(self):
-        """ Get the types of the global parameters.
+        # NOTE: If you know that the value doesn't change, you don't have to
+        # assign it (hint: often only state variables are likely to change)!
+        state_variables[V] = v
 
-        :return: A list of DataType objects, in the order of the parameters
-        :rtype: list(:py:class:`data_specification.enums.DataType`)
-        """
-        # TODO update to match the global parameter type
-        return [DataType.UINT32]
+    def has_variable(self, variable):
+        # This works from the UNITS dict, so no changes are required
+        return variable in UNITS
 
-    def get_n_cpu_cycles_per_neuron(self):
-        """ Get the (estimated) total number of CPU cycles executed by \
-            ``neuron_model_state_update`` and ``neuron_model_has_spiked``,\
-            per neuron in the C code.
-
-        :return: The number of CPU cycles executed
-        :rtype: int
-        """
-        # TODO: update with the number of CPU cycles taken by the
-        # neuron_model_state_update, neuron_model_get_membrane_voltage
-        # and neuron_model_has_spiked functions in the C code
-        # Note: This can be a guess
-        return 80
-
-    @overrides(AbstractContainsUnits.get_units)
     def get_units(self, variable):
-        return self._units[variable]
+        # This works from the UNITS dict, so no changes are required
+        return UNITS[variable]
