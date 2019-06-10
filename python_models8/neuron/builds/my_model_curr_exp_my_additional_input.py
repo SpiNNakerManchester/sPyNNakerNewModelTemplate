@@ -6,12 +6,9 @@ from spynnaker.pyNN.models.neuron.input_types import InputTypeCurrent
 from spynnaker.pyNN.models.neuron.synapse_types import SynapseTypeExponential
 from spynnaker.pyNN.models.neuron.threshold_types import ThresholdTypeStatic
 from spynnaker.pyNN.models.defaults import default_initial_values
-
-# Additional components
-from python_models8.neuron.additional_inputs.my_additional_input \
-    import MyAdditionalInput
-from python_models8.neuron.neuron_models.my_neuron_model \
-    import MyNeuronModel
+from python_models8.neuron.additional_inputs.my_additional_input import (
+    MyAdditionalInput)
+from python_models8.neuron.neuron_models.my_neuron_model import MyNeuronModel
 
 
 class MyModelCurrExpMyAdditionalInput(AbstractPyNNNeuronModelStandard):

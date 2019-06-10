@@ -133,7 +133,7 @@ static inline const char *synapse_types_get_type_char(
     }
 }
 
-//! \brief prints the input for a neuron id for debug purposes
+//! \brief prints the input for a neuron ID for debug purposes
 //! \param[in] pointer to parameters the synapse parameters passed in
 //! \return Nothing
 static inline void synapse_types_print_input(

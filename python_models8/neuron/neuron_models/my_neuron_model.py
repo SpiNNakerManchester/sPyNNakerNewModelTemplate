@@ -1,6 +1,6 @@
 from pacman.executor.injection_decorator import inject_items
-from spynnaker.pyNN.models.neuron.neuron_models import AbstractNeuronModel
 from data_specification.enums import DataType
+from spynnaker.pyNN.models.neuron.neuron_models import AbstractNeuronModel
 
 # TODO: create constants to match the parameter names
 I_OFFSET = "i_offset"

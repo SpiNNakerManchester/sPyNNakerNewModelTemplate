@@ -1,6 +1,9 @@
 import os
 from setuptools import setup
-from collections import defaultdict
+try:
+    from collections.abc import defaultdict
+except ImportError:
+    from collections import defaultdict
 
 __version__ = None
 exec(open("python_models8/_version.py").read())
@@ -32,7 +35,7 @@ url = "https://github.com/SpiNNakerManchester/sPyNNaker8NewModelTemplate"
 setup(
     name="sPyNNaker8NewModelTemplate",
     version=__version__,
-    description="Spinnaker 8 Template for New Models",
+    description="SpiNNaker 8 Template for New Models",
     url=url,
     packages=packages,
     package_data=package_data,

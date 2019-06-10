@@ -1,16 +1,12 @@
 # A PyNN Model for standard neurons built from components
 from spynnaker.pyNN.models.neuron import AbstractPyNNNeuronModelStandard
-
 # Components from main tools
 from spynnaker.pyNN.models.neuron.input_types import InputTypeCurrent
 from spynnaker.pyNN.models.neuron.synapse_types import SynapseTypeExponential
 from spynnaker.pyNN.models.defaults import default_initial_values
-
-# Additional components
-from python_models8.neuron.neuron_models.my_neuron_model \
-    import MyNeuronModel
-from python_models8.neuron.threshold_types.my_threshold_type \
-    import MyThresholdType
+from python_models8.neuron.neuron_models.my_neuron_model import MyNeuronModel
+from python_models8.neuron.threshold_types.my_threshold_type import (
+    MyThresholdType)
 
 
 class MyModelCurrExpMyThreshold(AbstractPyNNNeuronModelStandard):
