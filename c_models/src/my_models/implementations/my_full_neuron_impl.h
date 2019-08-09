@@ -1,7 +1,7 @@
 #ifndef _MY_FULL_NEURON_IMPL_
 #define _MY_FULL_NEURON_IMPL_
 
-// Attempting to demonstrate that a "neuron model" can be defined in a different
+// Demonstrating that a "neuron model" can be defined in a different
 // way without the use of components for additional input / input / threshold
 
 #include <neuron/implementations/neuron_impl.h>
@@ -84,5 +84,27 @@ static bool neuron_impl_do_timestep_update(
     }
     return false;
 }
+
+#if LOG_LEVEL >= LOG_DEBUG
+void neuron_impl_print_inputs(uint32_t n_neurons) {
+	log_debug("-------------------------------------\n");
+	for (index_t i = 0; i < n_neurons; i++) {
+	    neuron_impl_t *neuron = &neuron_array[i];
+		log_debug("inputs: %k %k", neuron->inputs[0], neuron->inputs[1]);
+	}
+	log_debug("-------------------------------------\n");
+}
+
+void neuron_impl_print_synapse_parameters(uint32_t n_neurons) {
+	// there aren't any accessible in this example
+	use(n_neurons);
+}
+
+const char *neuron_impl_get_synapse_type_char(uint32_t synapse_type) {
+	use(synapse_type);
+	return 0;
+}
+#endif // LOG_LEVEL >= LOG_DEBUG
+
 
 #endif // _MY_FULL_NEURON_IMPL_
