@@ -37,19 +37,38 @@ setup(
     version=__version__,
     description="SpiNNaker 8 Template for New Models",
     url=url,
+    classifiers=[
+        "Development Status :: 3 - Alpha",
+
+        "Intended Audience :: Developers",
+        "Intended Audience :: Science/Research",
+
+        "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
+
+        "Natural Language :: English",
+
+        "Operating System :: POSIX :: Linux",
+        "Operating System :: Microsoft :: Windows",
+        "Operating System :: MacOS",
+
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.5",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+    ],
     packages=packages,
     package_data=package_data,
     install_requires=[
-        'SpiNNUtilities >= 1!4.0.1, < 1!5.0.0',
-        'SpiNNStorageHandlers >= 1!4.0.1, < 1!5.0.0',
-        'SpiNNMachine >= 1!4.0.1, < 1!5.0.0',
-        'SpiNNMan >= 1!4.0.1, < 1!5.0.0',
-        'SpiNNaker_PACMAN >= 1!4.0.1, < 1!5.0.0',
-        'SpiNNaker_DataSpecification >= 1!4.0.1, < 1!5.0.0',
-        'spalloc >= 1.0.1, < 2.0.0',
-        'SpiNNFrontEndCommon >= 1!4.0.1, < 1!5.0.0',
-        'sPyNNaker >= 1!4.0.1, < 1!5.0.0',
-        'sPyNNaker8 >= 1!4.0.1, < 1!5.0.0'],
+        'SpiNNUtilities >= 1!5.0.1, < 1!6.0.0',
+        'SpiNNStorageHandlers >= 1!5.0.1, < 1!6.0.0',
+        'SpiNNMachine >= 1!5.0.1, < 1!6.0.0',
+        'SpiNNMan >= 1!5.0.1, < 1!6.0.0',
+        'SpiNNaker_PACMAN >= 1!5.0.1, < 1!6.0.0',
+        'SpiNNaker_DataSpecification >= 1!5.0.1, < 1!6.0.0',
+        'spalloc >= 2.0.1, < 3.0.0',
+        'SpiNNFrontEndCommon >= 1!5.0.1, < 1!6.0.0',
+        'sPyNNaker >= 1!5.0.1, < 1!6.0.0',
+        'sPyNNaker8 >= 1!5.0.1, < 1!6.0.0'],
     maintainer="SpiNNakerTeam",
     maintainer_email="spinnakerusers@googlegroups.com"
 )
