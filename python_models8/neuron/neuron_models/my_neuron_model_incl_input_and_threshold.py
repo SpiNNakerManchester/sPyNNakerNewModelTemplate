@@ -205,15 +205,15 @@ class MyNeuronModelInclInputAndThreshold(AbstractNeuronModel,
         # data structure in the C code
         return 1
 
-    @inject_items({"machine_time_step": "MachineTimeStep"})
-    def get_global_parameters(self, machine_time_step):
+    @inject_items({"local_machine_time_step": "LocalMachineTimeStep"})
+    def get_global_parameters(self, local_machine_time_step):
 
         # TODO: update to match the global parameters
         # Note: This must match the order of the parameters in the
         # global_neuron_t data structure in the C code
         return [
             # uint32_t machine_time_step
-            NeuronParameter(machine_time_step, DataType.UINT32)
+            NeuronParameter(local_machine_time_step, DataType.UINT32)
         ]
 
     def get_global_parameter_types(self):

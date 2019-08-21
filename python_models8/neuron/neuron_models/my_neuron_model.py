@@ -84,9 +84,9 @@ class MyNeuronModel(AbstractNeuronModel):
                 parameters[I_OFFSET],
                 parameters[MY_NEURON_PARAMETER]]
 
-    @inject_items({"machine_time_step": "MachineTimeStep"})
-    def get_global_values(self, machine_time_step):
-        return [machine_time_step]
+    @inject_items({"local_machine_time_step": "LocalMachineTimeStep"})
+    def get_global_values(self, local_machine_time_step):
+        return [local_machine_time_step]
 
     def update_values(self, values, parameters, state_variables):
         # TODO: From the list of values given in order of the struct, update
