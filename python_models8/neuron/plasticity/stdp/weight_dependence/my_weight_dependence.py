@@ -1,5 +1,6 @@
 from spinn_utilities.overrides import overrides
 from data_specification.enums import DataType
+from spinn_front_end_common.utilities.constants import BYTES_PER_WORD
 from spynnaker.pyNN.models.neuron.plasticity.stdp.weight_dependence import (
     AbstractWeightDependence, AbstractHasAPlusAMinus)
 
@@ -9,6 +10,9 @@ class MyWeightDependence(AbstractHasAPlusAMinus, AbstractWeightDependence):
         "_my_weight_parameter",
         "_w_max",
         "_w_min"]
+
+    # Must match number of words written by write_parameters() method
+    WORDS_PER_SYNAPSE_TYPE = 3
 
     def __init__(
             self,
@@ -78,7 +82,8 @@ class MyWeightDependence(AbstractHasAPlusAMinus, AbstractWeightDependence):
         if n_weight_terms != 1:
             raise NotImplementedError(
                 "My weight dependence only supports one term")
-        return 12 * n_synapse_types
+
+        return self.WORDS_PER_SYNAPSE_TYPE * BYTES_PER_WORD * n_synapse_types
 
     @overrides(AbstractWeightDependence.write_parameters)
     def write_parameters(
