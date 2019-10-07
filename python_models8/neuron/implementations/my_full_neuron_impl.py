@@ -27,8 +27,6 @@ class MyFullNeuronImpl(AbstractNeuronImpl):
         "v": DataType.INT32,
     }
 
-
-
     def __init__(self,
                  # TODO: add model parameters and state variables
                  threshold, v, exc_input, inh_input):
