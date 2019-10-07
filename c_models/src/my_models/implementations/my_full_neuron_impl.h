@@ -64,7 +64,6 @@ static bool neuron_impl_do_timestep_update(
         index_t neuron_index, input_t external_bias,
         state_t *recorded_variable_values) {
 
-    log_info("")
     // Get the neuron itself
     neuron_impl_t *neuron = &neuron_array[neuron_index];
 
