@@ -84,7 +84,7 @@ class MyNeuronModel(AbstractNeuronModel):
                 parameters[I_OFFSET],
                 parameters[MY_NEURON_PARAMETER]]
 
-    @inject_items({"machine_time_step": "MachineTimeStep"})
+    @inject_items({"machine_time_step": "DefaultMachineTimeStep"})
     def get_global_values(self, machine_time_step):
         return [machine_time_step]
 
