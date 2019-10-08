@@ -87,7 +87,7 @@ class MyFullNeuronImpl(AbstractNeuronImpl):
     @property
     def binary_name(self):
         # TODO: Update the binary name
-        return "my_full_neuron_impl.aplx"
+        return "recording_neuron_impl.aplx"
 
     def get_n_cpu_cycles(self, n_neurons):
         # TODO: Update (or guess) the number of CPU cycles
