@@ -6,6 +6,7 @@ from spynnaker.pyNN.models.neuron.implementations \
 # TODO: Add names for parameters and state variables
 THRESHOLD = "threshold"
 V = "v"
+V_FLOAT = "v_float"
 EXC_INPUT = "exc_input"
 INH_INPUT = "inh_input"
 
@@ -13,6 +14,7 @@ INH_INPUT = "inh_input"
 UNITS = {
     THRESHOLD: "mV",
     V: "mV",
+    V_FLOAT: "mV",
     EXC_INPUT: "nA",
     INH_INPUT: "nA"
 }
@@ -21,10 +23,12 @@ UNITS = {
 class RecordingNeuronImpl(AbstractNeuronImpl):
     _MATRIX_RECORDABLE_SCALAR_TYPES = {
         "v": DataType.S1615,
+        "v_float": DataType.FLOAT_32,
     }
 
     _MATRIX_RECORDABLE_OUTPUT_TYPES = {
         "v": DataType.INT32,
+        "v_float": DataType.FLOAT_32,
     }
 
     def __init__(self,
@@ -120,31 +124,22 @@ class RecordingNeuronImpl(AbstractNeuronImpl):
         raise ValueError("Unknown target {}".format(target))
 
     def get_synapse_targets(self):
-
         # TODO: Update with the names that are allowed on a PyNN synapse
         # receptor_type
         return ["excitatory", "inhibitory"]
 
     def get_recordable_variables(self):
         # TODO: Update with the names of state variables that can be recorded
-        return ["v"]
+        return [V, V_FLOAT]
 
     def get_recordable_units(self, variable):
-        # TODO: Update with the appropriate units for variables
-        if variable != "v":
-            raise ValueError("Unknown variable {}".format(variable))
-        return "mV"
+        return UNITS[variable]
 
     def get_recordable_variable_index(self, variable):
-        # TODO: Update with the index in the recorded_variable_values array
-        # that the given variable will be recorded in to
-        if variable != "v":
-            raise ValueError("Unknown variable {}".format(variable))
-        return 0
+        return self.get_recordable_variables().index(variable)
 
     def is_recordable(self, variable):
-        # TODO: Update to identify variables that can be recorded
-        return variable == "v"
+        return variable in self.get_recordable_variables()
 
     def add_parameters(self, parameters):
         # TODO: Write the parameter values

@@ -39,12 +39,13 @@ p.Projection(
     synapse_type=p.StaticSynapse(weight=weight))
 
 
-recording_pop.record(['v'])
+recording_pop.record(['v', 'v_float'])
 
 p.run(run_time)
 
 # get v for each example
-recording_pop_neo = recording_pop.get_data('v')
+recording_pop_neo = recording_pop.get_data(['v','v_float'])
 print(recording_pop_neo.segments[0].filter(name='v')[0])
+print(recording_pop_neo.segments[0].filter(name='v_float')[0])
 
 p.end()

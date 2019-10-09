@@ -68,9 +68,6 @@ static bool neuron_impl_do_timestep_update(
     // Get the neuron itself
     neuron_impl_t *neuron = &neuron_array[neuron_index];
 
-    // Store the recorded membrane voltage
-    recorded_variable_values[0] = neuron->v;
-
     // Do something to update the state
     neuron->v += external_bias + neuron->inputs[0] - neuron->inputs[1];
     neuron->inputs[0] = 0;
@@ -78,7 +75,7 @@ static bool neuron_impl_do_timestep_update(
 
     // Do recording directly
     neuron_recording_set_int32_recorded_param(1, neuron_index, neuron->v);
-
+    neuron_recording_set_float_recorded_param(2, neuron_index, neuron->v*1.1);
     // Determine if the neuron has spiked
     if (neuron->v > neuron->threshold) {
 
