@@ -20,6 +20,7 @@ static neuron_impl_t *neuron_array;
 
 static bool neuron_impl_initialise(uint32_t n_neurons) {
 
+    log_info("here");
     // Allocate DTCM for neuron array
     if (sizeof(neuron_impl_t) != 0) {
         neuron_array = (neuron_impl_t *) spin1_malloc(

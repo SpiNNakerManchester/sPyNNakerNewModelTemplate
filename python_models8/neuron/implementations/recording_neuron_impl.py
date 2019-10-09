@@ -18,7 +18,7 @@ UNITS = {
 }
 
 
-class MyFullNeuronImpl(AbstractNeuronImpl):
+class RecordingNeuronImpl(AbstractNeuronImpl):
     _MATRIX_RECORDABLE_SCALAR_TYPES = {
         "v": DataType.S1615,
     }
@@ -82,12 +82,12 @@ class MyFullNeuronImpl(AbstractNeuronImpl):
     @property
     def model_name(self):
         # TODO: Update the name
-        return "MyFullNeuronImpl"
+        return "RecordingNeuronImpl"
 
     @property
     def binary_name(self):
         # TODO: Update the binary name
-        return "my_full_neuron_impl.h"
+        return "recording_neuron_impl.aplx"
 
     def get_n_cpu_cycles(self, n_neurons):
         # TODO: Update (or guess) the number of CPU cycles
