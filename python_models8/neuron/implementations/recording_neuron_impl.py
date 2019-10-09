@@ -7,6 +7,7 @@ from spynnaker.pyNN.models.neuron.implementations \
 THRESHOLD = "threshold"
 V = "v"
 V_FLOAT = "v_float"
+V_DOUBLE = "v_double"
 EXC_INPUT = "exc_input"
 INH_INPUT = "inh_input"
 
@@ -15,6 +16,7 @@ UNITS = {
     THRESHOLD: "mV",
     V: "mV",
     V_FLOAT: "mV",
+    V_DOUBLE:  "mV",
     EXC_INPUT: "nA",
     INH_INPUT: "nA"
 }
@@ -22,13 +24,15 @@ UNITS = {
 
 class RecordingNeuronImpl(AbstractNeuronImpl):
     _MATRIX_RECORDABLE_SCALAR_TYPES = {
-        "v": DataType.S1615,
-        "v_float": DataType.FLOAT_32,
+        V: DataType.S1615,
+        V_FLOAT: DataType.FLOAT_32,
+        V_DOUBLE: DataType.FLOAT_64,
     }
 
     _MATRIX_RECORDABLE_OUTPUT_TYPES = {
-        "v": DataType.INT32,
-        "v_float": DataType.FLOAT_32,
+        V: DataType.INT32,
+        V_FLOAT: DataType.FLOAT_32,
+        V_DOUBLE: DataType.FLOAT_64,
     }
 
     def __init__(self,
@@ -130,7 +134,7 @@ class RecordingNeuronImpl(AbstractNeuronImpl):
 
     def get_recordable_variables(self):
         # TODO: Update with the names of state variables that can be recorded
-        return [V, V_FLOAT]
+        return [V, V_FLOAT, V_DOUBLE]
 
     def get_recordable_units(self, variable):
         return UNITS[variable]
