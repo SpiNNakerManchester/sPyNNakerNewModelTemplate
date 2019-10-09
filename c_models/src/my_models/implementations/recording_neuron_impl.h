@@ -4,9 +4,10 @@
 // Demonstrating that a "neuron model" can be defined in a different
 // way without the use of components for additional input / input / threshold
 
-#include <neuron/implementations/neuron_impl.h>
+#include <neuron/implementations/neuron_impl2.h>
 #include <spin1_api.h>
 #include <debug.h>
+#include <neuron/neuron_recording.h>
 
 //! neuron_impl_t struct
 typedef struct neuron_impl_t {
@@ -62,8 +63,7 @@ static void neuron_impl_add_inputs(
 }
 
 static bool neuron_impl_do_timestep_update(
-        index_t neuron_index, input_t external_bias,
-        state_t *recorded_variable_values) {
+        index_t neuron_index, input_t external_bias) {
 
     // Get the neuron itself
     neuron_impl_t *neuron = &neuron_array[neuron_index];
@@ -75,6 +75,9 @@ static bool neuron_impl_do_timestep_update(
     neuron->v += external_bias + neuron->inputs[0] - neuron->inputs[1];
     neuron->inputs[0] = 0;
     neuron->inputs[1] = 0;
+
+    // Do recording directly
+    neuron_recording_set_int32_recorded_param(1, neuron_index, neuron->v);
 
     // Determine if the neuron has spiked
     if (neuron->v > neuron->threshold) {
