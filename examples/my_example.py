@@ -51,7 +51,7 @@ my_model_pop = p.Population(
     1, MyModelCurrExp(my_neuron_parameter=-70.0, i_offset=i_offset),
     label="my_model_pop")
 p.Projection(
-    input_pop, my_model_pop, p.AllToAllConnector, receptor_type='excitatory',
+    input_pop, my_model_pop, p.AllToAllConnector(), receptor_type='excitatory',
     synapse_type=p.StaticSynapse(weight=weight))
 
 myModelCurrExpMyInputTypeParams = {
