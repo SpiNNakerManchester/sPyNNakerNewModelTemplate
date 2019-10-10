@@ -23,7 +23,6 @@ class NwtTestBase(BaseTestCase):
         spikes = neo_convertor.convert_spikes(neo)
         v = neo_convertor.convert_data(neo, name="v")
         print(spikes)
-        print(v)
         for i, spike in enumerate(expected_spikes):
             self.assertEqual(spikes[i][1], spike)
         self.assertEqual(spikes.shape, (len(spikes), 2))

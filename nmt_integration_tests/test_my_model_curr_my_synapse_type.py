@@ -15,21 +15,24 @@
 
 import spynnaker8 as sim
 from .nwt_testbase import NwtTestBase
-from python_models8.neuron.builds.my_model_curr_exp import MyModelCurrExp
+from python_models8.neuron.builds.my_model_curr_my_synapse_type import (
+    MyModelCurrMySynapseType)
 
 # Set the run time of the execution
 run_time = 1000
 
 
-class NwtTestbase(NwtTestBase):
+class TestMyModelCurrMySynapseType(NwtTestBase):
 
     def do_run(self):
         sim.setup(timestep=1.0)
         input_pop = sim.Population(
             1, sim.SpikeSourceArray(range(0, run_time, 100)), label="input")
         test_pop = sim.Population(
-            1, MyModelCurrExp(my_neuron_parameter=-70.0, i_offset=0.0),
-            label="my_model_pop")
+            1, MyModelCurrMySynapseType(
+                my_neuron_parameter=-70.0, i_offset=0.0,
+                my_ex_synapse_parameter=0.5),
+            label="my_model_my_additional_input_pop")
         test_pop.record(['spikes', 'v'])
         sim.Projection(
             input_pop, test_pop, sim.AllToAllConnector(),
@@ -38,7 +41,7 @@ class NwtTestbase(NwtTestBase):
         sim.run(run_time)
         neo = test_pop.get_data('all')
         sim.end()
-        self.check_results(neo, [201, 402, 603, 804])
+        self.check_results(neo, [501])
 
     def test_do_run(self):
         self.runsafe(self.do_run)
