@@ -73,10 +73,10 @@ static bool neuron_impl_do_timestep_update(
     neuron->inputs[1] = 0;
 
     // Do recording directly
-    neuron_recording_set_int32_recorded_param(1, neuron_index, neuron->v);
-    neuron_recording_set_float_recorded_param(2, neuron_index, neuron->v*1.1);
+    neuron_recording_set_int32_recorded_param(0, neuron_index, neuron->v);
+    neuron_recording_set_float_recorded_param(1, neuron_index, neuron->v*1.1);
     double v_double =  neuron->v*1.000001;
-    neuron_recording_set_double_recorded_param(3, neuron_index, v_double);
+    neuron_recording_set_double_recorded_param(2, neuron_index, v_double);
     // Determine if the neuron has spiked
     if (neuron->v > neuron->threshold) {
 
