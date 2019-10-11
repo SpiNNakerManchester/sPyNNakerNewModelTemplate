@@ -14,22 +14,41 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import spynnaker8 as sim
+from spynnaker8.utilities import neo_convertor
 from .nwt_testbase import NwtTestBase
-from python_models8.neuron.builds.my_full_neuron import MyFullNeuron
+from python_models8.neuron.builds.recording_neuron import RecordingNeuron
 
 # Set the run time of the execution
 run_time = 1000
 
 
-class TestMyFullNeuron(NwtTestBase):
+class TestRecordingNeuron(NwtTestBase):
+
+    def check_results(self, neo, expected_spikes):
+        spikes = neo_convertor.convert_spikes(neo)
+        v = neo_convertor.convert_data(neo, name="v")
+        v_float = neo_convertor.convert_data(neo, name="v_float")
+        v_double = neo_convertor.convert_data(neo, name="v_double")
+        print(spikes)
+        for i, spike in enumerate(expected_spikes):
+            self.assertEqual(spikes[i][1], spike)
+        self.assertEqual(spikes.shape, (len(spikes), 2))
+        for spike in expected_spikes:
+            print(spike, v[spike][2], v[spike+1][2])
+            self.assertTrue(v[spike][2] > v[spike+1][2])
+        for i in range(len(v)):
+            print(i, v[i][2], v[i][2] * 1.1, v_float[i][2])
+            self.assertAlmostEqual(v[i][2] * 1.1, v_float[i][2], places=6)
+            self.assertAlmostEqual(
+                v[i][2] * 1.000001, v_double[i][2], delta=0.000001)
 
     def do_run(self):
         sim.setup(timestep=1.0)
         input_pop = sim.Population(
             1, sim.SpikeSourceArray(range(0, run_time, 100)), label="input")
         test_pop = sim.Population(
-            1, MyFullNeuron(), label="my_full_neuron")
-        test_pop.record(['spikes', 'v'])
+            1, RecordingNeuron(), label="my_full_neuron")
+        test_pop.record('all')
         sim.Projection(
             input_pop, test_pop, sim.AllToAllConnector(),
             receptor_type='excitatory',
