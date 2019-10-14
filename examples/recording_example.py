@@ -1,7 +1,5 @@
 # import spynnaker8 and plotting stuff
 import spynnaker8 as p
-from pyNN.utility.plotting import Figure, Panel
-import matplotlib.pyplot as plt
 
 # import models
 from python_models8.neuron.builds.recording_neuron import RecordingNeuron
@@ -14,7 +12,7 @@ run_time = 20
 time_step = 1.0
 
 # Set the number of neurons to simulate
-n_neurons = 1
+n_neurons = 5
 
 # Set the i_offset current
 i_offset = 0.0
@@ -38,8 +36,9 @@ p.Projection(
     p.OneToOneConnector(), receptor_type='excitatory',
     synapse_type=p.StaticSynapse(weight=weight))
 
-
-recording_pop.record(['v', 'v_float', "v_double"])
+recording_pop.record(['v', 'v_double'])
+# Even here we support selective recording
+recording_pop.record(['v_float'], sampling_interval=2, indexes=[1, 3, 5])
 
 p.run(run_time)
 

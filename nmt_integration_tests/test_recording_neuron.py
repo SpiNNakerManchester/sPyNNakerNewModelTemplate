@@ -34,21 +34,40 @@ class TestRecordingNeuron(NwtTestBase):
             self.assertEqual(spikes[i][1], spike)
         self.assertEqual(spikes.shape, (len(spikes), 2))
         for spike in expected_spikes:
-            print(spike, v[spike][2], v[spike+1][2])
             self.assertTrue(v[spike][2] > v[spike+1][2])
         for i in range(len(v)):
-            print(i, v[i][2], v[i][2] * 1.1, v_float[i][2])
-            self.assertAlmostEqual(v[i][2] * 1.1, v_float[i][2], places=6)
             self.assertAlmostEqual(
                 v[i][2] * 1.000001, v_double[i][2], delta=0.000001)
+
+        self.assertEqual(len(v), len(v_float) * 4)
+        v_index = 0
+        f_index = 0
+        found = 0
+        while f_index < len(v_float):
+            # Skip v while it is the wrong neuron
+            while v[v_index][0] != v_float[f_index][0]:
+                v_index += 1
+            # Skip v while it is the wrong time
+            while v[v_index][1] != v_float[f_index][1]:
+                v_index += 1
+            self.assertAlmostEqual(
+                v[v_index][2] * 1.1, v_float[f_index][2], delta=0.000001)
+            found += 1
+            v_index += 1
+            f_index += 1
+        self.assertEqual(found, len(v_float))
+
 
     def do_run(self):
         sim.setup(timestep=1.0)
         input_pop = sim.Population(
             1, sim.SpikeSourceArray(range(0, run_time, 100)), label="input")
         test_pop = sim.Population(
-            1, RecordingNeuron(), label="my_full_neuron")
-        test_pop.record('all')
+            4, RecordingNeuron(), label="my_full_neuron")
+        test_pop.record(['spikes', 'v', 'v_double'])
+        # Even here we support selective recording
+        test_pop.record(['v_float'], sampling_interval=2,
+                             indexes=[1, 3])
         sim.Projection(
             input_pop, test_pop, sim.AllToAllConnector(),
             receptor_type='excitatory',
