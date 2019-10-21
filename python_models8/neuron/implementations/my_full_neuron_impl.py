@@ -164,7 +164,7 @@ class MyFullNeuronImpl(AbstractNeuronImpl):
         # TODO: Extract items from the data to be updated
         (exc_input, inh_input, v, _threshold) = self._struct.read_data(
             data, offset, vertex_slice.n_atoms)
-        new_offset = offset + self.struct.get_size_in_whole_words(
+        new_offset = offset + self._struct.get_size_in_whole_words(
             vertex_slice.n_atoms)
         variables = RangedDictVertexSlice(state_variables, vertex_slice)
 
