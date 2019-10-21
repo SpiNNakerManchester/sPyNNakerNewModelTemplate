@@ -19,11 +19,9 @@ typedef struct neuron_impl_t {
 static neuron_impl_t *neuron_array;
 
 static bool neuron_impl_initialise(uint32_t n_neurons) {
-
     // Allocate DTCM for neuron array
     if (sizeof(neuron_impl_t) != 0) {
-        neuron_array = (neuron_impl_t *) spin1_malloc(
-            n_neurons * sizeof(neuron_impl_t));
+        neuron_array = spin1_malloc(n_neurons * sizeof(neuron_impl_t));
         if (neuron_array == NULL) {
             log_error("Unable to allocate neuron array - Out of DTCM");
             return false;
@@ -35,24 +33,21 @@ static bool neuron_impl_initialise(uint32_t n_neurons) {
 
 static void neuron_impl_load_neuron_parameters(
         address_t address, uint32_t next, uint32_t n_neurons) {
-
     // Copy parameters to DTCM from SDRAM
     spin1_memcpy(neuron_array, &address[next],
-        n_neurons * sizeof(neuron_impl_t));
+            n_neurons * sizeof(neuron_impl_t));
 }
 
 static void neuron_impl_store_neuron_parameters(
         address_t address, uint32_t next, uint32_t n_neurons) {
-
     // Copy parameters to SDRAM from DTCM
     spin1_memcpy(&address[next], neuron_array,
-        n_neurons * sizeof(neuron_impl_t));
+            n_neurons * sizeof(neuron_impl_t));
 }
 
 static void neuron_impl_add_inputs(
         index_t synapse_type_index, index_t neuron_index,
         input_t weights_this_timestep) {
-
     // Get the neuron itself
     neuron_impl_t *neuron = &neuron_array[neuron_index];
 
@@ -63,7 +58,6 @@ static void neuron_impl_add_inputs(
 static bool neuron_impl_do_timestep_update(
         index_t neuron_index, input_t external_bias,
         state_t *recorded_variable_values) {
-
     // Get the neuron itself
     neuron_impl_t *neuron = &neuron_array[neuron_index];
 
@@ -77,7 +71,6 @@ static bool neuron_impl_do_timestep_update(
 
     // Determine if the neuron has spiked
     if (neuron->v > neuron->threshold) {
-
         // Reset if spiked
         neuron->v = 0k;
         return true;
@@ -87,22 +80,22 @@ static bool neuron_impl_do_timestep_update(
 
 #if LOG_LEVEL >= LOG_DEBUG
 void neuron_impl_print_inputs(uint32_t n_neurons) {
-	log_debug("-------------------------------------\n");
-	for (index_t i = 0; i < n_neurons; i++) {
-	    neuron_impl_t *neuron = &neuron_array[i];
-		log_debug("inputs: %k %k", neuron->inputs[0], neuron->inputs[1]);
-	}
-	log_debug("-------------------------------------\n");
+    log_debug("-------------------------------------\n");
+    for (index_t i = 0; i < n_neurons; i++) {
+        neuron_impl_t *neuron = &neuron_array[i];
+        log_debug("inputs: %k %k", neuron->inputs[0], neuron->inputs[1]);
+    }
+    log_debug("-------------------------------------\n");
 }
 
 void neuron_impl_print_synapse_parameters(uint32_t n_neurons) {
-	// there aren't any accessible in this example
-	use(n_neurons);
+    // there aren't any accessible in this example
+    use(n_neurons);
 }
 
 const char *neuron_impl_get_synapse_type_char(uint32_t synapse_type) {
-	use(synapse_type);
-	return 0;
+    use(synapse_type);
+    return 0;
 }
 #endif // LOG_LEVEL >= LOG_DEBUG
 
