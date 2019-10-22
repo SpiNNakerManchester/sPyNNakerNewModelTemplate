@@ -1,13 +1,11 @@
-from enum import Enum
-from data_specification.enums import DataType
+from spinn_utilities.overrides import overrides
 from pacman.executor.injection_decorator import inject_items
-from pacman.model.decorators.overrides import overrides
 from spynnaker.pyNN.models.neural_properties import NeuronParameter
 from spynnaker.pyNN.models.abstract_models import AbstractContainsUnits
 from spynnaker.pyNN.models.neuron.neuron_models import AbstractNeuronModel
-from spynnaker.pyNN.utilities.ranged.spynnaker_ranged_dict import (
-    SpynnakerRangeDictionary)
-
+from spynnaker.pyNN.utilities.ranged import SpynnakerRangeDictionary
+from data_specification.enums import DataType
+from enum import Enum
 
 # TODO create constants to EXACTLY match the parameter names
 I_OFFSET_NAME = "i_offset"

@@ -37,7 +37,7 @@ extern accum my_depression_parameter;
 //---------------------------------------
 // Timing dependence inline functions
 //---------------------------------------
-static inline post_trace_t timing_get_initial_post_trace() {
+static inline post_trace_t timing_get_initial_post_trace(void) {
 
     // TODO: Return the values required
     return (post_trace_t) {};
@@ -86,10 +86,10 @@ static inline update_state_t timing_apply_pre_spike(
     accum time_since_last_post = (accum) (time - last_post_time);
     if (time_since_last_post > 0) {
         int32_t decayed_o1 = (int32_t)
-            (time_since_last_post * my_depression_parameter);
+                (time_since_last_post * my_depression_parameter);
 
         log_debug("\t\t\ttime_since_last_post=%k, decayed_o1=%d\n",
-                  time_since_last_post, decayed_o1);
+                time_since_last_post, decayed_o1);
 
         // Apply depression to state (which is a weight_state)
         return weight_one_term_apply_depression(previous_state, decayed_o1);
@@ -113,11 +113,10 @@ static inline update_state_t timing_apply_post_spike(
     accum time_since_last_pre = (accum) (time - last_pre_time);
     if (time_since_last_pre > 0) {
         int32_t decayed_r1 = (int32_t)
-            (time_since_last_pre * my_potentiation_parameter);
+                (time_since_last_pre * my_potentiation_parameter);
 
-        log_debug(
-            "\t\t\ttime_since_last_pre=%k, decayed_r1=%d\n",
-            time_since_last_pre, decayed_r1);
+        log_debug("\t\t\ttime_since_last_pre=%k, decayed_r1=%d\n",
+                time_since_last_pre, decayed_r1);
 
         // Apply potentiation to state (which is a weight_state)
         return weight_one_term_apply_potentiation(previous_state, decayed_r1);
@@ -126,4 +125,4 @@ static inline update_state_t timing_apply_post_spike(
     }
 }
 
-#endif	// _MY_TIMING_H_
+#endif // _MY_TIMING_H_
