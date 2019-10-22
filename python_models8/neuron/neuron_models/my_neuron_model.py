@@ -1,4 +1,7 @@
+from spinn_front_end_common.utilities.constants import \
+    MICRO_TO_MILLISECOND_CONVERSION
 from pacman.executor.injection_decorator import inject_items
+from spinn_utilities.overrides import overrides
 from data_specification.enums import DataType
 from spynnaker.pyNN.models.neuron.neuron_models import AbstractNeuronModel
 
@@ -63,20 +66,24 @@ class MyNeuronModel(AbstractNeuronModel):
     def v(self, v):
         self._v = v
 
+    @overrides(AbstractNeuronModel.get_n_cpu_cycles)
     def get_n_cpu_cycles(self, n_neurons):
         # TODO: Calculate (or guess) the CPU cycles
         return 10 * n_neurons
 
+    @overrides(AbstractNeuronModel.add_parameters)
     def add_parameters(self, parameters):
         # TODO: Add initial values of the parameters that the user can change
         parameters[I_OFFSET] = self._i_offset
         parameters[MY_NEURON_PARAMETER] = self._my_neuron_parameter
 
+    @overrides(AbstractNeuronModel.add_state_variables)
     def add_state_variables(self, state_variables):
         # TODO: Add initial values of the state variables that the user can
         # change
         state_variables[V] = self._v
 
+    @overrides(AbstractNeuronModel.get_values)
     def get_values(self, parameters, state_variables, vertex_slice):
         # TODO: Return, in order of the struct, the values from the parameters,
         # state variables, or other
@@ -85,9 +92,12 @@ class MyNeuronModel(AbstractNeuronModel):
                 parameters[MY_NEURON_PARAMETER]]
 
     @inject_items({"machine_time_step": "MachineTimeStep"})
+    @overrides(AbstractNeuronModel.get_global_values,
+               additional_arguments={'machine_time_step'})
     def get_global_values(self, machine_time_step):
-        return [machine_time_step]
+        return [float(machine_time_step) / MICRO_TO_MILLISECOND_CONVERSION]
 
+    @overrides(AbstractNeuronModel.update_values)
     def update_values(self, values, parameters, state_variables):
         # TODO: From the list of values given in order of the struct, update
         # the parameters and state variables
@@ -97,10 +107,12 @@ class MyNeuronModel(AbstractNeuronModel):
         # assign it (hint: often only state variables are likely to change)!
         state_variables[V] = v
 
+    @overrides(AbstractNeuronModel.has_variable)
     def has_variable(self, variable):
         # This works from the UNITS dict, so no changes are required
         return variable in UNITS
 
+    @overrides(AbstractNeuronModel.get_units)
     def get_units(self, variable):
         # This works from the UNITS dict, so no changes are required
         return UNITS[variable]
