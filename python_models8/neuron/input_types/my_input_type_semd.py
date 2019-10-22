@@ -32,11 +32,11 @@ class MyInputTypeCurrentSEMD(AbstractInputType):
 
     @overrides(AbstractInputType.add_parameters)
     def add_parameters(self, parameters):
-        parameters[my_multiplicator] = self.__my_multiplicator
+        parameters[MY_MULTIPLICATOR] = self.__my_multiplicator
 
     @overrides(AbstractInputType.add_state_variables)
     def add_state_variables(self, state_variables):
-        state_variables[my_inh_input_previous] = self.__my_inh_input_previous
+        state_variables[MY_INH_INPUT_PREVIOUS] = self.__my_inh_input_previous
 
     @overrides(AbstractInputType.get_units)
     def get_units(self, variable):
@@ -50,7 +50,8 @@ class MyInputTypeCurrentSEMD(AbstractInputType):
     def get_values(self, parameters, state_variables, vertex_slice):
 
         # Add the rest of the data
-        return [parameters[my_multiplicator], state_variables[my_inh_input_previous]]
+        return [parameters[MY_MULTIPLICATOR],
+                state_variables[MY_INH_INPUT_PREVIOUS]]
 
     @overrides(AbstractInputType.update_values)
     def update_values(self, values, parameters, state_variables):
@@ -58,7 +59,7 @@ class MyInputTypeCurrentSEMD(AbstractInputType):
         # Read the data
         (_my_multiplicator, my_inh_input_previous) = values
 
-        state_variables[my_inh_input_previous] = my_inh_input_previous
+        state_variables[MY_INH_INPUT_PREVIOUS] = my_inh_input_previous
 
     @property
     def my_multiplicator(self):

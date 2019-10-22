@@ -12,7 +12,7 @@ from python_models8.neuron.plasticity.stdp.weight_dependence\
         MyWeightDependence)
 from python_models8.neuron.builds.my_model_curr_exp import MyModelCurrExp
 from python_models8.neuron.builds.my_full_neuron import MyFullNeuron
-from python_models8.neuron.builds.my_if_curr_exp_sEMD import MyIFCurrExpsEMD
+from python_models8.neuron.builds.my_if_curr_exp_sEMD import MyIFCurrExpSEMD
 from python_models8.neuron.builds.my_model_curr_exp_my_input_type import (
     MyModelCurrExpMyInputType)
 from python_models8.neuron.builds.my_model_curr_my_synapse_type import (
@@ -116,7 +116,7 @@ stdp_connection = p.Projection(
     synapse_type=stdp)
 
 my_if_curr_exp_semd_pop = p.Population(
-    n_neurons, MyIFCurrExpsEMD(
+    n_neurons, MyIFCurrExpSEMD(
         my_multiplicator=0.0, my_inh_input_previous=0.0),
     label="my_if_curr_exp_semd")
 p.Projection(
@@ -136,6 +136,7 @@ my_model_my_input_type_pop.record(['v'])
 my_model_my_synapse_type_pop.record(['v'])
 my_model_my_additional_input_pop.record(['v'])
 my_model_my_threshold_pop.record(['v'])
+my_if_curr_exp_semd_pop.record(['v'])
 my_full_neuron_pop.record(['v'])
 
 p.run(run_time)

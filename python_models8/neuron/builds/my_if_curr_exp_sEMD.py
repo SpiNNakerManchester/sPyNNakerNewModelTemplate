@@ -3,7 +3,8 @@ from spynnaker.pyNN.models.neuron.neuron_models import (
     NeuronModelLeakyIntegrateAndFire)
 from spynnaker.pyNN.models.neuron import AbstractPyNNNeuronModelStandard
 from spynnaker.pyNN.models.neuron.synapse_types import SynapseTypeExponential
-from python_models8.neuron.input_types import MyInputTypeCurrentSEMD
+from python_models8.neuron.input_types.my_input_type_semd import (
+    MyInputTypeCurrentSEMD)
 from spynnaker.pyNN.models.neuron.threshold_types import ThresholdTypeStatic
 
 
@@ -16,7 +17,7 @@ class MyIFCurrExpSEMD(AbstractPyNNNeuronModelStandard):
     """
 
     @default_initial_values({"v", "isyn_exc", "isyn_inh",
-                             "inh_input_previous"})
+                             "my_inh_input_previous"})
     def __init__(
             self, tau_m=20.0, cm=1.0, v_rest=-65.0, v_reset=-65.0,
             v_thresh=-50.0, tau_syn_E=5.0, tau_syn_I=5.0, tau_refrac=0.1,
