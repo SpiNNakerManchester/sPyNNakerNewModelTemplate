@@ -118,14 +118,14 @@ stdp_connection = p.Projection(
 my_if_curr_exp_semd_pop = p.Population(
     n_neurons, MyIFCurrExpSEMD(
         my_multiplicator=0.0, my_inh_input_previous=0.0),
-    label="my_if_curr_exp_semd")
+    label="my_if_curr_exp_semd_pop")
 p.Projection(
     input_pop, my_if_curr_exp_semd_pop,
     p.OneToOneConnector(), receptor_type='excitatory',
-    synapse_type=p.StaticSynapse(weight=weight))
+    synapse_type=p.StaticSynapse(weight=5.0))
 
 my_full_neuron_pop = p.Population(
-    n_neurons, MyFullNeuron(), label="my_full_neuron")
+    n_neurons, MyFullNeuron(), label="my_full_neuron_pop")
 p.Projection(
     input_pop, my_full_neuron_pop,
     p.OneToOneConnector(), receptor_type='excitatory',
