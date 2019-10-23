@@ -15,29 +15,32 @@
 
 import spynnaker8 as sim
 from .nwt_testbase import NwtTestBase
-from python_models8.neuron.builds.my_full_neuron import MyFullNeuron
+from python_models8.neuron.builds.my_if_curr_exp_sEMD import MyIFCurrExpSEMD
 
 # Set the run time of the execution
 run_time = 1000
 
 
-class TestMyFullNeuron(NwtTestBase):
+class TestMyIFCurrExpSEMD(NwtTestBase):
 
     def do_run(self):
         sim.setup(timestep=1.0)
         input_pop = sim.Population(
             1, sim.SpikeSourceArray(range(0, run_time, 100)), label="input")
         test_pop = sim.Population(
-            1, MyFullNeuron(), label="my_full_neuron")
+            1, MyIFCurrExpSEMD(my_multiplicator=0.0,
+                               my_inh_input_previous=0.0),
+            label="my_if_curr_exp_semd_pop")
         test_pop.record(['spikes', 'v'])
         sim.Projection(
             input_pop, test_pop, sim.AllToAllConnector(),
             receptor_type='excitatory',
-            synapse_type=sim.StaticSynapse(weight=2.0))
+            synapse_type=sim.StaticSynapse(weight=5.0))
         sim.run(run_time)
         neo = test_pop.get_data('all')
         sim.end()
-        self.check_results(neo, [501])
+        self.check_results(neo, [7, 107, 207, 307, 407,
+                                 507, 607, 707, 807, 907])
 
     def test_do_run(self):
         self.runsafe(self.do_run)
