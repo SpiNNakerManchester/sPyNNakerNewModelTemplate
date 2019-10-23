@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import spynnaker8 as sim
+import spynnaker as sim
 from .nwt_testbase import NwtTestBase
 from python_models8.neuron.builds.my_model_curr_exp_my_threshold import (
     MyModelCurrExpMyThreshold)
