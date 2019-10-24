@@ -21,7 +21,7 @@ from python_models8.neuron.builds.my_model_curr_exp import MyModelCurrExp
 run_time = 1000
 
 
-class NwtTestbase(NwtTestBase):
+class TestMyModelCurrExp(NwtTestBase):
 
     def do_run(self):
         sim.setup(timestep=1.0)

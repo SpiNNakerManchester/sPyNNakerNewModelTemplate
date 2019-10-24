@@ -21,7 +21,7 @@ from python_models8.neuron.builds.my_full_neuron import MyFullNeuron
 run_time = 1000
 
 
-class NwtTestbase(NwtTestBase):
+class TestMyFullNeuron(NwtTestBase):
 
     def do_run(self):
         sim.setup(timestep=1.0)
