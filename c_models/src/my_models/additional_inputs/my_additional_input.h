@@ -4,11 +4,8 @@
 #include <neuron/additional_inputs/additional_input.h>
 
 typedef struct additional_input_t {
-
     REAL my_parameter;
-
     REAL input_current;
-
 } additional_input_t;
 
 //! \brief Gets the value of current provided by the additional input this

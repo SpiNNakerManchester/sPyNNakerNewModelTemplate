@@ -10,4 +10,6 @@ reports/
 /sPyNNaker8NewModelTemplate.egg-info/
 __pycache__
 .pytest_cache
-/.settings
+.settings/
+.cproject
+Debug/

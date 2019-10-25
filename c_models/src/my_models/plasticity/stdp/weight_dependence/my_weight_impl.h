@@ -86,22 +86,21 @@ static inline weight_t weight_get_final(weight_state_t new_state) {
     // than one for each potentiation or depression if possible
 
     int32_t potentiation =
-        new_state.potentiation * new_state.weight_region->my_parameter;
+            new_state.potentiation * new_state.weight_region->my_parameter;
     int32_t depression =
-        new_state.depression * new_state.weight_region->my_parameter;
+            new_state.depression * new_state.weight_region->my_parameter;
 
     int32_t new_weight = new_state.initial_weight + potentiation - depression;
 
     // Clamp new weight
     new_weight = MIN(
-        new_state.weight_region->max_weight,
-        MAX(new_weight, new_state.weight_region->min_weight));
+            new_state.weight_region->max_weight,
+            MAX(new_weight, new_state.weight_region->min_weight));
 
-    log_debug(
-        "old_weight:%u, potentiation:%d, depression:%d, "
-        "scaled potentiation:%d, scaled depression:%d, "
-        "new_weight:%d", new_state.initial_weight, new_state.potentiation,
-        new_state.depression, potentiation, depression, new_weight);
+    log_debug("old_weight:%u, potentiation:%d, depression:%d, "
+            "scaled potentiation:%d, scaled depression:%d, new_weight:%d",
+            new_state.initial_weight, new_state.potentiation,
+            new_state.depression, potentiation, depression, new_weight);
 
     return (weight_t) new_weight;
 }
