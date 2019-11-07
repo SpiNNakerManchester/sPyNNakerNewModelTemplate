@@ -15,8 +15,8 @@
 
 import spynnaker8 as sim
 from .nwt_testbase import NwtTestBase
-from python_models8.neuron.builds.my_model_curr_exp_my_threshold import (
-    MyModelCurrExpMyThreshold)
+from python_models8.neuron.builds.my_model_curr_exp_my_additional_input \
+    import MyModelCurrExpMyAdditionalInput
 
 # Set the number of neurons to simulate
 n_neurons = 1
@@ -25,18 +25,17 @@ n_neurons = 1
 run_time = 1000
 
 
-class TestMyModelCurrExpMyThreshold(NwtTestBase):
+class TestMyModelCurrExpMyAdditionalInput(NwtTestBase):
 
     def do_run(self):
         sim.setup(timestep=1.0)
         input_pop = sim.Population(
             1, sim.SpikeSourceArray(range(0, run_time, 100)), label="input")
         test_pop = sim.Population(
-            1, MyModelCurrExpMyThreshold(
+            1, MyModelCurrExpMyAdditionalInput(
                 my_neuron_parameter=-70.0, i_offset=0.0,
-                threshold_value=-10.0,
-                my_threshold_parameter=0.4),
-            label="my_model_my_threshold_pop")
+                my_additional_input_parameter=0.05),
+            label="my_model_my_additional_input_pop")
         test_pop.record(['spikes', 'v'])
         sim.Projection(
             input_pop, test_pop, sim.AllToAllConnector(),
@@ -46,7 +45,10 @@ class TestMyModelCurrExpMyThreshold(NwtTestBase):
         neo = test_pop.get_data('all')
         sim.end()
         self.check_results(
-            neo, [404, 901])
+            neo, [19, 47, 75, 102, 125, 153, 181, 205, 231, 259, 287, 309,
+                  336, 364, 392, 413, 441, 469, 497, 517, 545, 573, 601, 623,
+                  651, 679, 704, 729, 757, 785, 807, 834, 862, 890, 911, 939,
+                  967, 995])
 
     def test_do_run(self):
         self.runsafe(self.do_run)

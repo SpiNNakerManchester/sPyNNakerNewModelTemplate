@@ -4,17 +4,13 @@
 #include <neuron/threshold_types/threshold_type.h>
 
 typedef struct threshold_type_t {
-
     // TODO: Add any additional parameters here
-
     REAL threshold_value;
-
     REAL my_param;
-
 } threshold_type_t;
 
 static inline bool threshold_type_is_above_threshold(state_t value,
-                        threshold_type_pointer_t threshold_type) {
+        threshold_type_pointer_t threshold_type) {
 
     // TODO: Perform the appropriate operations
     REAL test_value = value * threshold_type->my_param;

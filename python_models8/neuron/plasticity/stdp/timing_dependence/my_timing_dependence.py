@@ -1,5 +1,6 @@
 from spinn_utilities.overrides import overrides
 from data_specification.enums import DataType
+from spinn_front_end_common.utilities.constants import BYTES_PER_WORD
 from spynnaker.pyNN.models.neuron.plasticity.stdp.timing_dependence import (
     AbstractTimingDependence)
 from spynnaker.pyNN.models.neuron.plasticity.stdp.synapse_structure import (
@@ -13,6 +14,8 @@ class MyTimingDependence(AbstractTimingDependence):
         "_my_depression_parameter",
         "_my_potentiation_parameter",
         "_synapse_structure"]
+
+    NUM_PARAMETERS = 2
 
     # noinspection PyPep8Naming
     def __init__(
@@ -87,7 +90,7 @@ class MyTimingDependence(AbstractTimingDependence):
     @overrides(AbstractTimingDependence.get_parameters_sdram_usage_in_bytes)
     def get_parameters_sdram_usage_in_bytes(self):
         # TODO: update to match the number of bytes used by the parameters
-        return 8
+        return self.NUM_PARAMETERS * BYTES_PER_WORD
 
     @property
     def n_weight_terms(self):

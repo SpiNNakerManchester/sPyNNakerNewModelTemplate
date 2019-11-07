@@ -12,6 +12,7 @@ from python_models8.neuron.plasticity.stdp.weight_dependence\
         MyWeightDependence)
 from python_models8.neuron.builds.my_model_curr_exp import MyModelCurrExp
 from python_models8.neuron.builds.my_full_neuron import MyFullNeuron
+from python_models8.neuron.builds.my_if_curr_exp_sEMD import MyIFCurrExpSEMD
 from python_models8.neuron.builds.my_model_curr_exp_my_input_type import (
     MyModelCurrExpMyInputType)
 from python_models8.neuron.builds.my_model_curr_my_synapse_type import (
@@ -114,8 +115,17 @@ stdp_connection = p.Projection(
     p.OneToOneConnector(),
     synapse_type=stdp)
 
+my_if_curr_exp_semd_pop = p.Population(
+    n_neurons, MyIFCurrExpSEMD(
+        my_multiplicator=0.0, my_inh_input_previous=0.0),
+    label="my_if_curr_exp_semd_pop")
+p.Projection(
+    input_pop, my_if_curr_exp_semd_pop,
+    p.OneToOneConnector(), receptor_type='excitatory',
+    synapse_type=p.StaticSynapse(weight=5.0))
+
 my_full_neuron_pop = p.Population(
-    n_neurons, MyFullNeuron(), label="my_full_neuron")
+    n_neurons, MyFullNeuron(), label="my_full_neuron_pop")
 p.Projection(
     input_pop, my_full_neuron_pop,
     p.OneToOneConnector(), receptor_type='excitatory',
@@ -126,6 +136,7 @@ my_model_my_input_type_pop.record(['v'])
 my_model_my_synapse_type_pop.record(['v'])
 my_model_my_additional_input_pop.record(['v'])
 my_model_my_threshold_pop.record(['v'])
+my_if_curr_exp_semd_pop.record(['v'])
 my_full_neuron_pop.record(['v'])
 
 p.run(run_time)
@@ -139,6 +150,7 @@ v_my_model_my_synapse_type_pop = my_model_my_synapse_type_pop.get_data('v')
 v_my_model_my_additional_input_pop = my_model_my_additional_input_pop.get_data(
     'v')
 v_my_model_my_threshold_pop = my_model_my_threshold_pop.get_data('v')
+v_my_if_curr_exp_semd_pop = my_if_curr_exp_semd_pop.get_data('v')
 v_my_full_neuron_pop = my_full_neuron_pop.get_data('v')
 
 Figure(
@@ -161,6 +173,10 @@ Figure(
     Panel(v_my_model_my_threshold_pop.segments[0].filter(name='v')[0],
           ylabel="Membrane potential (mV)",
           data_labels=[my_model_my_threshold_pop.label],
+          yticks=True, xlim=(0, run_time)),
+    Panel(v_my_if_curr_exp_semd_pop.segments[0].filter(name='v')[0],
+          ylabel="Membrane potential (mV)",
+          data_labels=[my_if_curr_exp_semd_pop.label],
           yticks=True, xlim=(0, run_time)),
     Panel(v_my_full_neuron_pop.segments[0].filter(name='v')[0],
           xlabel="Time (ms)",

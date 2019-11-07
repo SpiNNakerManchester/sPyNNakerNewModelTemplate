@@ -27,7 +27,7 @@ from python_models8.neuron.plasticity.stdp.weight_dependence\
 run_time = 1000
 
 
-class NwtTestbase(NwtTestBase):
+class TestMyModelCurrExpSTDP(NwtTestBase):
 
     def do_run(self):
         sim.setup(timestep=1.0)

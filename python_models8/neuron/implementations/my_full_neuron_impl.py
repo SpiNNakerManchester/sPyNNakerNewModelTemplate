@@ -1,7 +1,8 @@
 from spynnaker.pyNN.models.neuron.implementations.struct import Struct
 from data_specification.enums.data_type import DataType
-from spynnaker.pyNN.models.neuron.implementations \
-    import AbstractNeuronImpl, RangedDictVertexSlice
+from spinn_front_end_common.utilities.constants import BYTES_PER_WORD
+from spynnaker.pyNN.models.neuron.implementations import (
+    AbstractNeuronImpl, RangedDictVertexSlice)
 
 # TODO: Add names for parameters and state variables
 THRESHOLD = "threshold"
@@ -95,11 +96,11 @@ class MyFullNeuronImpl(AbstractNeuronImpl):
 
     def get_dtcm_usage_in_bytes(self, n_neurons):
         # This is extracted from the struct, so no need to update
-        return self._struct.get_size_in_whole_words(n_neurons) * 4
+        return self._struct.get_size_in_whole_words(n_neurons) * BYTES_PER_WORD
 
     def get_sdram_usage_in_bytes(self, n_neurons):
         # This is extracted from the struct, so no need to update
-        return self._struct.get_size_in_whole_words(n_neurons) * 4
+        return self._struct.get_size_in_whole_words(n_neurons) * BYTES_PER_WORD
 
     def get_global_weight_scale(self):
         # TODO: Update if a weight scale is required
@@ -170,7 +171,7 @@ class MyFullNeuronImpl(AbstractNeuronImpl):
         # TODO: Extract items from the data to be updated
         (exc_input, inh_input, v, _threshold) = self._struct.read_data(
             data, offset, vertex_slice.n_atoms)
-        new_offset = offset + self.struct.get_size_in_whole_words(
+        new_offset = offset + self._struct.get_size_in_whole_words(
             vertex_slice.n_atoms)
         variables = RangedDictVertexSlice(state_variables, vertex_slice)
 

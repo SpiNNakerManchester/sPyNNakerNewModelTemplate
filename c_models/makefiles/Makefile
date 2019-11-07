@@ -6,6 +6,8 @@ MODELS = my_model_curr_exp \
     my_model_curr_exp_stdp_mad_my_timing_my_weight \
     my_full_neuron_impl \
     recording_neuron_impl
+    my_if_curr_exp_sEMD \
+    my_full_neuron_impl
 
 all:
 	for d in $(MODELS); do $(MAKE) -C $$d || exit $$?; done
