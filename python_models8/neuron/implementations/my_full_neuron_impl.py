@@ -130,6 +130,10 @@ class MyFullNeuronImpl(AbstractNeuronImpl):
         # TODO: Update with the names of state variables that can be recorded
         return ["v"]
 
+    def get_recordable_data_types(self):
+        # TODO: Update with the names and recorded types of the state variables
+        return {"v": DataType.S1615}
+
     def get_recordable_units(self, variable):
         # TODO: Update with the appropriate units for variables
         if variable != "v":
