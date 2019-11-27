@@ -20,15 +20,9 @@ UNITS = {
 
 
 class MyFullNeuronImpl(AbstractNeuronImpl):
-    _MATRIX_RECORDABLE_SCALAR_TYPES = {
-        "v": DataType.S1615,
-    }
-
-    _MATRIX_RECORDABLE_OUTPUT_TYPES = {
-        "v": DataType.INT32,
-    }
 
     def __init__(self,
+
                  # TODO: add model parameters and state variables
                  threshold, v, exc_input, inh_input):
 
@@ -193,12 +187,3 @@ class MyFullNeuronImpl(AbstractNeuronImpl):
     def is_conductance_based(self):
         # TODO: Update if uses conductance
         return False
-
-    def get_matrix_scalar_data_types(self):
-        # TODO add extra recordings scale changes. (what data type its coming
-        # TODO out as)
-        return self._MATRIX_RECORDABLE_SCALAR_TYPES
-
-    def get_matrix_output_data_types(self):
-        # TODO add extra recordings state stored in c code
-        return self._MATRIX_RECORDABLE_OUTPUT_TYPES
