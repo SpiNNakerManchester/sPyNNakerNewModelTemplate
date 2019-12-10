@@ -5,6 +5,7 @@
 // way without the use of components for additional input / input / threshold
 
 #include <neuron/implementations/neuron_impl.h>
+#include <neuron/neuron_recording.h>
 #include <spin1_api.h>
 #include <debug.h>
 
@@ -56,13 +57,12 @@ static void neuron_impl_add_inputs(
 }
 
 static bool neuron_impl_do_timestep_update(
-        index_t neuron_index, input_t external_bias,
-        state_t *recorded_variable_values) {
+        index_t neuron_index, input_t external_bias) {
     // Get the neuron itself
     neuron_impl_t *neuron = &neuron_array[neuron_index];
 
     // Store the recorded membrane voltage
-    recorded_variable_values[0] = neuron->v;
+    neuron_recording_record_accum(0, neuron_index, neuron->v);
 
     // Do something to update the state
     neuron->v += external_bias + neuron->inputs[0] - neuron->inputs[1];
