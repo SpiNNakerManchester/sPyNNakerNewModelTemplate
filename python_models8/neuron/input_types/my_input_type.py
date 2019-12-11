@@ -1,3 +1,4 @@
+from spinn_utilities.overrides import overrides
 from spynnaker.pyNN.models.neuron.input_types import AbstractInputType
 from data_specification.enums.data_type import DataType
 
@@ -49,28 +50,34 @@ class MyInputType(AbstractInputType):
     def my_input_parameter(self, my_input_parameter):
         self._my_input_parameter = my_input_parameter
 
+    @overrides(AbstractInputType.get_global_weight_scale)
     def get_global_weight_scale(self):
         return 1.0
 
+    @overrides(AbstractInputType.get_n_cpu_cycles)
     def get_n_cpu_cycles(self, n_neurons):
         # TODO: Calculate (or guess) the CPU cycles
         return 10 * n_neurons
 
+    @overrides(AbstractInputType.add_parameters)
     def add_parameters(self, parameters):
         # TODO: Add initial values of the parameters that the user can change
         parameters[MY_INPUT_PARAMETER] = self._my_input_parameter
 
+    @overrides(AbstractInputType.add_state_variables)
     def add_state_variables(self, state_variables):
         # TODO: Add initial values of the state variables that the user can
         # change
         state_variables[MY_MULTIPLICATOR] = self._my_multiplicator
 
+    @overrides(AbstractInputType.get_values)
     def get_values(self, parameters, state_variables, vertex_slice):
         # TODO: Return, in order of the struct, the values from the parameters,
         # state variables, or other
         return [state_variables[MY_MULTIPLICATOR],
                 parameters[MY_INPUT_PARAMETER]]
 
+    @overrides(AbstractInputType.update_values)
     def update_values(self, values, parameters, state_variables):
         # TODO: From the list of values given in order of the struct, update
         # the parameters and state variables
@@ -80,10 +87,12 @@ class MyInputType(AbstractInputType):
         # assign it (hint: often only state variables are likely to change)!
         state_variables[MY_MULTIPLICATOR] = my_multiplicator
 
+    @overrides(AbstractInputType.has_variable)
     def has_variable(self, variable):
         # This works from the UNITS dict, so no changes are required
         return variable in UNITS
 
+    @overrides(AbstractInputType.get_units)
     def get_units(self, variable):
         # This works from the UNITS dict, so no changes are required
         return UNITS[variable]

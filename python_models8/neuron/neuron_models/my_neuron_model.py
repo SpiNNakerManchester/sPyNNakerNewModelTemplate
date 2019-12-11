@@ -83,8 +83,9 @@ class MyNeuronModel(AbstractNeuronModel):
         # change
         state_variables[V] = self._v
 
+    @overrides(AbstractNeuronModel.get_values)
     def get_values(
-            self, parameters, state_variables, vertex_slice, timestamp_in_us):
+            self, parameters, state_variables, vertex_slice):
         # TODO: Return, in order of the struct, the values from the parameters,
         # state variables, or other
         return [state_variables[V],

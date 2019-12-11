@@ -1,3 +1,4 @@
+from spinn_utilities.overrides import overrides
 from spynnaker.pyNN.models.neuron.implementations.struct import Struct
 from data_specification.enums.data_type import DataType
 from spinn_front_end_common.utilities.constants import BYTES_PER_WORD
@@ -75,36 +76,44 @@ class MyFullNeuronImpl(AbstractNeuronImpl):
         self._inh_input = inh_input
 
     @property
+    @overrides(AbstractNeuronImpl.model_name)
     def model_name(self):
         # TODO: Update the name
         return "MyFullNeuronImpl"
 
     @property
+    @overrides(AbstractNeuronImpl.binary_name)
     def binary_name(self):
         # TODO: Update the binary name
         return "my_full_neuron_impl.aplx"
 
+    @overrides(AbstractNeuronImpl.get_n_cpu_cycles)
     def get_n_cpu_cycles(self, n_neurons):
         # TODO: Update (or guess) the number of CPU cycles
         return 10 * n_neurons
 
+    @overrides(AbstractNeuronImpl.get_dtcm_usage_in_bytes)
     def get_dtcm_usage_in_bytes(self, n_neurons):
         # This is extracted from the struct, so no need to update
         return self._struct.get_size_in_whole_words(n_neurons) * BYTES_PER_WORD
 
+    @overrides(AbstractNeuronImpl.get_sdram_usage_in_bytes)
     def get_sdram_usage_in_bytes(self, n_neurons):
         # This is extracted from the struct, so no need to update
         return self._struct.get_size_in_whole_words(n_neurons) * BYTES_PER_WORD
 
+    @overrides(AbstractNeuronImpl.get_global_weight_scale)
     def get_global_weight_scale(self):
         # TODO: Update if a weight scale is required
         return 1.0
 
+    @overrides(AbstractNeuronImpl.get_n_synapse_types)
     def get_n_synapse_types(self):
         # TODO: Update to the number of synapse types your model uses
         # (this is the inputs array in this model)
         return 2
 
+    @overrides(AbstractNeuronImpl.get_synapse_id_by_target)
     def get_synapse_id_by_target(self, target):
         # TODO: Update with the names that are allowed on a PyNN synapse
         # receptor_type and match up with indices
@@ -114,22 +123,26 @@ class MyFullNeuronImpl(AbstractNeuronImpl):
             return 1
         raise ValueError("Unknown target {}".format(target))
 
+    @overrides(AbstractNeuronImpl.get_synapse_targets)
     def get_synapse_targets(self):
 
         # TODO: Update with the names that are allowed on a PyNN synapse
         # receptor_type
         return ["excitatory", "inhibitory"]
 
+    @overrides(AbstractNeuronImpl.get_recordable_variables)
     def get_recordable_variables(self):
         # TODO: Update with the names of state variables that can be recorded
         return ["v"]
 
+    @overrides(AbstractNeuronImpl.get_recordable_units)
     def get_recordable_units(self, variable):
         # TODO: Update with the appropriate units for variables
         if variable != "v":
             raise ValueError("Unknown variable {}".format(variable))
         return "mV"
 
+    @overrides(AbstractNeuronImpl.get_recordable_variable_index)
     def get_recordable_variable_index(self, variable):
         # TODO: Update with the index in the recorded_variable_values array
         # that the given variable will be recorded in to
@@ -137,20 +150,24 @@ class MyFullNeuronImpl(AbstractNeuronImpl):
             raise ValueError("Unknown variable {}".format(variable))
         return 0
 
+    @overrides(AbstractNeuronImpl.is_recordable)
     def is_recordable(self, variable):
         # TODO: Update to identify variables that can be recorded
         return variable == "v"
 
+    @overrides(AbstractNeuronImpl.add_parameters)
     def add_parameters(self, parameters):
         # TODO: Write the parameter values
         parameters[THRESHOLD] = self._threshold
 
+    @overrides(AbstractNeuronImpl.add_state_variables)
     def add_state_variables(self, state_variables):
         # TODO: Write the state variable values
         state_variables[V] = self._v
         state_variables[EXC_INPUT] = self._exc_input
         state_variables[INH_INPUT] = self._inh_input
 
+    @overrides(AbstractNeuronImpl.get_data)
     def get_data(self, parameters, state_variables, vertex_slice):
         # TODO: get the data in the appropriate form to match the struct
         values = [state_variables[EXC_INPUT],
@@ -160,6 +177,7 @@ class MyFullNeuronImpl(AbstractNeuronImpl):
         return self._struct.get_data(
             values, vertex_slice.lo_atom, vertex_slice.n_atoms)
 
+    @overrides(AbstractNeuronImpl.read_data)
     def read_data(
             self, data, offset, vertex_slice, parameters, state_variables):
         # TODO: Extract items from the data to be updated
@@ -175,11 +193,13 @@ class MyFullNeuronImpl(AbstractNeuronImpl):
 
         return new_offset
 
+    @overrides(AbstractNeuronImpl.get_units)
     def get_units(self, variable):
         # This uses the UNITS dict so shouldn't need to be updated
         return UNITS[variable]
 
     @property
+    @overrides(AbstractNeuronImpl.is_conductance_based)
     def is_conductance_based(self):
         # TODO: Update if uses conductance
         return False

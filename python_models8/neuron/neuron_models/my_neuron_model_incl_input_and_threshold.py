@@ -77,6 +77,7 @@ class MyNeuronModelInclInputAndThreshold(AbstractNeuronModel,
         self._data[V_INIT_NAME] = v_init
 
     # Need to define this function here for this model!
+    # TODO Why is AbstractNeuronImpl method required here?
     def get_global_weight_scale(self):
         return 1.0
 

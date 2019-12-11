@@ -46,8 +46,9 @@ class MyInputTypeCurrentSEMD(AbstractInputType):
     def has_variable(self, variable):
         return variable in UNITS
 
+    @overrides(AbstractInputType.get_values)
     def get_values(
-            self, parameters, state_variables, vertex_slice, timestamp_in_us):
+            self, parameters, state_variables, vertex_slice):
 
         # Add the rest of the data
         return [parameters[MY_MULTIPLICATOR],
@@ -77,5 +78,6 @@ class MyInputTypeCurrentSEMD(AbstractInputType):
     def my_inh_input_previous(self, my_inh_input_previous):
         self.__my_inh_input_previous = my_inh_input_previous
 
+    @overrides(AbstractInputType.get_global_weight_scale)
     def get_global_weight_scale(self):
         return 1.0
