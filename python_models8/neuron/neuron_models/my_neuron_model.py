@@ -91,11 +91,9 @@ class MyNeuronModel(AbstractNeuronModel):
                 parameters[I_OFFSET],
                 parameters[MY_NEURON_PARAMETER]]
 
-    @inject_items({"machine_time_step": "MachineTimeStep"})
-    @overrides(AbstractNeuronModel.get_global_values,
-               additional_arguments={'machine_time_step'})
-    def get_global_values(self, machine_time_step):
-        return [float(machine_time_step) / MICRO_TO_MILLISECOND_CONVERSION]
+    @overrides(AbstractNeuronModel.get_global_values)
+    def get_global_values(self, timestamp_in_us):
+        return [float(timestamp_in_us) / MICRO_TO_MILLISECOND_CONVERSION]
 
     @overrides(AbstractNeuronModel.update_values)
     def update_values(self, values, parameters, state_variables):
