@@ -116,7 +116,7 @@ class MySynapseType(AbstractSynapseType):
         state_variables[INH_INIT] = self._my_inh_init
 
     @inject_items({"ts": "MachineTimeStep"})
-    @overrides(AbstractSynapseType.get_values)
+    @overrides(AbstractSynapseType.get_values, additional_arguments="ts")
     def get_values(self, parameters, state_variables, vertex_slice, ts):
         # TODO: Return, in order of the struct, the values from the parameters,
         # state variables, or other
