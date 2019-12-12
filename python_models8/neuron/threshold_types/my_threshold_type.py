@@ -71,7 +71,8 @@ class MyThresholdType(AbstractThresholdType):
         pass
 
     @overrides(AbstractThresholdType.get_values)
-    def get_values(self, parameters, state_variables, vertex_slice):
+    def get_values(
+            self, parameters, state_variables, vertex_slice, timestamp_in_us):
         # TODO: Return, in order of the struct, the values from the parameters,
         # state variables, or other
         return [parameters[THRESHOLD_VALUE],

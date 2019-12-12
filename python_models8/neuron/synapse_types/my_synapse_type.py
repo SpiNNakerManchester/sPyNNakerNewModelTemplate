@@ -115,12 +115,12 @@ class MySynapseType(AbstractSynapseType):
         state_variables[EXC_INIT] = self._my_exc_init
         state_variables[INH_INIT] = self._my_inh_init
 
-    @inject_items({"ts": "MachineTimeStep"})
-    @overrides(AbstractSynapseType.get_values, additional_arguments="ts")
-    def get_values(self, parameters, state_variables, vertex_slice, ts):
+    @overrides(AbstractSynapseType.get_values)
+    def get_values(
+            self, parameters, state_variables, vertex_slice, timestamp_in_us):
         # TODO: Return, in order of the struct, the values from the parameters,
         # state variables, or other
-        tsfloat = float(ts) / 1000.0
+        tsfloat = float(timestamp_in_us) / 1000.0
         decay = lambda x: numpy.exp(-tsfloat / x)  # noqa E731
         init = lambda x: (x / tsfloat) * (1.0 - numpy.exp(-tsfloat / x))  # noqa E731
         return [parameters[EX_SYNAPSE].apply_operation(decay),

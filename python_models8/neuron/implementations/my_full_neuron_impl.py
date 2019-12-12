@@ -168,7 +168,8 @@ class MyFullNeuronImpl(AbstractNeuronImpl):
         state_variables[INH_INPUT] = self._inh_input
 
     @overrides(AbstractNeuronImpl.get_data)
-    def get_data(self, parameters, state_variables, vertex_slice):
+    def get_data(
+            self, parameters, state_variables, vertex_slice, timestamp_in_us):
         # TODO: get the data in the appropriate form to match the struct
         values = [state_variables[EXC_INPUT],
                   state_variables[INH_INPUT],

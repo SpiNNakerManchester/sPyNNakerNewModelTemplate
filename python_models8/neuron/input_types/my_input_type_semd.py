@@ -48,7 +48,7 @@ class MyInputTypeCurrentSEMD(AbstractInputType):
 
     @overrides(AbstractInputType.get_values)
     def get_values(
-            self, parameters, state_variables, vertex_slice):
+            self, parameters, state_variables, vertex_slice, timestamp_in_us):
 
         # Add the rest of the data
         return [parameters[MY_MULTIPLICATOR],
