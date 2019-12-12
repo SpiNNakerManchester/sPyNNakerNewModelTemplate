@@ -66,11 +66,6 @@ class MyNeuronModel(AbstractNeuronModel):
     def v(self, v):
         self._v = v
 
-    @overrides(AbstractNeuronModel.get_n_cpu_cycles)
-    def get_n_cpu_cycles(self, n_neurons):
-        # TODO: Calculate (or guess) the CPU cycles
-        return 10 * n_neurons
-
     @overrides(AbstractNeuronModel.add_parameters)
     def add_parameters(self, parameters):
         # TODO: Add initial values of the parameters that the user can change
@@ -84,17 +79,23 @@ class MyNeuronModel(AbstractNeuronModel):
         state_variables[V] = self._v
 
     @overrides(AbstractNeuronModel.get_values)
-    def get_values(
-            self, parameters, state_variables, vertex_slice):
+    def get_values(self, parameters, state_variables, vertex_slice):
         # TODO: Return, in order of the struct, the values from the parameters,
         # state variables, or other
         return [state_variables[V],
                 parameters[I_OFFSET],
                 parameters[MY_NEURON_PARAMETER]]
 
-    @overrides(AbstractNeuronModel.get_global_values)
-    def get_global_values(self, timestamp_in_us):
-        return [float(timestamp_in_us) / MICRO_TO_MILLISECOND_CONVERSION]
+    @overrides(AbstractNeuronModel.get_n_cpu_cycles)
+    def get_n_cpu_cycles(self, n_neurons):
+        # TODO: Calculate (or guess) the CPU cycles
+        return 10 * n_neurons
+
+    @inject_items({"machine_time_step": "MachineTimeStep"})
+    @overrides(AbstractNeuronModel.get_global_values,
+               additional_arguments={'machine_time_step'})
+    def get_global_values(self, machine_time_step):
+        return [float(machine_time_step) / MICRO_TO_MILLISECOND_CONVERSION]
 
     @overrides(AbstractNeuronModel.update_values)
     def update_values(self, values, parameters, state_variables):
