@@ -97,15 +97,18 @@ class MySynapseType(AbstractSynapseType):
         # TODO: update to return the same names as above
         return "excitatory", "inhibitory"
 
+    @overrides(AbstractSynapseType.get_n_cpu_cycles)
     def get_n_cpu_cycles(self, n_neurons):
         # TODO: Calculate (or guess) the CPU cycles
         return 10 * n_neurons
 
+    @overrides(AbstractSynapseType.add_parameters)
     def add_parameters(self, parameters):
         # TODO: Add initial values of the parameters that the user can change
         parameters[EX_SYNAPSE] = self._my_ex_synapse_parameter
         parameters[IN_SYNAPSE] = self._my_in_synapse_parameter
 
+    @overrides(AbstractSynapseType.add_state_variables)
     def add_state_variables(self, state_variables):
         # TODO: Add initial values of the state variables that the user can
         # change
@@ -113,6 +116,7 @@ class MySynapseType(AbstractSynapseType):
         state_variables[INH_INIT] = self._my_inh_init
 
     @inject_items({"ts": "MachineTimeStep"})
+    @overrides(AbstractSynapseType.get_values)
     def get_values(self, parameters, state_variables, vertex_slice, ts):
         # TODO: Return, in order of the struct, the values from the parameters,
         # state variables, or other
@@ -125,6 +129,7 @@ class MySynapseType(AbstractSynapseType):
                 parameters[IN_SYNAPSE].apply_operation(init),
                 state_variables[EXC_INIT], state_variables[INH_INIT]]
 
+    @overrides(AbstractSynapseType.update_values)
     def update_values(self, values, parameters, state_variables):
         # TODO: From the list of values given in order of the struct, update
         # the parameters and state variables
@@ -135,10 +140,12 @@ class MySynapseType(AbstractSynapseType):
         state_variables[EXC_INIT] = exc_init
         state_variables[INH_INIT] = inh_init
 
+    @overrides(AbstractSynapseType.has_variable)
     def has_variable(self, variable):
         # This works from the UNITS dict, so no changes are required
         return variable in UNITS
 
+    @overrides(AbstractSynapseType.get_units)
     def get_units(self, variable):
         # This works from the UNITS dict, so no changes are required
         return UNITS[variable]

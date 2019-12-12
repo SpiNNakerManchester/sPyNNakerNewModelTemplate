@@ -1,3 +1,4 @@
+from spinn_utilities.overrides import overrides
 from data_specification.enums import DataType
 from spynnaker.pyNN.models.neuron.threshold_types import AbstractThresholdType
 
@@ -52,26 +53,31 @@ class MyThresholdType(AbstractThresholdType):
     def my_threshold_parameter(self, my_threshold_parameter):
         self._my_threshold_parameter = my_threshold_parameter
 
+    @overrides(AbstractThresholdType.get_n_cpu_cycles)
     def get_n_cpu_cycles(self, n_neurons):
         # TODO: Calculate (or guess) the CPU cycles
         return 10 * n_neurons
 
+    @overrides(AbstractThresholdType.add_parameters)
     def add_parameters(self, parameters):
         # TODO: Add initial values of the parameters that the user can change
         parameters[THRESHOLD_PARAM] = self._my_threshold_parameter
         parameters[THRESHOLD_VALUE] = self._threshold_value
 
+    @overrides(AbstractThresholdType.add_state_variables)
     def add_state_variables(self, state_variables):
         # TODO: Add initial values of the state variables that the user can
         # change
         pass
 
+    @overrides(AbstractThresholdType.get_values)
     def get_values(self, parameters, state_variables, vertex_slice):
         # TODO: Return, in order of the struct, the values from the parameters,
         # state variables, or other
         return [parameters[THRESHOLD_VALUE],
                 parameters[THRESHOLD_PARAM]]
 
+    @overrides(AbstractThresholdType.update_values)
     def update_values(self, values, parameters, state_variables):
         # TODO: From the list of values given in order of the struct, update
         # the parameters and state variables
@@ -80,10 +86,12 @@ class MyThresholdType(AbstractThresholdType):
         # NOTE: If you know that the value doesn't change, you don't have to
         # assign it (hint: often only state variables are likely to change)!
 
+    @overrides(AbstractThresholdType.has_variable)
     def has_variable(self, variable):
         # This works from the UNITS dict, so no changes are required
         return variable in UNITS
 
+    @overrides(AbstractThresholdType.get_units)
     def get_units(self, variable):
         # This works from the UNITS dict, so no changes are required
         return UNITS[variable]

@@ -70,6 +70,7 @@ class MyTimingDependence(AbstractTimingDependence):
                 timing_dependence.my_depression_parameter))
 
     @property
+    @overrides(AbstractTimingDependence.vertex_executable_suffix)
     def vertex_executable_suffix(self):
         """ The suffix to be appended to the vertex executable for this rule
         """
@@ -80,6 +81,7 @@ class MyTimingDependence(AbstractTimingDependence):
         return "my_timing"
 
     @property
+    @overrides(AbstractTimingDependence.pre_trace_n_bytes)
     def pre_trace_n_bytes(self):
         """ The number of bytes used by the pre-trace of the rule per neuron
         """
@@ -93,6 +95,7 @@ class MyTimingDependence(AbstractTimingDependence):
         return self.NUM_PARAMETERS * BYTES_PER_WORD
 
     @property
+    @overrides(AbstractTimingDependence.n_weight_terms)
     def n_weight_terms(self):
         """ The number of weight terms expected by this timing rule
         """
@@ -113,6 +116,7 @@ class MyTimingDependence(AbstractTimingDependence):
         return ['my_potentiation_parameter', 'my_depression_parameter']
 
     @property
+    @overrides(AbstractTimingDependence.synaptic_structure)
     def synaptic_structure(self):
         """ Get the synaptic structure of the plastic part of the rows
         """

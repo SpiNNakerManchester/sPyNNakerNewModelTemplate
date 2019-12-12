@@ -66,6 +66,7 @@ class MyWeightDependence(AbstractHasAPlusAMinus, AbstractWeightDependence):
              weight_dependence._my_weight_parameter))
 
     @property
+    @overrides(AbstractWeightDependence.vertex_executable_suffix)
     def vertex_executable_suffix(self):
         """ The suffix to be appended to the vertex executable for this rule
         """
@@ -108,6 +109,7 @@ class MyWeightDependence(AbstractHasAPlusAMinus, AbstractWeightDependence):
                     "My weight dependence only supports one term")
 
     @property
+    @overrides(AbstractWeightDependence.weight_maximum)
     def weight_maximum(self):
         """ The maximum weight that will ever be set in a synapse as a result\
             of this rule
