@@ -68,7 +68,7 @@ before_script:
 script:
   # Python
   ### Disabled as not currently any tests
-  # - py.test unittests
+  - py.test unittests
   - flake8 examples python_models8
   ### Disabled as not currently any tests
   # - flake8 unittests
