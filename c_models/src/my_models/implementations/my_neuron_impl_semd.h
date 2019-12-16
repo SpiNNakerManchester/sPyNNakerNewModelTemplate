@@ -9,12 +9,17 @@
 #include <neuron/synapse_types/synapse_types_exponential_impl.h>
 
 // Further includes
-#include <neuron/neuron_recording.h>
 #include <debug.h>
 
 #define V_RECORDING_INDEX 0
 #define GSYN_EXC_RECORDING_INDEX 1
 #define GSYN_INH_RECORDING_INDEX 2
+#define N_RECORDED_VARS 3
+
+#define SPIKE_RECORDING_BITFIELD 0
+#define N_BITFIELD_VARS 1
+
+#include <neuron/neuron_recording.h>
 
 typedef struct input_type_current_semd_t {
     // my_multiplicator
@@ -175,6 +180,8 @@ static bool neuron_impl_do_timestep_update(index_t neuron_index,
         // Call relevant model-based functions
         // Tell the neuron model
         neuron_model_has_spiked(neuron);
+
+        neuron_recording_record_bit(SPIKE_RECORDING_BITFIELD, neuron_index);
     }
 
     // Shape the existing input according to the included rule
