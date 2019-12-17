@@ -1,6 +1,5 @@
 import numpy
 from spinn_utilities.overrides import overrides
-from pacman.executor.injection_decorator import inject_items
 from data_specification.enums import DataType
 from spynnaker.pyNN.models.neuron.synapse_types import AbstractSynapseType
 

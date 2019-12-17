@@ -1,6 +1,5 @@
 from spinn_front_end_common.utilities.constants import \
     MICRO_TO_MILLISECOND_CONVERSION
-from pacman.executor.injection_decorator import inject_items
 from spinn_utilities.overrides import overrides
 from data_specification.enums import DataType
 from spynnaker.pyNN.models.neuron.neuron_models import AbstractNeuronModel
