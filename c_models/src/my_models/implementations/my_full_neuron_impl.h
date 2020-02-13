@@ -8,6 +8,14 @@
 #include <spin1_api.h>
 #include <debug.h>
 
+#define V_RECORDING_INDEX 0
+#define N_RECORDED_VARS 1
+
+#define SPIKE_RECORDING_BITFIELD 0
+#define N_BITFIELD_VARS 1
+
+#include <neuron/neuron_recording.h>
+
 //! neuron_impl_t struct
 typedef struct neuron_impl_t {
     accum inputs[2];
@@ -56,13 +64,12 @@ static void neuron_impl_add_inputs(
 }
 
 static bool neuron_impl_do_timestep_update(
-        index_t neuron_index, input_t external_bias,
-        state_t *recorded_variable_values) {
+        index_t neuron_index, input_t external_bias) {
     // Get the neuron itself
     neuron_impl_t *neuron = &neuron_array[neuron_index];
 
     // Store the recorded membrane voltage
-    recorded_variable_values[0] = neuron->v;
+    neuron_recording_record_accum(V_RECORDING_INDEX, neuron_index, neuron->v);
 
     // Do something to update the state
     neuron->v += external_bias + neuron->inputs[0] - neuron->inputs[1];
@@ -73,6 +80,7 @@ static bool neuron_impl_do_timestep_update(
     if (neuron->v > neuron->threshold) {
         // Reset if spiked
         neuron->v = 0k;
+        neuron_recording_record_bit(SPIKE_RECORDING_BITFIELD, neuron_index);
         return true;
     }
     return false;
