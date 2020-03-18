@@ -26,6 +26,7 @@ typedef struct neuron_impl_t {
 //! Array of neuron states
 static neuron_impl_t *neuron_array;
 
+__attribute__((unused)) // Marked unused as only used sometimes
 static bool neuron_impl_initialise(uint32_t n_neurons) {
     // Allocate DTCM for neuron array
     if (sizeof(neuron_impl_t) != 0) {
@@ -39,6 +40,7 @@ static bool neuron_impl_initialise(uint32_t n_neurons) {
     return true;
 }
 
+__attribute__((unused)) // Marked unused as only used sometimes
 static void neuron_impl_load_neuron_parameters(
         address_t address, uint32_t next, uint32_t n_neurons) {
     // Copy parameters to DTCM from SDRAM
@@ -46,6 +48,7 @@ static void neuron_impl_load_neuron_parameters(
             n_neurons * sizeof(neuron_impl_t));
 }
 
+__attribute__((unused)) // Marked unused as only used sometimes
 static void neuron_impl_store_neuron_parameters(
         address_t address, uint32_t next, uint32_t n_neurons) {
     // Copy parameters to SDRAM from DTCM
@@ -53,6 +56,7 @@ static void neuron_impl_store_neuron_parameters(
             n_neurons * sizeof(neuron_impl_t));
 }
 
+__attribute__((unused)) // Marked unused as only used sometimes
 static void neuron_impl_add_inputs(
         index_t synapse_type_index, index_t neuron_index,
         input_t weights_this_timestep) {
@@ -63,6 +67,7 @@ static void neuron_impl_add_inputs(
     neuron->inputs[synapse_type_index] += weights_this_timestep;
 }
 
+__attribute__((unused)) // Marked unused as only used sometimes
 static bool neuron_impl_do_timestep_update(
         index_t neuron_index, input_t external_bias) {
     // Get the neuron itself
