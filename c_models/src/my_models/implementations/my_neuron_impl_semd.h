@@ -42,6 +42,7 @@ static threshold_type_pointer_t threshold_type_array;
 // The synapse shaping parameters
 static synapse_param_t *neuron_synapse_shaping_params;
 
+__attribute__((unused)) // Marked unused as only used sometimes
 static bool neuron_impl_initialise(uint32_t n_neurons) {
     // Allocate DTCM for neuron array
     neuron_array = spin1_malloc(n_neurons * sizeof(neuron_t));
@@ -77,6 +78,7 @@ static bool neuron_impl_initialise(uint32_t n_neurons) {
     return true;
 }
 
+__attribute__((unused)) // Marked unused as only used sometimes
 static void neuron_impl_add_inputs(
         index_t synapse_type_index, index_t neuron_index,
         input_t weights_this_timestep) {
@@ -86,6 +88,7 @@ static void neuron_impl_add_inputs(
             parameters, weights_this_timestep);
 }
 
+__attribute__((unused)) // Marked unused as only used sometimes
 static void neuron_impl_load_neuron_parameters(
         address_t address, uint32_t next, uint32_t n_neurons) {
     log_debug("writing parameters, next is %u, n_neurons is %u ",
@@ -110,6 +113,7 @@ static void neuron_impl_load_neuron_parameters(
             n_neurons * sizeof(synapse_param_t));
 }
 
+__attribute__((unused)) // Marked unused as only used sometimes
 static bool neuron_impl_do_timestep_update(index_t neuron_index,
         input_t external_bias) {
     // Get the neuron itself
@@ -193,6 +197,7 @@ static bool neuron_impl_do_timestep_update(index_t neuron_index,
 
 //! \brief stores neuron parameter back into sdram
 //! \param[in] address: the address in sdram to start the store
+__attribute__((unused)) // Marked unused as only used sometimes
 static void neuron_impl_store_neuron_parameters(
         address_t address, uint32_t next, uint32_t n_neurons) {
     log_debug("writing parameters");
