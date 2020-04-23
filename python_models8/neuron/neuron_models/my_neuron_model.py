@@ -1,6 +1,5 @@
 from spinn_front_end_common.utilities.constants import \
     MICRO_TO_MILLISECOND_CONVERSION
-from pacman.executor.injection_decorator import inject_items
 from spinn_utilities.overrides import overrides
 from data_specification.enums import DataType
 from spynnaker.pyNN.models.neuron.neuron_models import AbstractNeuronModel
@@ -84,18 +83,16 @@ class MyNeuronModel(AbstractNeuronModel):
         state_variables[V] = self._v
 
     @overrides(AbstractNeuronModel.get_values)
-    def get_values(self, parameters, state_variables, vertex_slice):
+    def get_values(self, parameters, state_variables, vertex_slice, ts):
         # TODO: Return, in order of the struct, the values from the parameters,
         # state variables, or other
         return [state_variables[V],
                 parameters[I_OFFSET],
                 parameters[MY_NEURON_PARAMETER]]
 
-    @inject_items({"machine_time_step": "MachineTimeStep"})
-    @overrides(AbstractNeuronModel.get_global_values,
-               additional_arguments={'machine_time_step'})
-    def get_global_values(self, machine_time_step):
-        return [float(machine_time_step) / MICRO_TO_MILLISECOND_CONVERSION]
+    @overrides(AbstractNeuronModel.get_global_values)
+    def get_global_values(self, ts):
+        return [float(ts) / MICRO_TO_MILLISECOND_CONVERSION]
 
     @overrides(AbstractNeuronModel.update_values)
     def update_values(self, values, parameters, state_variables):

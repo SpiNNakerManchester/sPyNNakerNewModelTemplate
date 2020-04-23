@@ -66,7 +66,7 @@ class MyThresholdType(AbstractThresholdType):
         # change
         pass
 
-    def get_values(self, parameters, state_variables, vertex_slice):
+    def get_values(self, parameters, state_variables, vertex_slice, ts):
         # TODO: Return, in order of the struct, the values from the parameters,
         # state variables, or other
         return [parameters[THRESHOLD_VALUE],

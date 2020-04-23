@@ -1,6 +1,5 @@
 import numpy
 from spinn_utilities.overrides import overrides
-from pacman.executor.injection_decorator import inject_items
 from data_specification.enums import DataType
 from spynnaker.pyNN.models.neuron.synapse_types import AbstractSynapseType
 
@@ -112,7 +111,6 @@ class MySynapseType(AbstractSynapseType):
         state_variables[EXC_INIT] = self._my_exc_init
         state_variables[INH_INIT] = self._my_inh_init
 
-    @inject_items({"ts": "MachineTimeStep"})
     def get_values(self, parameters, state_variables, vertex_slice, ts):
         # TODO: Return, in order of the struct, the values from the parameters,
         # state variables, or other
