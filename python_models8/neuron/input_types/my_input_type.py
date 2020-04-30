@@ -65,7 +65,7 @@ class MyInputType(AbstractInputType):
         # change
         state_variables[MY_MULTIPLICATOR] = self._my_multiplicator
 
-    def get_values(self, parameters, state_variables, vertex_slice):
+    def get_values(self, parameters, state_variables, vertex_slice, ts):
         # TODO: Return, in order of the struct, the values from the parameters,
         # state variables, or other
         return [state_variables[MY_MULTIPLICATOR],

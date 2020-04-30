@@ -63,7 +63,7 @@ class MyAdditionalInput(AbstractAdditionalInput):
         # change
         state_variables[INPUT_CURRENT] = self._input_current
 
-    def get_values(self, parameters, state_variables, vertex_slice):
+    def get_values(self, parameters, state_variables, vertex_slice, ts):
         # TODO: Return, in order of the struct, the values from the parameters,
         # state variables, or other
         return [parameters[MY_ADDITIONAL_INPUT_PARAMETER],
