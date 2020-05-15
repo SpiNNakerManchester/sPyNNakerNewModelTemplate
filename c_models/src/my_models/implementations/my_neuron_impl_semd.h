@@ -14,7 +14,8 @@
 #define V_RECORDING_INDEX 0
 #define GSYN_EXC_RECORDING_INDEX 1
 #define GSYN_INH_RECORDING_INDEX 2
-#define N_RECORDED_VARS 3
+#define STRUCT_PL_RECORDING_INDEX 3
+#define N_RECORDED_VARS 4
 
 #define SPIKE_RECORDING_BITFIELD 0
 #define N_BITFIELD_VARS 1
@@ -207,6 +208,16 @@ static bool neuron_impl_do_timestep_update(index_t neuron_index,
 
     // Return the boolean to the model timestep update
     return spike;
+}
+
+__attribute__((unused)) // Marked unused as only used sometimes
+static void neuron_impl_record_structural(
+		uint32_t neuron_index, uint32_t changed, uint32_t rec_value) {
+	if (changed == 1) {
+		neuron_recording_record_int32(STRUCT_PL_RECORDING_INDEX, neuron_index, rec_value);
+	} else {
+		neuron_recording_record_int32(STRUCT_PL_RECORDING_INDEX, neuron_index, -1);
+	}
 }
 
 //! \brief stores neuron parameter back into sdram

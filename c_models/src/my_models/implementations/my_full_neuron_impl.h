@@ -91,6 +91,19 @@ static bool neuron_impl_do_timestep_update(
     return false;
 }
 
+__attribute__((unused)) // Marked unused as only used sometimes
+static void neuron_impl_record_structural(
+		uint32_t neuron_index, uint32_t changed, uint32_t rec_value) {
+	use(neuron_index);
+	use(changed);
+	use(rec_value);
+//	if (changed == 1) {
+//		neuron_recording_record_int32(STRUCT_PL_RECORDING_INDEX, neuron_index, rec_value);
+//	} else {
+//		neuron_recording_record_int32(STRUCT_PL_RECORDING_INDEX, neuron_index, -1);
+//	}
+}
+
 #if LOG_LEVEL >= LOG_DEBUG
 void neuron_impl_print_inputs(uint32_t n_neurons) {
     log_debug("-------------------------------------\n");
