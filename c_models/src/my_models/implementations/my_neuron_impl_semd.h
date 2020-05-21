@@ -211,13 +211,9 @@ static bool neuron_impl_do_timestep_update(index_t neuron_index,
 }
 
 __attribute__((unused)) // Marked unused as only used sometimes
-static void neuron_impl_record_structural(
-		uint32_t neuron_index, uint32_t changed, uint32_t rec_value) {
-	if (changed == 1) {
-		neuron_recording_record_int32(STRUCT_PL_RECORDING_INDEX, neuron_index, rec_value);
-	} else {
-		neuron_recording_record_int32(STRUCT_PL_RECORDING_INDEX, neuron_index, -1);
-	}
+static void neuron_impl_record_structural(uint32_t neuron_index, uint32_t rec_value) {
+	// This is what happens in the standard implementation
+	neuron_recording_record_int32(STRUCT_PL_RECORDING_INDEX, neuron_index, rec_value);
 }
 
 //! \brief stores neuron parameter back into sdram

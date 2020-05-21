@@ -93,15 +93,10 @@ static bool neuron_impl_do_timestep_update(
 
 __attribute__((unused)) // Marked unused as only used sometimes
 static void neuron_impl_record_structural(
-		uint32_t neuron_index, uint32_t changed, uint32_t rec_value) {
+		uint32_t neuron_index, uint32_t rec_value) {
+	// See the standard implementation for how to turn this on if needed
 	use(neuron_index);
-	use(changed);
 	use(rec_value);
-//	if (changed == 1) {
-//		neuron_recording_record_int32(STRUCT_PL_RECORDING_INDEX, neuron_index, rec_value);
-//	} else {
-//		neuron_recording_record_int32(STRUCT_PL_RECORDING_INDEX, neuron_index, -1);
-//	}
 }
 
 #if LOG_LEVEL >= LOG_DEBUG
