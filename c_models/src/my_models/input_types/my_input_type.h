@@ -20,7 +20,7 @@ typedef struct input_type_t {
     REAL my_parameter;
 } input_type_t;
 
-static inline void _input_type_set_input_value(
+static inline void _input_type_set_multiplicator_value(
 		input_t total, input_type_t *input_type) {
     if (total > input_type->my_parameter) {
         input_type->multiplicator = 1.0;
@@ -38,7 +38,7 @@ static inline input_t *input_type_get_input_value(
         total += value[i];
     }
 
-    _input_type_set_input_value(total, input_type);
+    _input_type_set_multiplicator_value(total, input_type);
 
     return &value[0];
 }
