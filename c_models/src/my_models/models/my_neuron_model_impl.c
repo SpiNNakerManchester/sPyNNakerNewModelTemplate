@@ -2,19 +2,20 @@
 
 #include <debug.h>
 
-static global_neuron_params_pointer_t global_params;
+// The global parameters of this neuron model
+static const global_neuron_params_t *global_params;
 
 void neuron_model_set_global_neuron_params(
-        global_neuron_params_pointer_t params) {
+        const global_neuron_params_t *params) {
 
     // TODO: Store parameters as required
     global_params = params;
 }
 
 state_t neuron_model_state_update(
-        uint16_t num_excitatory_inputs, input_t* exc_input,
-        uint16_t num_inhibitory_inputs, input_t* inh_input,
-        input_t external_bias, neuron_pointer_t neuron) {
+        uint16_t num_excitatory_inputs, const input_t* exc_input,
+        uint16_t num_inhibitory_inputs, const input_t* inh_input,
+        input_t external_bias, neuron_t *restrict neuron) {
 
     // This takes the input and generates an input value, assumed to be a
     // current.  Note that the conversion to current from conductance is done
@@ -44,25 +45,25 @@ state_t neuron_model_state_update(
     return neuron->V;
 }
 
-state_t neuron_model_get_membrane_voltage(neuron_pointer_t neuron) {
+state_t neuron_model_get_membrane_voltage(const neuron_t *neuron) {
 
     // TODO: Get the state value representing the membrane voltage
     return neuron->V;
 }
 
-void neuron_model_has_spiked(neuron_pointer_t neuron) {
+void neuron_model_has_spiked(neuron_t *restrict neuron) {
 
     // TODO: Perform operations required to reset the state after a spike
     neuron->V = neuron->my_parameter;
 }
 
-void neuron_model_print_state_variables(restrict neuron_pointer_t neuron) {
+void neuron_model_print_state_variables(const neuron_t *neuron) {
 
     // TODO: Print all state variables
     log_debug("V = %11.4k mv", neuron->V);
 }
 
-void neuron_model_print_parameters(restrict neuron_pointer_t neuron) {
+void neuron_model_print_parameters(const neuron_t *neuron) {
 
     // TODO: Print all neuron parameters
     log_debug("my parameter = %11.4k mv", neuron->my_parameter);
