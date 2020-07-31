@@ -116,6 +116,12 @@ class MyWeightDependence(AbstractHasAPlusAMinus, AbstractWeightDependence):
         # give to a synapse
         return self._w_max
 
+    @overrides(AbstractWeightDependence.weight_change_minimum)
+    def weight_change_minimum(self, min_delta):
+        pot, dep = min_delta
+        return min(pot * self._my_weight_parameter,
+                   dep * self._my_weight_parameter)
+
     @overrides(AbstractWeightDependence.get_parameter_names)
     def get_parameter_names(self):
         return ['w_min', 'w_max', 'my_weight_parameter']
