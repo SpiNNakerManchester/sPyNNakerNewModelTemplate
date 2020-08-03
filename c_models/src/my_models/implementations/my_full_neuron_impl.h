@@ -11,6 +11,7 @@
 #define V_RECORDING_INDEX 0
 #define N_RECORDED_VARS 1
 
+
 #define SPIKE_RECORDING_BITFIELD 0
 #define N_BITFIELD_VARS 1
 
@@ -69,7 +70,10 @@ static void neuron_impl_add_inputs(
 
 __attribute__((unused)) // Marked unused as only used sometimes
 static bool neuron_impl_do_timestep_update(
-        index_t neuron_index, input_t external_bias) {
+        index_t neuron_index, input_t external_bias,
+        int packets_this_time_step) {
+    use(packets_this_time_step);
+
     // Get the neuron itself
     neuron_impl_t *neuron = &neuron_array[neuron_index];
 
