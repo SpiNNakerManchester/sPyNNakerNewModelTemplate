@@ -1,8 +1,14 @@
 language: python
-python:
-  - 2.7
-  - 3.6
-  - 3.7
+jobs:
+  include:
+    - name: Py3.6
+      python: 3.6
+    - name: Py3.7
+      python: 3.7
+    - name: Py3.8
+      python: 3.8
+    - name: Py2.7 (legacy)
+      python: 2.7
 dist: focal
 cache: pip
 
@@ -68,6 +74,7 @@ script:
   - flake8 examples python_models8
   ### Disabled as not currently any tests
   # - flake8 unittests
+  - flake8 nmt_integration_tests
   # XML
   - find python_models8 -name '*.xml' | xargs -r -n 1 support/validate-xml.sh
   # C 
