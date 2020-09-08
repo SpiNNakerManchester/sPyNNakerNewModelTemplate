@@ -69,9 +69,7 @@ static void neuron_impl_add_inputs(
 
 __attribute__((unused)) // Marked unused as only used sometimes
 static bool neuron_impl_do_timestep_update(
-        index_t neuron_index, input_t external_bias,
-        int packets_this_time_step) {
-    use(packets_this_time_step);
+        index_t neuron_index, input_t external_bias) {
 
     // Get the neuron itself
     neuron_impl_t *neuron = &neuron_array[neuron_index];
