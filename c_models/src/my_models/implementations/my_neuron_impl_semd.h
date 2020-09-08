@@ -121,7 +121,7 @@ static void neuron_impl_load_neuron_parameters(
 
 __attribute__((unused)) // Marked unused as only used sometimes
 static bool neuron_impl_do_timestep_update(index_t neuron_index,
-        input_t external_bias, int packets_this_time_step) {
+        input_t external_bias) {
     // Get the neuron itself
     neuron_pointer_t neuron = &neuron_array[neuron_index];
 
@@ -174,10 +174,6 @@ static bool neuron_impl_do_timestep_update(index_t neuron_index,
             neuron_recording_record_accum(V_RECORDING_INDEX, neuron_index, voltage);
             neuron_recording_record_accum(GSYN_EXC_RECORDING_INDEX, neuron_index, total_exc);
             neuron_recording_record_accum(GSYN_INH_RECORDING_INDEX, neuron_index, total_inh);
-            // Record the number of packets received this timer tick
-            neuron_recording_record_int32(
-                PACKET_COUNT_RECORDING_INDEX, neuron_index,
-                packets_this_time_step);
         }
 
         // This changes inhibitory to excitatory input
