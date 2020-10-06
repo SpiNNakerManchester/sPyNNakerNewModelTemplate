@@ -20,7 +20,6 @@ addons:
       # For validating XML
       - libxml2-utils
       # For building C code
-      - libc6:i386
       - gcc-arm-none-eabi
       - libnewlib-arm-none-eabi
 
