@@ -22,18 +22,19 @@ on: [push]
 
 jobs:
   build:
-
     runs-on: ubuntu-20.04
-    # Note: Python is needed for spinn_utilities.make_tools when building
-    strategy:
-      matrix:
-        python-version: [3.6]
 
     steps:
-    - name: Set up Python ${{ matrix.python-version }}
+    - name: Install Ubuntu packages
+      run: |
+        sudo apt-get update
+        sudo apt-get install vera++ doxygen gcc-arm-none-eabi --fix-missing
+
+    - name: Configure Python 3.6
+      # Note: Python is needed for spinn_utilities.make_tools when building
       uses: actions/setup-python@v2
       with:
-        python-version: ${{ matrix.python-version }}
+        python-version: 3.6
 
     - name: Checkout
       uses: actions/checkout@v2
@@ -51,7 +52,7 @@ jobs:
         echo "Set NEURAL_MODELLING to $PWD/sPyNNaker/neural_modelling"
         echo "NEURAL_MODELLING_DIRS=$PWD/sPyNNaker/neural_modelling" >> $GITHUB_ENV
 
-    - name: Checkout SpiNNaker Dependencies
+    - name: Checkout SpiNNaker C Dependencies
       run: |
         support/gitclone2.sh https://github.com/SpiNNakerManchester/spinnaker_tools.git
         support/gitclone2.sh https://github.com/SpiNNakerManchester/spinn_common.git
@@ -64,19 +65,20 @@ jobs:
       run: python setup.py install
       working-directory: SpiNNUtils
 
-    - name: Install Ubuntu dependencies
-      run: sudo apt-get update && sudo apt-get install vera++ doxygen gcc-arm-none-eabi --fix-missing
-
     - name: Lint C code using Vera++
       # Note: run this before building to avoid linting modified_src directories
-      run: |
-        support/run-vera.sh c_models/src
+      run: support/run-vera.sh c_models/src
 
-    - name: Build C code
+    - name: Build SpiNNaker C dependencies
       run: |
         make -C $SPINN_DIRS
         make -C spinn_common install
         make -C SpiNNFrontEndCommon/c_common install
-        make -C c_models
+
+    - name: Build C code
+      run: make
+      working-directory: c_models
 
     # To be added: Documentation building
+
+    # Note: This workflow does not run the C code; that'd be an integration test
