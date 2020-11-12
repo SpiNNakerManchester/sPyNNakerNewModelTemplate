@@ -50,14 +50,12 @@ jobs:
     - name: Checkout Spinnaker Dependencies
       run: |
         for repo in $DEPENDENCIES; do
-            echo "::group::$repo"
             support/gitclone2.sh https://github.com/SpiNNakerManchester/$repo.git
-            echo "::endgroup::"
         done
     - name: Install Spinnaker Dependencies
       run: |
         for repo in $DEPENDENCIES; do
-            echo "::group::$repo"
+            echo "::group::Installing $repo"
             (cd $repo && exec python setup.py install)
             echo "::endgroup::"
         done
