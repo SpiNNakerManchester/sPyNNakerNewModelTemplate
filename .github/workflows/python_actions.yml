@@ -56,7 +56,7 @@ jobs:
       run: |
         for repo in $DEPENDENCIES; do
             echo "::group::Installing $repo"
-            (cd $repo && exec python setup.py install)
+            (cd $repo && exec python setup.py develop)
             echo "::endgroup::"
         done
     - name: Setup
