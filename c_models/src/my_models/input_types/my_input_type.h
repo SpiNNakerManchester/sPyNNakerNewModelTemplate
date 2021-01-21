@@ -30,9 +30,8 @@ static inline void _input_type_set_multiplicator_value(
 }
 
 static inline input_t *input_type_get_input_value(
-        input_t *restrict value, const input_type_t *input_type,
+        input_t *restrict value, input_type_t *input_type,
         uint16_t num_receptors) {
-    use(input_type);
     input_t total = 0.0;
     for (uint32_t i = 0; i < num_receptors; i++) {
         total += value[i];
