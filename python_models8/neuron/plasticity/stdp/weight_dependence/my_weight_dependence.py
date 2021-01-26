@@ -37,7 +37,7 @@ class MyWeightDependence(AbstractHasAPlusAMinus, AbstractWeightDependence):
         self._w_min = w_min
 
     @property
-    def w_max(self, w_max):
+    def w_max(self):
         return self._w_max
 
     @w_max.setter
