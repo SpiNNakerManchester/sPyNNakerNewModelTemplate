@@ -1,9 +1,6 @@
 import os
 from setuptools import setup
-try:
-    from collections.abc import defaultdict
-except ImportError:
-    from collections import defaultdict
+from collections import defaultdict
 
 __version__ = None
 exec(open("python_models8/_version.py").read())
@@ -53,7 +50,6 @@ setup(
 
         "Programming Language :: C",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
