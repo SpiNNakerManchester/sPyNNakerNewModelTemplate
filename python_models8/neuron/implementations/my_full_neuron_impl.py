@@ -1,6 +1,6 @@
-from spynnaker.pyNN.utilities.struct import Struct
 from data_specification.enums.data_type import DataType
 from spinn_front_end_common.utilities.constants import BYTES_PER_WORD
+from spynnaker.pyNN.utilities.struct import Struct
 from spynnaker.pyNN.models.neuron.implementations import (
     AbstractNeuronImpl, RangedDictVertexSlice)
 

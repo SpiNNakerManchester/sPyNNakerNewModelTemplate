@@ -19,7 +19,7 @@ class MyInputTypeCurrentSEMD(AbstractInputType):
         "__my_inh_input_previous"]
 
     def __init__(self, my_multiplicator, my_inh_input_previous):
-        super(MyInputTypeCurrentSEMD, self).__init__([
+        super().__init__([
             DataType.S1615,   # my_multiplicator
             DataType.S1615])  # my_inh_input_previous
         self.__my_multiplicator = my_multiplicator

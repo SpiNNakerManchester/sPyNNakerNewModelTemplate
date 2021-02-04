@@ -25,7 +25,7 @@ class MyThresholdType(AbstractThresholdType):
             threshold_value, my_threshold_parameter):
 
         # TODO: Update the data types - this must match the structs exactly
-        super(MyThresholdType, self).__init__([
+        super().__init__([
             DataType.S1615,  # threshold_value
             DataType.S1615,  # my_param
         ])

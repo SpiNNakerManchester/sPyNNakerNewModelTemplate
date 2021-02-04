@@ -53,7 +53,7 @@ class MyModelCurrExpMyInputType(AbstractPyNNNeuronModelStandard):
         threshold_type = ThresholdTypeStatic(v_thresh)
 
         # Create the model using the superclass
-        super(MyModelCurrExpMyInputType, self).__init__(
+        super().__init__(
 
             # the model a name (shown in reports)
             model_name="MyModelCurrExpMyInputType",
