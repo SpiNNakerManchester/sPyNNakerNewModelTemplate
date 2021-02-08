@@ -14,7 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from p8_integration_tests.base_test_case import BaseTestCase
-from spynnaker8.utilities import neo_convertor
+from spynnaker.utilities import neo_convertor
 
 
 class NwtTestBase(BaseTestCase):
