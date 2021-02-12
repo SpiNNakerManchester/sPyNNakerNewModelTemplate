@@ -47,7 +47,7 @@ class MyModelCurrMySynapseType(AbstractPyNNNeuronModelStandard):
 
         # instantiate the sPyNNaker system by initialising
         # the AbstractPopulationVertex
-        super(MyModelCurrMySynapseType, self).__init__(
+        super().__init__(
 
             # the model a name (shown in reports)
             model_name="MyModelMySynapseType",

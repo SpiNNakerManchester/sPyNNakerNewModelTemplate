@@ -1,7 +1,7 @@
-from spinn_front_end_common.utilities.constants import \
-    MICRO_TO_MILLISECOND_CONVERSION
 from spinn_utilities.overrides import overrides
 from data_specification.enums import DataType
+from spinn_front_end_common.utilities.constants import (
+    MICRO_TO_MILLISECOND_CONVERSION)
 from spynnaker.pyNN.models.neuron.neuron_models import AbstractNeuronModel
 
 # TODO: create constants to match the parameter names
@@ -25,7 +25,7 @@ class MyNeuronModel(AbstractNeuronModel):
             i_offset, my_neuron_parameter, v):
 
         # TODO: Update the data types - this must match the structs exactly
-        super(MyNeuronModel, self).__init__(
+        super().__init__(
             data_types=[
                 DataType.S1615,   # v
                 DataType.S1615,   # i_offset
