@@ -28,3 +28,6 @@
 **/modified_src/**
 **/neural_modelling/builds/**/*.txt
 **/reports/**
+**/c_models/**
+**/python_models8/**
+**/examples/**
