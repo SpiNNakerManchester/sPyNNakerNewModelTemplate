@@ -32,7 +32,7 @@ class MyIFCurrExpSEMD(AbstractPyNNNeuronModelStandard):
             my_multiplicator, my_inh_input_previous)
         threshold_type = ThresholdTypeStatic(v_thresh)
 
-        super(MyIFCurrExpSEMD, self).__init__(
+        super().__init__(
             model_name="my_if_curr_exp_sEMD",
             binary="my_if_curr_exp_sEMD.aplx",
             neuron_model=neuron_model, input_type=input_type,

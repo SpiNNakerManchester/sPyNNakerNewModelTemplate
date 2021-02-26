@@ -34,11 +34,11 @@ jobs:
       uses: ./support/actions/apt-get-install
       with:
         packages: doxygen gcc-arm-none-eabi
-    - name: Configure Python 3.6
+    - name: Configure Python 3.8
       # Note: Python is needed for spinn_utilities.make_tools when building
       uses: actions/setup-python@v2
       with:
-        python-version: 3.6
+        python-version: 3.8
 
     - name: Set environment variables
       run: |

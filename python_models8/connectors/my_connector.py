@@ -15,11 +15,10 @@ class MyConnector(AbstractConnector):
         :type weights: float or iterable(float)
         :param delays: The inherent delay of the connector, in ms.
         :type delays: float or iterable(float)
-        :param allow_self_connections: \
+        :param bool allow_self_connections:
             Whether this connector allows a vertex to connect to itself.
-        :type allow_self_connections: bool
         """
-        super(MyConnector, self).__init__()
+        super().__init__()
         self._weights = weights
         self._delays = delays
         self._allow_self_connections = allow_self_connections

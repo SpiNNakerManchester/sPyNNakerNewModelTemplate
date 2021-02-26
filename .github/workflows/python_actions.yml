@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
-        python-version: [3.6, 3.7, 3.8]
+        python-version: [3.6, 3.7, 3.8, 3.9]
     steps:
     # Check out the code and critical support code
     - name: Checkout
@@ -41,12 +41,14 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install pip, etc
       uses: ./support/actions/python-tools
+    - name: Install matplotlib
+      uses: ./support/actions/install-matplotlib
     - name: Install Spinnaker Dependencies
       uses: ./support/actions/checkout-spinn-deps
       with:
         repositories: >
           SpiNNUtils SpiNNMachine SpiNNMan PACMAN DataSpecification spalloc
-          SpiNNFrontEndCommon sPyNNaker
+          SpiNNFrontEndCommon sPyNNaker TestBase
         install: true
     - name: Setup
       uses: ./support/actions/run-setup
@@ -67,11 +69,18 @@ jobs:
     # Code quality assessment
     - name: Lint with flake8
       run: flake8 $CODE_PATHS
+
     - name: Lint with pylint
       uses: ./support/actions/pylint
       with:
         package: ${{ env.CODE_PATHS }}
+
+    - name: Run rat copyright enforcement
+      if: matrix.python-version == 3.8
+      uses: ./support/actions/check-copyrights
+
     - name: Validate all XML
+      if: matrix.python-version == 3.8
       uses: ./support/actions/validate-xml
       with:
         base-path: ${{ env.CODE_PATHS }}

@@ -45,7 +45,7 @@ class MyModelCurrExpMyThreshold(AbstractPyNNNeuronModelStandard):
             threshold_value, my_threshold_parameter)
 
         # Create the model using the superclass
-        super(MyModelCurrExpMyThreshold, self).__init__(
+        super().__init__(
 
             # the model a name (shown in reports)
             model_name="MyModelCurrExpMyThreshold",
