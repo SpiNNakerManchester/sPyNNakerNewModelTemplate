@@ -19,7 +19,7 @@ class MyWeightDependence(AbstractHasAPlusAMinus, AbstractWeightDependence):
 
             # TODO: update the parameters
             w_min=0.0, w_max=1.0, my_weight_parameter=0.1):
-        super(MyWeightDependence, self).__init__()
+        super().__init__()
 
         # TODO: Store any parameters
         self._w_min = w_min
@@ -37,7 +37,7 @@ class MyWeightDependence(AbstractHasAPlusAMinus, AbstractWeightDependence):
         self._w_min = w_min
 
     @property
-    def w_max(self, w_max):
+    def w_max(self):
         return self._w_max
 
     @w_max.setter

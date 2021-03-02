@@ -141,10 +141,12 @@ static bool neuron_impl_do_timestep_update(index_t neuron_index,
         state_t voltage = neuron_model_get_membrane_voltage(neuron);
 
         // Get the exc and inh values from the synapses
+        input_t exc_values[NUM_EXCITATORY_RECEPTORS];
         input_t* exc_input_values =
-                synapse_types_get_excitatory_input(synapse_type);
+                synapse_types_get_excitatory_input(exc_values, synapse_type);
+        input_t inh_values[NUM_INHIBITORY_RECEPTORS];
         input_t* inh_input_values =
-                synapse_types_get_inhibitory_input(synapse_type);
+                synapse_types_get_inhibitory_input(inh_values, synapse_type);
 
         // Set the inhibitory my_multiplicator value
         for (int i = 0; i < NUM_INHIBITORY_RECEPTORS; i++) {

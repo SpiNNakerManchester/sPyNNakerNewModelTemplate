@@ -46,8 +46,6 @@ typedef struct synapse_param_t {
 // Define receptor split
 #define NUM_EXCITATORY_RECEPTORS 1
 #define NUM_INHIBITORY_RECEPTORS 1
-input_t excitatory_response[NUM_EXCITATORY_RECEPTORS];
-input_t inhibitory_response[NUM_INHIBITORY_RECEPTORS];
 
 // Include this here after defining the above items
 #include <neuron/synapse_types/synapse_types.h>
@@ -61,14 +59,14 @@ typedef enum input_buffer_regions {
 //! \param[in] pointer to parameters the synapse parameter pointer passed in
 //! \return Nothing
 static inline void synapse_types_shape_input(
-        synapse_param_pointer_t parameter) {
+        synapse_param_t *parameters) {
 
-    parameter->my_input_buffer_excitatory_value = decay_s1615(
-            parameter->my_input_buffer_excitatory_value,
-            parameter->my_exc_decay);
-    parameter->my_input_buffer_inhibitory_value = decay_s1615(
-            parameter->my_input_buffer_inhibitory_value,
-            parameter->my_inh_decay);
+    parameters->my_input_buffer_excitatory_value = decay_s1615(
+            parameters->my_input_buffer_excitatory_value,
+            parameters->my_exc_decay);
+    parameters->my_input_buffer_inhibitory_value = decay_s1615(
+            parameters->my_input_buffer_inhibitory_value,
+            parameters->my_inh_decay);
 }
 
 
@@ -81,17 +79,17 @@ static inline void synapse_types_shape_input(
 //! \param[in] input the input to be added
 //! \return None
 static inline void synapse_types_add_neuron_input(
-        index_t synapse_type_index, synapse_param_pointer_t parameter,
+        index_t synapse_type_index, synapse_param_t *parameters,
         input_t input) {
     if (synapse_type_index == EXCITATORY) {
-        parameter->my_input_buffer_excitatory_value =
-                parameter->my_input_buffer_excitatory_value +
-                decay_s1615(input, parameter->my_exc_init);
+        parameters->my_input_buffer_excitatory_value =
+                parameters->my_input_buffer_excitatory_value +
+                decay_s1615(input, parameters->my_exc_init);
 
     } else if (synapse_type_index == INHIBITORY) {
-        parameter->my_input_buffer_inhibitory_value =
-                parameter->my_input_buffer_inhibitory_value +
-                decay_s1615(input, parameter->my_inh_init);
+        parameters->my_input_buffer_inhibitory_value =
+                parameters->my_input_buffer_inhibitory_value +
+                decay_s1615(input, parameters->my_inh_init);
     }
 }
 
@@ -99,8 +97,8 @@ static inline void synapse_types_add_neuron_input(
 //! \param[in] pointer to parameters the synapse parameters passed in
 //! \return the first entry in the array of excitatory input values
 static inline input_t* synapse_types_get_excitatory_input(
-        synapse_param_pointer_t parameter) {
-    excitatory_response[0] = parameter->my_input_buffer_excitatory_value;
+        input_t *excitatory_response, synapse_param_t *parameters) {
+    excitatory_response[0] = parameters->my_input_buffer_excitatory_value;
     return &excitatory_response[0];
 }
 
@@ -108,8 +106,8 @@ static inline input_t* synapse_types_get_excitatory_input(
 //! \param[in] pointer to parameters the synapse parameters passed in
 //! \return the first entry in array of inhibitory input values
 static inline input_t* synapse_types_get_inhibitory_input(
-        synapse_param_pointer_t parameter) {
-    inhibitory_response[0] = parameter->my_input_buffer_inhibitory_value;
+        input_t *inhibitory_response, synapse_param_t *parameters) {
+    inhibitory_response[0] = parameters->my_input_buffer_inhibitory_value;
     return &inhibitory_response[0];
 }
 
@@ -136,10 +134,10 @@ static inline const char *synapse_types_get_type_char(
 //! \param[in] pointer to parameters the synapse parameters passed in
 //! \return Nothing
 static inline void synapse_types_print_input(
-        synapse_param_pointer_t parameter) {
+        synapse_param_t *parameters) {
     io_printf(IO_BUF, "%12.6k - %12.6k",
-            parameter->my_input_buffer_excitatory_value,
-            parameter->my_input_buffer_inhibitory_value);
+            parameters->my_input_buffer_excitatory_value,
+            parameters->my_input_buffer_inhibitory_value);
     // TODO: Does this function need the remaining parameters adding to it?
 }
 
@@ -147,17 +145,17 @@ static inline void synapse_types_print_input(
 //! \param[in] parameter: the pointer to the parameters to print
 //! \return Nothing
 static inline void synapse_types_print_parameters(
-        synapse_param_pointer_t parameter) {
+        synapse_param_t *parameters) {
 
     // TODO: Update to print your parameters
-    log_info("my_exc_decay = %R\n", (unsigned fract) parameter->my_exc_decay);
-    log_info("my_exc_init  = %R\n", (unsigned fract) parameter->my_exc_init);
-    log_info("my_inh_decay = %R\n", (unsigned fract) parameter->my_inh_decay);
-    log_info("my_inh_init  = %R\n", (unsigned fract) parameter->my_inh_init);
+    log_info("my_exc_decay = %R\n", (unsigned fract) parameters->my_exc_decay);
+    log_info("my_exc_init  = %R\n", (unsigned fract) parameters->my_exc_init);
+    log_info("my_inh_decay = %R\n", (unsigned fract) parameters->my_inh_decay);
+    log_info("my_inh_init  = %R\n", (unsigned fract) parameters->my_inh_init);
     log_info("my_excitatory_initial_value = %11.4k\n",
-            parameter->my_input_buffer_excitatory_value);
+            parameters->my_input_buffer_excitatory_value);
     log_info("my_inhibitory_initial_value = %11.4k\n",
-            parameter->my_input_buffer_inhibitory_value);
+            parameters->my_input_buffer_inhibitory_value);
 }
 
 #endif  // _SYNAPSE_TYPES_MY_IMPL_H_

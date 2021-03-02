@@ -22,7 +22,7 @@ class MyInputType(AbstractInputType):
             my_input_parameter):
 
         # TODO: Update the data types
-        super(MyInputType, self).__init__([
+        super().__init__([
             DataType.S1615,  # my_multiplicator
             DataType.S1615   # my_input_parameter
         ])

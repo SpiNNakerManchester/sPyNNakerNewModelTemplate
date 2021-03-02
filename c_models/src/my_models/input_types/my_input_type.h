@@ -1,5 +1,5 @@
-#ifndef _INPUT_TYPE_CONDUCTANCE_H_
-#define _INPUT_TYPE_CONDUCTANCE_H_
+#ifndef _MY_INPUT_TYPE_H_
+#define _MY_INPUT_TYPE_H_
 
 #ifndef NUM_EXCITATORY_RECEPTORS
 #define NUM_EXCITATORY_RECEPTORS 1
@@ -20,25 +20,30 @@ typedef struct input_type_t {
     REAL my_parameter;
 } input_type_t;
 
-
-static inline input_t* input_type_get_input_value(
-        input_t* value, input_type_pointer_t input_type,
-        uint16_t num_receptors) {
-    use(input_type);
-    input_t total = 0.0;
-    for (uint32_t i = 0; i < num_receptors; i++) {
-        total += value[i];
-    }
+static inline void _input_type_set_multiplicator_value(
+		input_t total, input_type_t *input_type) {
     if (total > input_type->my_parameter) {
         input_type->multiplicator = 1.0;
     } else {
         input_type->multiplicator += 1.0;
     }
+}
+
+static inline input_t *input_type_get_input_value(
+        input_t *restrict value, input_type_t *input_type,
+        uint16_t num_receptors) {
+    input_t total = 0.0;
+    for (uint32_t i = 0; i < num_receptors; i++) {
+        total += value[i];
+    }
+
+    _input_type_set_multiplicator_value(total, input_type);
+
     return &value[0];
 }
 
 static inline void input_type_convert_excitatory_input_to_current(
-        input_t* exc_input, input_type_pointer_t input_type,
+        input_t *restrict exc_input, const input_type_t *input_type,
         state_t membrane_voltage) {
     use(membrane_voltage);
 
@@ -48,7 +53,7 @@ static inline void input_type_convert_excitatory_input_to_current(
 }
 
 static inline void input_type_convert_inhibitory_input_to_current(
-        input_t* inh_input, input_type_pointer_t input_type,
+        input_t *restrict inh_input, const input_type_t *input_type,
         state_t membrane_voltage) {
     use(membrane_voltage);
 
@@ -57,4 +62,4 @@ static inline void input_type_convert_inhibitory_input_to_current(
     }
 }
 
-#endif // _INPUT_TYPE_CONDUCTANCE_H_
+#endif // _MY_INPUT_TYPE_H_

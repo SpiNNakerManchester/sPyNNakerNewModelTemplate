@@ -22,7 +22,7 @@ class MyAdditionalInput(AbstractAdditionalInput):
             my_additional_input_parameter, input_current):
 
         # TODO: Update the data types - this must match the struct exactly
-        super(MyAdditionalInput, self).__init__([
+        super().__init__([
             DataType.S1615,  # my_parameter
             DataType.S1615,  # input_current
         ])

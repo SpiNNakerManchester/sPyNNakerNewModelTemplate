@@ -53,7 +53,7 @@ class MyModelCurrExpMyAdditionalInput(AbstractPyNNNeuronModelStandard):
             my_additional_input_parameter, input_current)
 
         # Create the model using the superclass
-        super(MyModelCurrExpMyAdditionalInput, self).__init__(
+        super().__init__(
 
             # the model a name (shown in reports)
             model_name="MyModelCurrExpMyAdditionalInput",

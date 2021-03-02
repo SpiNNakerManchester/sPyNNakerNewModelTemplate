@@ -28,7 +28,7 @@ class MySynapseType(AbstractSynapseType):
             my_inh_init):
 
         # TODO: Update the data types - this must match the struct exactly
-        super(MySynapseType, self).__init__([
+        super().__init__([
             DataType.U032,  # my_exc_decay
             DataType.U032,  # my_exc_init
             DataType.U032,  # my_inh_decay
