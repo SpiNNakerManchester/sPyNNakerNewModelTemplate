@@ -14,7 +14,7 @@
 #define V_RECORDING_INDEX 0
 #define GSYN_EXC_RECORDING_INDEX 1
 #define GSYN_INH_RECORDING_INDEX 2
-#define STRUCT_PL_RECORDING_INDEX 3
+#define REWIRING_RECORDING_INDEX 3
 #define N_RECORDED_VARS 4
 
 #define SPIKE_RECORDING_BITFIELD 0
@@ -215,7 +215,7 @@ static bool neuron_impl_do_timestep_update(index_t neuron_index,
 __attribute__((unused)) // Marked unused as only used sometimes
 static void neuron_impl_record_structural(uint32_t neuron_index, uint32_t rec_value) {
 	// This is what happens in the standard implementation
-	neuron_recording_record_int32(STRUCT_PL_RECORDING_INDEX, neuron_index, rec_value);
+	neuron_recording_record_int32(REWIRING_RECORDING_INDEX, neuron_index, rec_value);
 }
 
 //! \brief stores neuron parameter back into sdram
