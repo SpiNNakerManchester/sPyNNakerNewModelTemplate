@@ -73,14 +73,14 @@ setup(
     packages=packages,
     package_data=package_data,
     install_requires=[
-        'SpiNNUtilities >= 1!5.1.1, < 1!6.0.0',
-        'SpiNNMachine >= 1!5.1.1, < 1!6.0.0',
-        'SpiNNMan >= 1!5.1.1, < 1!6.0.0',
-        'SpiNNaker_PACMAN >= 1!5.1.1, < 1!6.0.0',
-        'SpiNNaker_DataSpecification >= 1!5.1.1, < 1!6.0.0',
-        'spalloc >= 2.0.2, < 3.0.0',
-        'SpiNNFrontEndCommon >= 1!5.1.1, < 1!6.0.0',
-        'sPyNNaker >= 1!5.1.1, < 1!6.0.0'],
+        'SpiNNUtilities == 1!6.0.1',
+        'SpiNNMachine == 1!6.0.1',
+        'SpiNNMan == 1!6.0.1',
+        'SpiNNaker_PACMAN == 1!6.0.1',
+        'SpiNNaker_DataSpecification == 1!6.0.1',
+        'spalloc == 1!6.0.1',
+        'SpiNNFrontEndCommon == 1!6.0.1',
+        'sPyNNaker == 1!6.0.1'],
     maintainer="SpiNNakerTeam",
     maintainer_email="spinnakerusers@googlegroups.com"
 )
