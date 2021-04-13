@@ -50,7 +50,7 @@ setup(
     description="SpiNNaker 8 Template for New Models",
     url=url,
     classifiers=[
-        "Development Status :: 3 - Alpha",
+        "Development Status :: 5 - Production/Stable",
 
         "Intended Audience :: Developers",
         "Intended Audience :: Science/Research",
