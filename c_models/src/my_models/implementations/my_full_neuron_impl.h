@@ -91,14 +91,6 @@ static bool neuron_impl_do_timestep_update(
     return false;
 }
 
-__attribute__((unused)) // Marked unused as only used sometimes
-static void neuron_impl_record_structural(
-		uint32_t neuron_index, uint32_t rec_value) {
-	// See the standard implementation for how to turn this on if needed
-	use(neuron_index);
-	use(rec_value);
-}
-
 #if LOG_LEVEL >= LOG_DEBUG
 void neuron_impl_print_inputs(uint32_t n_neurons) {
     log_debug("-------------------------------------\n");
