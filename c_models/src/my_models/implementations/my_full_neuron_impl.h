@@ -69,7 +69,7 @@ static void neuron_impl_add_inputs(
 
 __attribute__((unused)) // Marked unused as only used sometimes
 static bool neuron_impl_do_timestep_update(
-        index_t neuron_index, input_t external_bias) {
+        index_t neuron_index, input_t external_bias, REAL current_offset) {
     // Get the neuron itself
     neuron_impl_t *neuron = &neuron_array[neuron_index];
 
@@ -77,7 +77,7 @@ static bool neuron_impl_do_timestep_update(
     neuron_recording_record_accum(V_RECORDING_INDEX, neuron_index, neuron->v);
 
     // Do something to update the state
-    neuron->v += external_bias + neuron->inputs[0] - neuron->inputs[1];
+    neuron->v += current_offset + external_bias + neuron->inputs[0] - neuron->inputs[1];
     neuron->inputs[0] = 0;
     neuron->inputs[1] = 0;
 
