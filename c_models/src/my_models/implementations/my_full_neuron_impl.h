@@ -68,27 +68,28 @@ static void neuron_impl_add_inputs(
 }
 
 __attribute__((unused)) // Marked unused as only used sometimes
-static bool neuron_impl_do_timestep_update(
-        index_t neuron_index, input_t external_bias) {
-    // Get the neuron itself
-    neuron_impl_t *neuron = &neuron_array[neuron_index];
+static void neuron_impl_do_timestep_update(
+        uint32_t timer_count, uint32_t time, uint32_t n_neurons) {
+    for (uint32_t neuron_index = 0; neuron_index < n_neurons; neuron_index++) {
+        // Get the neuron itself
+        neuron_impl_t *neuron = &neuron_array[neuron_index];
 
-    // Store the recorded membrane voltage
-    neuron_recording_record_accum(V_RECORDING_INDEX, neuron_index, neuron->v);
+        // Store the recorded membrane voltage
+        neuron_recording_record_accum(V_RECORDING_INDEX, neuron_index, neuron->v);
 
-    // Do something to update the state
-    neuron->v += external_bias + neuron->inputs[0] - neuron->inputs[1];
-    neuron->inputs[0] = 0;
-    neuron->inputs[1] = 0;
+        // Do something to update the state
+        neuron->v += neuron->inputs[0] - neuron->inputs[1];
+        neuron->inputs[0] = 0;
+        neuron->inputs[1] = 0;
 
-    // Determine if the neuron has spiked
-    if (neuron->v > neuron->threshold) {
-        // Reset if spiked
-        neuron->v = 0k;
-        neuron_recording_record_bit(SPIKE_RECORDING_BITFIELD, neuron_index);
-        return true;
+        // Determine if the neuron has spiked
+        if (neuron->v > neuron->threshold) {
+            // Reset if spiked
+            neuron->v = 0k;
+            neuron_recording_record_bit(SPIKE_RECORDING_BITFIELD, neuron_index);
+            send_spike(timer_count, time, neuron_index);
+        }
     }
-    return false;
 }
 
 #if LOG_LEVEL >= LOG_DEBUG
