@@ -239,8 +239,10 @@ static void neuron_impl_print_inputs(uint32_t n_neurons) {
         input_t exc_values[NUM_EXCITATORY_RECEPTORS];
         input_t inh_values[NUM_INHIBITORY_RECEPTORS];
         empty = empty && (0 == bitsk(
-                synapse_types_get_excitatory_input(exc_values, &neuron_synapse_shaping_params[i])
-                - synapse_types_get_inhibitory_input(inh_values, &neuron_synapse_shaping_params[i])));
+                synapse_types_get_excitatory_input(
+                        exc_values, &neuron_synapse_shaping_params[i])
+                - synapse_types_get_inhibitory_input(
+                        inh_values, &neuron_synapse_shaping_params[i])));
     }
 
     if (!empty) {
@@ -250,8 +252,10 @@ static void neuron_impl_print_inputs(uint32_t n_neurons) {
             input_t exc_values[NUM_EXCITATORY_RECEPTORS];
             input_t inh_values[NUM_INHIBITORY_RECEPTORS];
             input_t input =
-                    synapse_types_get_excitatory_input(exc_values, &neuron_synapse_shaping_params[i])
-                    - synapse_types_get_inhibitory_input(inh_values, &neuron_synapse_shaping_params[i]);
+                    synapse_types_get_excitatory_input(
+                            exc_values, &neuron_synapse_shaping_params[i])
+                    - synapse_types_get_inhibitory_input(
+                            inh_values, &neuron_synapse_shaping_params[i]);
             if (bitsk(input) != 0) {
                 log_debug("%3u: %12.6k (= ", i, input);
                 synapse_types_print_input(&neuron_synapse_shaping_params[i]);
