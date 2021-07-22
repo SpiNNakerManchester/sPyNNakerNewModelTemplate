@@ -93,7 +93,8 @@ static void neuron_impl_do_timestep_update(
 }
 
 #if LOG_LEVEL >= LOG_DEBUG
-void neuron_impl_print_inputs(uint32_t n_neurons) {
+__attribute__((unused)) // Marked unused as only used sometimes
+static void neuron_impl_print_inputs(uint32_t n_neurons) {
     log_debug("-------------------------------------\n");
     for (index_t i = 0; i < n_neurons; i++) {
         neuron_impl_t *neuron = &neuron_array[i];
@@ -102,12 +103,14 @@ void neuron_impl_print_inputs(uint32_t n_neurons) {
     log_debug("-------------------------------------\n");
 }
 
-void neuron_impl_print_synapse_parameters(uint32_t n_neurons) {
+__attribute__((unused)) // Marked unused as only used sometimes
+static void neuron_impl_print_synapse_parameters(uint32_t n_neurons) {
     // there aren't any accessible in this example
     use(n_neurons);
 }
 
-const char *neuron_impl_get_synapse_type_char(uint32_t synapse_type) {
+__attribute__((unused)) // Marked unused as only used sometimes
+static const char *neuron_impl_get_synapse_type_char(uint32_t synapse_type) {
     use(synapse_type);
     return 0;
 }
