@@ -45,7 +45,7 @@ static synapse_param_t *neuron_synapse_shaping_params;
 // The number of steps per timestep to run over
 static uint32_t n_steps_per_timestep;
 
-__attribute__((unused)) // Marked unused as only used sometimes
+SOMETIMES_UNUSED // Marked unused as only used sometimes
 static bool neuron_impl_initialise(uint32_t n_neurons) {
     // Allocate DTCM for neuron array
     neuron_array = spin1_malloc(n_neurons * sizeof(neuron_t));
@@ -81,7 +81,7 @@ static bool neuron_impl_initialise(uint32_t n_neurons) {
     return true;
 }
 
-__attribute__((unused)) // Marked unused as only used sometimes
+SOMETIMES_UNUSED // Marked unused as only used sometimes
 static void neuron_impl_add_inputs(
         index_t synapse_type_index, index_t neuron_index,
         input_t weights_this_timestep) {
@@ -91,7 +91,7 @@ static void neuron_impl_add_inputs(
             parameters, weights_this_timestep);
 }
 
-__attribute__((unused)) // Marked unused as only used sometimes
+SOMETIMES_UNUSED // Marked unused as only used sometimes
 static void neuron_impl_load_neuron_parameters(
         address_t address, uint32_t next, uint32_t n_neurons) {
     log_debug("writing parameters, next is %u, n_neurons is %u ",
@@ -114,7 +114,7 @@ static void neuron_impl_load_neuron_parameters(
             n_neurons * sizeof(synapse_param_t));
 }
 
-__attribute__((unused)) // Marked unused as only used sometimes
+SOMETIMES_UNUSED // Marked unused as only used sometimes
 static void neuron_impl_do_timestep_update(
         uint32_t timer_count, uint32_t time, uint32_t n_neurons) {
 
@@ -210,7 +210,7 @@ static void neuron_impl_do_timestep_update(
 
 //! \brief stores neuron parameter back into sdram
 //! \param[in] address: the address in sdram to start the store
-__attribute__((unused)) // Marked unused as only used sometimes
+SOMETIMES_UNUSED // Marked unused as only used sometimes
 static void neuron_impl_store_neuron_parameters(
         address_t address, uint32_t next, uint32_t n_neurons) {
     next += 1;
@@ -232,7 +232,7 @@ static void neuron_impl_store_neuron_parameters(
 }
 
 #if LOG_LEVEL >= LOG_DEBUG
-__attribute__((unused)) // Marked unused as only used sometimes
+SOMETIMES_UNUSED // Marked unused as only used sometimes
 static void neuron_impl_print_inputs(uint32_t n_neurons) {
     bool empty = true;
     for (index_t i = 0; i < n_neurons; i++) {
@@ -266,7 +266,7 @@ static void neuron_impl_print_inputs(uint32_t n_neurons) {
     }
 }
 
-__attribute__((unused)) // Marked unused as only used sometimes
+SOMETIMES_UNUSED // Marked unused as only used sometimes
 static void neuron_impl_print_synapse_parameters(uint32_t n_neurons) {
     log_debug("-------------------------------------\n");
     for (index_t n = 0; n < n_neurons; n++) {
@@ -275,7 +275,7 @@ static void neuron_impl_print_synapse_parameters(uint32_t n_neurons) {
     log_debug("-------------------------------------\n");
 }
 
-__attribute__((unused)) // Marked unused as only used sometimes
+SOMETIMES_UNUSED // Marked unused as only used sometimes
 static const char *neuron_impl_get_synapse_type_char(uint32_t synapse_type) {
     return synapse_types_get_type_char(synapse_type);
 }
