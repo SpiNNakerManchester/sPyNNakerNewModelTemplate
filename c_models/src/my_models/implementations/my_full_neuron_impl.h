@@ -15,6 +15,7 @@
 #define N_BITFIELD_VARS 1
 
 #include <neuron/neuron_recording.h>
+#include <neuron/current_sources/current_source_impl.h>
 
 //! neuron_impl_t struct
 typedef struct neuron_impl_t {
