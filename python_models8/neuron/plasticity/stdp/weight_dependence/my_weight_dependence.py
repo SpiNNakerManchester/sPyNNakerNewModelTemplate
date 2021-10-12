@@ -116,6 +116,15 @@ class MyWeightDependence(AbstractHasAPlusAMinus, AbstractWeightDependence):
         # give to a synapse
         return self._w_max
 
+    @property
+    def weight_minimum(self):
+        """ The minimum weight that will ever be set in a synapse as a result\
+            of this rule
+        """
+        # TODO: update to return the minimum weight that this rule will ever
+        # give to a synapse
+        return self._w_min
+
     @overrides(AbstractWeightDependence.weight_change_minimum)
     def weight_change_minimum(self, min_delta):
         pot, dep = min_delta
