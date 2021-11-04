@@ -105,4 +105,21 @@ static inline weight_t weight_get_final(weight_state_t new_state) {
     return (weight_t) new_weight;
 }
 
+//---------------------------------------
+__attribute__((unused)) // Marked unused as only used sometimes
+static void weight_decay(weight_state_t *state, int32_t decay) {
+    use(&state);
+    use(decay);
+
+    // TODO: Decay the weight inside the state
+}
+
+//---------------------------------------
+__attribute__((unused)) // Marked unused as only used sometimes
+static accum weight_get_update(weight_state_t state) {
+    use(&state);
+    // TODO: Return the weight inside the state
+    return 0;
+}
+
 #endif // _MY_WEIGHT_H_
