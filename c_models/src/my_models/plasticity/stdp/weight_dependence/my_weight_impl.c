@@ -3,11 +3,7 @@
 // Global plasticity parameter data
 plasticity_weight_region_data_t *plasticity_weight_region_data;
 
-address_t weight_initialise(
-        address_t address, uint32_t n_synapse_types, REAL *min_weights) {
-
-    // This can be used to indicate the scaling used on the weights
-    use(min_weights);
+address_t weight_initialise(address_t address, uint32_t n_synapse_types) {
 
     log_info("weight_initialise: starting");
     log_info("\tSTDP my weight dependence");
