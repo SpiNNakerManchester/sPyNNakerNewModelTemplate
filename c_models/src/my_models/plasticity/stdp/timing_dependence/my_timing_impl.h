@@ -125,4 +125,15 @@ static inline update_state_t timing_apply_post_spike(
     }
 }
 
+//---------------------------------------
+__attribute__((unused)) // Marked unused as only used sometimes
+static post_trace_t timing_decay_post(
+        uint32_t time, uint32_t last_time, post_trace_t last_trace) {
+    use(time);
+    use(last_time);
+
+    // TODO: Evolve the post trace without adding a spike
+    return last_trace;
+}
+
 #endif // _MY_TIMING_H_
