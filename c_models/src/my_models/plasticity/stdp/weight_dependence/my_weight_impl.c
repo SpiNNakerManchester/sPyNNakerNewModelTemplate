@@ -3,7 +3,8 @@
 // Global plasticity parameter data
 plasticity_weight_region_data_t *plasticity_weight_region_data;
 
-address_t weight_initialise(address_t address, uint32_t n_synapse_types) {
+address_t weight_initialise(
+        address_t address, uint32_t n_synapse_types, UNUSED REAL *min_weights) {
 
     log_info("weight_initialise: starting");
     log_info("\tSTDP my weight dependence");
