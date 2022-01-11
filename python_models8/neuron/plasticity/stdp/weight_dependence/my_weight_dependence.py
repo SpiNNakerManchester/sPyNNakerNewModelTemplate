@@ -87,10 +87,11 @@ class MyWeightDependence(AbstractHasAPlusAMinus, AbstractWeightDependence):
 
     @overrides(AbstractWeightDependence.write_parameters)
     def write_parameters(
-            self, spec, weight_scales, n_weight_terms):
+            self, spec, global_weight_scale, synapse_weight_scales,
+            n_weight_terms):
         # TODO: update to write the parameters
         # Loop through each synapse type's weight scale
-        for w in weight_scales:
+        for w in synapse_weight_scales:
             # Scale the maximum and minimum weights to fixed-point values
             # based on the weight scaling that has been done externally
             spec.write_value(
