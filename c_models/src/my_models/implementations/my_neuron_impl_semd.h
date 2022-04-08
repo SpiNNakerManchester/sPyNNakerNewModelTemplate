@@ -9,6 +9,7 @@
 #include <neuron/synapse_types/synapse_types_exponential_impl.h>
 
 #include <neuron/current_sources/current_source_impl.h>
+#include <neuron/current_sources/current_source.h>
 
 // Further includes
 #include <debug.h>
