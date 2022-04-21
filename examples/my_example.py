@@ -1,5 +1,5 @@
-# import spynnaker8 and plotting stuff
-import spynnaker8 as p
+# import spynnaker and plotting stuff
+import pyNN.spiNNaker as p
 from pyNN.utility.plotting import Figure, Panel
 import matplotlib.pyplot as plt
 
