@@ -4,7 +4,7 @@ See https://www.cit-ec.de/en/nbs/spiking-insect-vision for more details
 """
 
 # imports
-import spynnaker8 as p
+import pyNN.spiNNaker as p
 from python_models8.neuron.builds.my_if_curr_exp_sEMD import MyIFCurrExpSEMD
 
 import datetime
