@@ -8,6 +8,9 @@
 #include <neuron/threshold_types/threshold_type_static.h>
 #include <neuron/synapse_types/synapse_types_exponential_impl.h>
 
+#include <neuron/current_sources/current_source_impl.h>
+#include <neuron/current_sources/current_source.h>
+
 // Further includes
 #include <debug.h>
 
@@ -181,10 +184,13 @@ static void neuron_impl_do_timestep_update(
                         * input_type->my_multiplicator[i];
             }
 
+            // Get any input from an injected current source
+            REAL current_offset = current_source_get_offset(time, neuron_index);
+
             // update neuron parameters
             state_t result = neuron_model_state_update(
                     NUM_EXCITATORY_RECEPTORS, exc_input_values,
-                    NUM_INHIBITORY_RECEPTORS, inh_input_values, 0, neuron);
+                    NUM_INHIBITORY_RECEPTORS, inh_input_values, 0, current_offset, neuron);
 
             // determine if a spike should occur
             bool spike_now = threshold_type_is_above_threshold(result, threshold_type);
