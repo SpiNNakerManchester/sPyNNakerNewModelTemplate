@@ -1,4 +1,4 @@
-# Copyright (c) 2020-22 The University of Manchester
+# Copyright (c) 2020-2022 The University of Manchester
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -14,18 +14,18 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 name: Python Actions
-
 on: [push]
+env:
+  CODE_PATHS: examples python_models8 nmt_integration_tests
 
 jobs:
   build:
-
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     strategy:
       matrix:
         python-version: [3.7, 3.8, 3.9, "3.10"]
     env:
-      BASE_PKG: data_specification
+      BASE_PKG: python_models8
 
     steps:
     - name: Set up Python ${{ matrix.python-version }}
@@ -33,6 +33,7 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
+    # Check out the code and critical support code
     - name: Checkout
       uses: actions/checkout@v2
     - name: Checkout SupportScripts
@@ -41,19 +42,29 @@ jobs:
         repository: SpiNNakerManchester/SupportScripts
         path: support
 
+    # Set up the dependencies for everything
     - name: Install pip, etc
       uses: ./support/actions/python-tools
 
     - name: Install Spinnaker Dependencies
       uses: ./support/actions/checkout-spinn-deps
       with:
-        repositories: SpiNNUtils SpiNNMachine
+        repositories: >
+          SpiNNUtils SpiNNMachine SpiNNMan PACMAN DataSpecification spalloc
+          SpiNNFrontEndCommon sPyNNaker TestBase
         install: true
+
+    - name: Install matplotlib
+      uses: ./support/actions/install-matplotlib
 
     - name: Setup
       uses: ./support/actions/run-setup
 
-    - name: Test with pytest
+    - name: Setup PyNN
+      uses: ./support/actions/pynn-setup
+
+    # Testing
+   - name: Test with pytest
       uses: ./support/actions/pytest
       with:
         tests: unittests
@@ -61,20 +72,21 @@ jobs:
         cover-packages: ${{ env.BASE_PKG }}
         coveralls-token: ${{ secrets.GITHUB_TOKEN }}
 
+    # Code quality assessment
     - name: Lint with flake8
-      run: flake8 $BASE_PKG unittests
+      run: flake8 $CODE_PATHS
 
     - name: Lint with pylint
       uses: ./support/actions/pylint
       with:
-        package: ${{ env.BASE_PKG }}
+        package: ${{ env.CODE_PATHS }}
 
     #- name: Run rat copyright enforcement
     #  if: matrix.python-version == 3.8
     #  uses: ./support/actions/check-copyrights
 
-    #- name: Build documentation with sphinx
+    #- name: Validate all XML
     #  if: matrix.python-version == 3.8
-    #  uses: ./support/actions/sphinx
+    #  uses: ./support/actions/validate-xml
     #  with:
-    #    directory: doc/source
+    #    base-path: ${{ env.CODE_PATHS }}
