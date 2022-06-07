@@ -15,8 +15,6 @@
 
 name: Python Actions
 on: [push]
-env:
-  CODE_PATHS: examples python_models8 nmt_integration_tests
 
 jobs:
   build:
@@ -26,6 +24,7 @@ jobs:
         python-version: [3.7, 3.8, 3.9, "3.10"]
     env:
       BASE_PKG: python_models8
+      CODE_PATHS: examples python_models8 nmt_integration_tests
 
     steps:
     - name: Set up Python ${{ matrix.python-version }}
