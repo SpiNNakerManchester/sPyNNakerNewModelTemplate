@@ -35,6 +35,10 @@ jobs:
         path: support
 
     # Set up the dependencies for everything
+    - name: Install Ubuntu dependencies
+      uses: ./support/actions/apt-get-install
+      with:
+        packages: graphviz
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
       with:
@@ -55,6 +59,10 @@ jobs:
     - name: Setup PyNN
       uses: ./support/actions/pynn-setup
 
+    - name: Create a spynnaker.cfg
+      uses: ./support/actions/configure-spynnaker
+      with:
+        board-address: spinn-4.cs.man.ac.uk
     - name: Test with pytest
       uses: ./support/actions/pytest
       with:
