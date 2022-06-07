@@ -16,4 +16,12 @@
 -r requirements.txt
 SpiNNakerTestBase == 1!6.0.1
 flake8
-sphinx >= 2
+sphinx >= 4
+# pytest will be brought in by pytest-cov
+pytest-cov
+pytest-timeout
+pytest-forked
+pytest-progress
+testfixtures
+mock
+graphviz
