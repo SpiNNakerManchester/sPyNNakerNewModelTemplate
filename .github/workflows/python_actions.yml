@@ -15,6 +15,8 @@
 
 name: Python Actions
 on: [push]
+env:
+  CODE_PATHS: examples python_models8 nmt_integration_tests
 
 jobs:
   build:
@@ -22,16 +24,7 @@ jobs:
     strategy:
       matrix:
         python-version: [3.7, 3.8, 3.9, "3.10"]
-    env:
-      BASE_PKG: python_models8
-      CODE_PATHS: examples python_models8 nmt_integration_tests
-
     steps:
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v2
-      with:
-        python-version: ${{ matrix.python-version }}
-
     # Check out the code and critical support code
     - name: Checkout
       uses: actions/checkout@v2
@@ -42,9 +35,12 @@ jobs:
         path: support
 
     # Set up the dependencies for everything
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
     - name: Install pip, etc
       uses: ./support/actions/python-tools
-
     - name: Install Spinnaker Dependencies
       uses: ./support/actions/checkout-spinn-deps
       with:
@@ -52,24 +48,17 @@ jobs:
           SpiNNUtils SpiNNMachine SpiNNMan PACMAN DataSpecification spalloc
           SpiNNFrontEndCommon sPyNNaker TestBase
         install: true
-
     - name: Install matplotlib
       uses: ./support/actions/install-matplotlib
-
     - name: Setup
       uses: ./support/actions/run-setup
-
     - name: Setup PyNN
       uses: ./support/actions/pynn-setup
 
-    # Testing
-   - name: Test with pytest
+    - name: Test with pytest
       uses: ./support/actions/pytest
       with:
         tests: unittests
-        coverage: ${{ matrix.python-version == 3.8 }}
-        cover-packages: ${{ env.BASE_PKG }}
-        coveralls-token: ${{ secrets.GITHUB_TOKEN }}
 
     # Code quality assessment
     - name: Lint with flake8
@@ -80,9 +69,9 @@ jobs:
       with:
         package: ${{ env.CODE_PATHS }}
 
-    #- name: Run rat copyright enforcement
-    #  if: matrix.python-version == 3.8
-    #  uses: ./support/actions/check-copyrights
+    - name: Run rat copyright enforcement
+      if: matrix.python-version == 3.8
+      uses: ./support/actions/check-copyrights
 
     #- name: Validate all XML
     #  if: matrix.python-version == 3.8
