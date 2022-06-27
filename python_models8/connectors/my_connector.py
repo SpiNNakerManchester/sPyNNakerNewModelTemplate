@@ -1,9 +1,9 @@
 from spinn_utilities.overrides import overrides
 from spynnaker.pyNN.models.neural_projections.connectors import (
-    AbstractConnector)
+    AbstractConnector, AbstractGenerateConnectorOnHost)
 
 
-class MyConnector(AbstractConnector):
+class MyConnector(AbstractConnector, AbstractGenerateConnectorOnHost):
     """ Connects two vertices with some thing.
     """
 
@@ -30,7 +30,7 @@ class MyConnector(AbstractConnector):
     def get_delay_maximum(self, synapse_info):
         return 16
 
-    @overrides(AbstractConnector.create_synaptic_block)
+    @overrides(AbstractGenerateConnectorOnHost.create_synaptic_block)
     def create_synaptic_block(
             self, pre_slices, post_slices, pre_vertex_slice, post_vertex_slice,
             synapse_type, synapse_info):
