@@ -1,3 +1,4 @@
+from spinn_utilities.overrides import overrides
 from spynnaker.pyNN.models.neural_projections.connectors import (
     AbstractConnector)
 
@@ -25,71 +26,36 @@ class MyConnector(AbstractConnector):
 
         # TODO: Store any additional parameters
 
-    def get_delay_maximum(self):
-        """ Get the maximum delay specified by the user in ms, or None if\
-            unbounded
-        """
-        # TODO: update accordingly
+    @overrides(AbstractConnector.get_delay_maximum)
+    def get_delay_maximum(self, synapse_info):
         return 16
 
+    @overrides(AbstractConnector.create_synaptic_block)
     def create_synaptic_block(
-            self, pre_slices, pre_slice_index, post_slices, post_slice_index,
-            pre_vertex_slice, post_vertex_slice, synapse_type):
-        """ Create a synaptic block from the data
-        """
+            self, pre_slices, post_slices, pre_vertex_slice, post_vertex_slice,
+            synapse_type, synapse_info):
         # TODO: update accordingly
         pass
 
+    @overrides(AbstractConnector.get_weight_variance)
     def get_weight_variance(
-            self, pre_slices, pre_slice_index, post_slices, post_slice_index,
-            pre_vertex_slice, post_vertex_slice):
-        """ Get the variance of the weights
-        """
+            self, weights, synapse_info):
         # TODO: update accordingly
         pass
 
-    def generate_on_machine(self):
-        """ Determines if the connector generation is supported on the machine\
-            or if the connector must be generated on the host
-        """
+    @overrides(AbstractConnector.get_weight_maximum)
+    def get_weight_maximum(self, synapse_info):
         # TODO: update accordingly
         pass
 
-    def get_weight_maximum(
-            self, pre_slices, pre_slice_index, post_slices, post_slice_index,
-            pre_vertex_slice, post_vertex_slice):
-        """ Get the maximum of the weights for this connection
-        """
-        # TODO: update accordingly
-        pass
-
-    def get_n_connections_to_post_vertex_maximum(
-            self, pre_slices, pre_slice_index, post_slices, post_slice_index,
-            pre_vertex_slice, post_vertex_slice):
-        """ Get the maximum number of connections between those from each of\
-            the neurons in the pre_vertex_slice to neurons in the\
-            post_vertex_slice, for connections with a delay between min_delay\
-            and max_delay (inclusive) if both specified\
-            (otherwise all connections)
-        """
-        # TODO: update accordingly
-        pass
-
-    def get_weight_mean(
-            self, pre_slices, pre_slice_index, post_slices, post_slice_index,
-            pre_vertex_slice, post_vertex_slice):
-        """ Get the mean of the weights for this connection
-        """
-        # TODO: update accordingly
-        pass
-
+    @overrides(AbstractConnector.get_n_connections_from_pre_vertex_maximum)
     def get_n_connections_from_pre_vertex_maximum(
-            self, pre_slices, pre_slice_index, post_slices, post_slice_index,
-            pre_vertex_slice, post_vertex_slice, min_delay=None,
+            self, n_post_atoms, synapse_info, min_delay=None,
             max_delay=None):
-        """ Get the maximum number of connections between those to each of the\
-            neurons in the post_vertex_slice from neurons in the\
-            pre_vertex_slice
-        """
+        # TODO: update accordingly
+        pass
+
+    @overrides(AbstractConnector.get_n_connections_to_post_vertex_maximum)
+    def get_n_connections_to_post_vertex_maximum(self, synapse_info):
         # TODO: update accordingly
         pass

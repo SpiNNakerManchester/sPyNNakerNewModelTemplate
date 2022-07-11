@@ -72,6 +72,7 @@ print(datum)
 
 # plots
 Figure(
+    # pylint: disable=no-member
     # raster plot of the presynaptic neuron spike times
     Panel(spikes.segments[0].spiketrains,
           yticks=True, markersize=1.5, xlim=(0, run_time)),

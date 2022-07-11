@@ -59,6 +59,7 @@ class MyWeightDependence(AbstractHasAPlusAMinus, AbstractWeightDependence):
             return False
 
         # TODO: update to check parameters are equal
+        # pylint: disable=protected-access
         return (
             (self._w_min == weight_dependence._w_min) and
             (self._w_max == weight_dependence._w_max) and

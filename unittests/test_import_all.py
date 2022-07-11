@@ -13,15 +13,18 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
--r requirements.txt
-SpiNNakerTestBase == 1!6.0.1
-flake8
-sphinx >= 4
-# pytest will be brought in by pytest-cov
-pytest-cov
-pytest-timeout
-pytest-forked
-pytest-progress
-testfixtures
-mock
-graphviz
+import os
+import unittest
+import spinn_utilities.package_loader as package_loader
+
+
+class ImportAllModule(unittest.TestCase):
+
+    def test_import_all(self):
+        if os.environ.get('CONTINUOUS_INTEGRATION', 'false').lower() == 'true':
+            package_loader.load_module("python_models8", remove_pyc_files=False)
+        else:
+            # Do a full stack cleanup
+            package_loader.load_module(
+                "spinn_utilities", remove_pyc_files=True)
+            package_loader.load_module("python_models8", remove_pyc_files=True)
