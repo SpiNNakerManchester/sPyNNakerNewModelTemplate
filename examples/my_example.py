@@ -154,6 +154,7 @@ v_my_if_curr_exp_semd_pop = my_if_curr_exp_semd_pop.get_data('v')
 v_my_full_neuron_pop = my_full_neuron_pop.get_data('v')
 
 Figure(
+    # pylint: disable=no-member
     # membrane potentials for each example
     Panel(v_my_model_pop.segments[0].filter(name='v')[0],
           ylabel="Membrane potential (mV)",
