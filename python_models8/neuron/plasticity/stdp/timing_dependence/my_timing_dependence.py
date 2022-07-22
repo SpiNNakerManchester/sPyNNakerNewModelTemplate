@@ -8,7 +8,7 @@ from spynnaker.pyNN.models.neuron.plasticity.stdp.synapse_structure import (
     SynapseStructureWeightOnly)
 from spynnaker.pyNN.models.neuron.plasticity.stdp.common import (
     get_exp_lut_array, get_min_lut_value)
-from spinn_front_end_common.utilities.globals_variables import get_simulator
+from spynnaker.pyNN.data import SpynnakerDataView
 
 
 class MyTimingDependence(AbstractTimingDependence):
@@ -44,7 +44,7 @@ class MyTimingDependence(AbstractTimingDependence):
         self._a_plus = A_plus
         self._a_minus = A_minus
 
-        ts = get_simulator().machine_time_step
+        ts = SpynnakerDataView.get_simulation_time_step_ms()
         ts = ts / MICRO_TO_MILLISECOND_CONVERSION
         self._my_potentiation_data = get_exp_lut_array(
             ts, self._my_potentiation_parameter)
