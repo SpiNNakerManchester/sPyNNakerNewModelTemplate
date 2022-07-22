@@ -128,7 +128,7 @@ class MyTimingDependence(AbstractTimingDependence):
 
     @overrides(AbstractTimingDependence.minimum_delta)
     def minimum_delta(self, max_stdp_spike_delta):
-        ts = get_simulator().machine_time_step / 1000.0
+        ts = SpynnakerDataView.get_simulation_time_step_ms()
         return [
             get_min_lut_value(self._my_potentiation_data, ts,
                               max_stdp_spike_delta),
