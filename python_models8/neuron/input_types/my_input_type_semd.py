@@ -25,11 +25,6 @@ class MyInputTypeCurrentSEMD(AbstractInputType):
         self.__my_multiplicator = my_multiplicator
         self.__my_inh_input_previous = my_inh_input_previous
 
-    @overrides(AbstractInputType.get_n_cpu_cycles)
-    def get_n_cpu_cycles(self, n_neurons):
-        # A bit of a guess
-        return 10 * n_neurons
-
     @overrides(AbstractInputType.add_parameters)
     def add_parameters(self, parameters):
         parameters[MY_MULTIPLICATOR] = self.__my_multiplicator
