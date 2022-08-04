@@ -84,14 +84,6 @@ class MyFullNeuronImpl(AbstractNeuronImpl):
         # TODO: Update the binary name
         return "my_full_neuron_impl.aplx"
 
-    def get_n_cpu_cycles(self, n_neurons):
-        # TODO: Update (or guess) the number of CPU cycles
-        return 10 * n_neurons
-
-    def get_dtcm_usage_in_bytes(self, n_neurons):
-        # This is extracted from the struct, so no need to update
-        return self._struct.get_size_in_whole_words(n_neurons) * BYTES_PER_WORD
-
     def get_sdram_usage_in_bytes(self, n_neurons):
         # This is extracted from the struct, so no need to update
         return self._struct.get_size_in_whole_words(n_neurons) * BYTES_PER_WORD

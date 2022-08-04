@@ -96,10 +96,6 @@ class MySynapseType(AbstractSynapseType):
         # TODO: update to return the same names as above
         return "excitatory", "inhibitory"
 
-    def get_n_cpu_cycles(self, n_neurons):
-        # TODO: Calculate (or guess) the CPU cycles
-        return 10 * n_neurons
-
     def add_parameters(self, parameters):
         # TODO: Add initial values of the parameters that the user can change
         parameters[EX_SYNAPSE] = self._my_ex_synapse_parameter
