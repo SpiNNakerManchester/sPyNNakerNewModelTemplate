@@ -52,10 +52,6 @@ class MyInputType(AbstractInputType):
     def get_global_weight_scale(self):
         return 1.0
 
-    def get_n_cpu_cycles(self, n_neurons):
-        # TODO: Calculate (or guess) the CPU cycles
-        return 10 * n_neurons
-
     def add_parameters(self, parameters):
         # TODO: Add initial values of the parameters that the user can change
         parameters[MY_INPUT_PARAMETER] = self._my_input_parameter

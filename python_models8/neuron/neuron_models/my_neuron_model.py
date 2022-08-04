@@ -65,11 +65,6 @@ class MyNeuronModel(AbstractNeuronModel):
     def v(self, v):
         self._v = v
 
-    @overrides(AbstractNeuronModel.get_n_cpu_cycles)
-    def get_n_cpu_cycles(self, n_neurons):
-        # TODO: Calculate (or guess) the CPU cycles
-        return 10 * n_neurons
-
     @overrides(AbstractNeuronModel.add_parameters)
     def add_parameters(self, parameters):
         # TODO: Add initial values of the parameters that the user can change
