@@ -3,10 +3,22 @@
 
 #include <neuron/models/neuron_model.h>
 
-typedef struct neuron_t {
+struct neuron_params_t {
     // TODO: Parameters - make sure these match with the Python code,
-    // including the order of the variables when returned by
-    // get_neural_parameters.
+    // including the order of the variables
+
+    // Variable-state parameters e.g. membrane voltage
+    REAL V_init;
+    // offset current [nA]
+    REAL I_offset;
+    // Put anything else you want to store per neuron
+    REAL my_parameter;
+};
+
+struct neuron_t {
+    // TODO: State.  This might match with the above parameters, but can also
+    // differ if some calculations are made on the parameters during initialization
+    // for efficiency
 
     // Variable-state parameters e.g. membrane voltage
     REAL V;
@@ -14,18 +26,20 @@ typedef struct neuron_t {
     REAL I_offset;
     // Put anything else you want to store per neuron
     REAL my_parameter;
-} neuron_t;
+};
 
-typedef struct global_neuron_params_t {
-    // TODO: Add any parameters that apply to the whole model here (i.e. not
-    // just to a single neuron)
+static inline void neuron_model_initialise(neuron_t *state, neuron_params_t *params) {
+    // TODO: Make sure state variables are all set up
+    state->V = params->V_init;
+    state->I_offset = params->I_offset;
+    state->my_parameter = params->my_parameter;
+}
 
-    // Note: often these are not user supplied, but computed parameters
-
-    uint32_t machine_time_step;
-} global_neuron_params_t;
-
-extern const global_neuron_params_t *global_params;
+static inline void neuron_model_save_state(neuron_t *state, neuron_params_t *params) {
+    // TODO: Copy back anything that changes during the run so that the state
+    // continues in the next run
+    params->V_init = state->V;
+}
 
 static state_t neuron_model_state_update(
         uint16_t num_excitatory_inputs, const input_t* exc_input,
@@ -68,6 +82,18 @@ static void neuron_model_has_spiked(neuron_t *restrict neuron) {
 
     // TODO: Perform operations required to reset the state after a spike
     neuron->V = neuron->my_parameter;
+}
+
+static inline void neuron_model_print_state_variables(const neuron_t *neuron) {
+
+    // TODO: Print all state variables
+    log_info("V = %11.4k mv", neuron->V);
+}
+
+static inline void neuron_model_print_parameters(const neuron_t *neuron) {
+
+    // TODO: Print all neuron parameters
+    log_info("my parameter = %11.4k mv", neuron->my_parameter);
 }
 
 #endif // _NEURON_MODEL_MY_IMPL_H_
