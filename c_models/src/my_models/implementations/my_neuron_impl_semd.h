@@ -24,12 +24,17 @@
 
 #include <neuron/neuron_recording.h>
 
-typedef struct input_type_current_semd_t {
+typedef struct input_current_semd_receptor {
     // my_multiplicator
-    REAL my_multiplicator[NUM_INHIBITORY_RECEPTORS];
+    REAL my_multiplicator;
 
     // previous input value
-    REAL my_inh_input_previous[NUM_INHIBITORY_RECEPTORS];
+    REAL my_inh_input_previous;
+} semd_receptor;
+
+typedef struct input_type_current_semd_t {
+    // receptors for inh inputs
+    semd_receptor receptor[NUM_INHIBITORY_RECEPTORS];
 } input_type_current_semd_t;
 
 #define SCALING_FACTOR 40.0k
@@ -188,13 +193,13 @@ static void neuron_impl_do_timestep_update(
             // Set the inhibitory my_multiplicator value
             for (int i = 0; i < NUM_INHIBITORY_RECEPTORS; i++) {
                 if ((inh_input_values[i] >= 0.01) &&
-                        (input_type->my_multiplicator[i] == 0) &&
-                        (input_type->my_inh_input_previous[i] == 0)) {
-                    input_type->my_multiplicator[i] = exc_input_values[i];
+                        (input_type->receptor[i].my_multiplicator == 0) &&
+                        (input_type->receptor[i].my_inh_input_previous == 0)) {
+                    input_type->receptor[i].my_multiplicator = exc_input_values[i];
                 } else if (inh_input_values[i] < 0.01) {
-                    input_type->my_multiplicator[i] = 0;
+                    input_type->receptor[i].my_multiplicator = 0;
                 }
-                input_type->my_inh_input_previous[i] = inh_input_values[i];
+                input_type->receptor[i].my_inh_input_previous = inh_input_values[i];
             }
 
             // Sum g_syn contributions from all receptors for recording
@@ -218,7 +223,7 @@ static void neuron_impl_do_timestep_update(
             // This changes inhibitory to excitatory input
             for (int i = 0; i < NUM_INHIBITORY_RECEPTORS; i++) {
                 inh_input_values[i] = -inh_input_values[i] * SCALING_FACTOR
-                        * input_type->my_multiplicator[i];
+                        * input_type->receptor[i].my_multiplicator;
             }
 
             // Get any input from an injected current source

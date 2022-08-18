@@ -34,11 +34,10 @@ class MyFullNeuronImpl(AbstractNeuronImpl):
 
         # TODO: Store a struct to make other operations easier
         self._struct = Struct([
-            DataType.S1615,  # inputs[0]
-            DataType.S1615,  # inputs[1]
-            DataType.S1615,  # v
-            DataType.S1615   # threshold
-        ])
+            (DataType.S1615, EXC_INPUT),
+            (DataType.S1615, INH_INPUT),
+            (DataType.S1615, V),
+            (DataType.S1615, THRESHOLD)])
 
     # TODO: Add getters and setters for the parameters
 
@@ -73,6 +72,10 @@ class MyFullNeuronImpl(AbstractNeuronImpl):
     @inh_input.setter
     def inh_input(self, inh_input):
         self._inh_input = inh_input
+
+    @property
+    def structs(self):
+        return [self._struct]
 
     @property
     def model_name(self):
