@@ -150,14 +150,13 @@ class MyFullNeuronImpl(AbstractNeuronImpl):
         state_variables[EXC_INPUT] = self._exc_input
         state_variables[INH_INPUT] = self._inh_input
 
-    def get_data(self, parameters, state_variables, vertex_slice):
+    def get_data(self, parameters, state_variables, vertex_slice, atoms_shape):
         # TODO: get the data in the appropriate form to match the struct
         values = [state_variables[EXC_INPUT],
                   state_variables[INH_INPUT],
                   state_variables[V],
                   parameters[THRESHOLD]]
-        return self._struct.get_data(
-            values, vertex_slice.lo_atom, vertex_slice.n_atoms)
+        return self._struct.get_data(values, vertex_slice, atoms_shape)
 
     def read_data(
             self, data, offset, vertex_slice, parameters, state_variables):
