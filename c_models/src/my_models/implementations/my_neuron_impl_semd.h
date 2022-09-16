@@ -48,7 +48,7 @@ static synapse_param_t *neuron_synapse_shaping_params;
 // The number of steps per timestep to run over
 static uint32_t n_steps_per_timestep;
 
-__attribute__((unused)) // Marked unused as only used sometimes
+SOMETIMES_UNUSED // Marked unused as only used sometimes
 static bool neuron_impl_initialise(uint32_t n_neurons) {
     // Allocate DTCM for neuron array
     neuron_array = spin1_malloc(n_neurons * sizeof(neuron_t));
@@ -84,7 +84,7 @@ static bool neuron_impl_initialise(uint32_t n_neurons) {
     return true;
 }
 
-__attribute__((unused)) // Marked unused as only used sometimes
+SOMETIMES_UNUSED // Marked unused as only used sometimes
 static void neuron_impl_add_inputs(
         index_t synapse_type_index, index_t neuron_index,
         input_t weights_this_timestep) {
@@ -94,7 +94,7 @@ static void neuron_impl_add_inputs(
             parameters, weights_this_timestep);
 }
 
-__attribute__((unused)) // Marked unused as only used sometimes
+SOMETIMES_UNUSED // Marked unused as only used sometimes
 static void neuron_impl_load_neuron_parameters(
         address_t address, uint32_t next, uint32_t n_neurons) {
     log_debug("writing parameters, next is %u, n_neurons is %u ",
@@ -102,26 +102,22 @@ static void neuron_impl_load_neuron_parameters(
     n_steps_per_timestep = address[next];
     next += 1;
 
-    log_debug("writing neuron local parameters");
     spin1_memcpy(neuron_array, &address[next], n_neurons * sizeof(neuron_t));
     next += (n_neurons * sizeof(neuron_t)) / 4;
 
-    log_debug("writing input type parameters");
     spin1_memcpy(input_type_array, &address[next],
             n_neurons * sizeof(input_type_current_semd_t));
     next += (n_neurons * sizeof(input_type_current_semd_t)) / 4;
 
-    log_debug("writing threshold type parameters");
     spin1_memcpy(threshold_type_array, &address[next],
             n_neurons * sizeof(threshold_type_t));
     next += (n_neurons * sizeof(threshold_type_t)) / 4;
 
-    log_debug("writing synapse parameters");
     spin1_memcpy(neuron_synapse_shaping_params, &address[next],
             n_neurons * sizeof(synapse_param_t));
 }
 
-__attribute__((unused)) // Marked unused as only used sometimes
+SOMETIMES_UNUSED // Marked unused as only used sometimes
 static void neuron_impl_do_timestep_update(
         uint32_t timer_count, uint32_t time, uint32_t n_neurons) {
 
@@ -220,48 +216,52 @@ static void neuron_impl_do_timestep_update(
 
 //! \brief stores neuron parameter back into sdram
 //! \param[in] address: the address in sdram to start the store
-__attribute__((unused)) // Marked unused as only used sometimes
+SOMETIMES_UNUSED // Marked unused as only used sometimes
 static void neuron_impl_store_neuron_parameters(
         address_t address, uint32_t next, uint32_t n_neurons) {
-    log_debug("writing parameters");
     next += 1;
 
-    log_debug("writing neuron local parameters");
     spin1_memcpy(&address[next], neuron_array,
             n_neurons * sizeof(neuron_t));
     next += (n_neurons * sizeof(neuron_t)) / 4;
 
-    log_debug("writing input type parameters");
     spin1_memcpy(&address[next], input_type_array,
             n_neurons * sizeof(input_type_current_semd_t));
     next += (n_neurons * sizeof(input_type_current_semd_t)) / 4;
 
-    log_debug("writing threshold type parameters");
     spin1_memcpy(&address[next], threshold_type_array,
             n_neurons * sizeof(threshold_type_t));
     next += (n_neurons * sizeof(threshold_type_t)) / 4;
 
-    log_debug("writing synapse parameters");
     spin1_memcpy(&address[next], neuron_synapse_shaping_params,
             n_neurons * sizeof(synapse_param_t));
 }
 
 #if LOG_LEVEL >= LOG_DEBUG
-void neuron_impl_print_inputs(uint32_t n_neurons) {
+SOMETIMES_UNUSED // Marked unused as only used sometimes
+static void neuron_impl_print_inputs(uint32_t n_neurons) {
     bool empty = true;
     for (index_t i = 0; i < n_neurons; i++) {
+        input_t exc_values[NUM_EXCITATORY_RECEPTORS];
+        input_t inh_values[NUM_INHIBITORY_RECEPTORS];
         empty = empty && (0 == bitsk(
-                synapse_types_get_excitatory_input(&neuron_synapse_shaping_params[i])
-                - synapse_types_get_inhibitory_input(&neuron_synapse_shaping_params[i])));
+                synapse_types_get_excitatory_input(
+                        exc_values, &neuron_synapse_shaping_params[i])
+                - synapse_types_get_inhibitory_input(
+                        inh_values, &neuron_synapse_shaping_params[i])));
     }
 
     if (!empty) {
         log_debug("-------------------------------------\n");
 
         for (index_t i = 0; i < n_neurons; i++) {
+            input_t exc_values[NUM_EXCITATORY_RECEPTORS];
+            input_t inh_values[NUM_INHIBITORY_RECEPTORS];
             input_t input =
-                    synapse_types_get_excitatory_input(&neuron_synapse_shaping_params[i])
-                    - synapse_types_get_inhibitory_input(&neuron_synapse_shaping_params[i]);
+                    synapse_types_get_excitatory_input(
+                            exc_values, &neuron_synapse_shaping_params[i])
+                    - synapse_types_get_inhibitory_input(
+                            inh_values, &neuron_synapse_shaping_params[i]);
             if (bitsk(input) != 0) {
                 log_debug("%3u: %12.6k (= ", i, input);
                 synapse_types_print_input(&neuron_synapse_shaping_params[i]);
@@ -272,7 +272,8 @@ void neuron_impl_print_inputs(uint32_t n_neurons) {
     }
 }
 
-void neuron_impl_print_synapse_parameters(uint32_t n_neurons) {
+SOMETIMES_UNUSED // Marked unused as only used sometimes
+static void neuron_impl_print_synapse_parameters(uint32_t n_neurons) {
     log_debug("-------------------------------------\n");
     for (index_t n = 0; n < n_neurons; n++) {
         synapse_types_print_parameters(&neuron_synapse_shaping_params[n]);
@@ -280,7 +281,8 @@ void neuron_impl_print_synapse_parameters(uint32_t n_neurons) {
     log_debug("-------------------------------------\n");
 }
 
-const char *neuron_impl_get_synapse_type_char(uint32_t synapse_type) {
+SOMETIMES_UNUSED // Marked unused as only used sometimes
+static const char *neuron_impl_get_synapse_type_char(uint32_t synapse_type) {
     return synapse_types_get_type_char(synapse_type);
 }
 #endif // LOG_LEVEL >= LOG_DEBUG
