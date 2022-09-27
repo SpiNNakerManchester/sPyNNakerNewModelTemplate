@@ -2,7 +2,6 @@ from data_specification.enums import DataType
 from spynnaker.pyNN.models.neuron.additional_inputs import (
     AbstractAdditionalInput)
 from spynnaker.pyNN.utilities.struct import Struct
-from spinn_utilities import overrides
 
 # TODO: create constants to match the parameter names
 MY_ADDITIONAL_INPUT_PARAMETER = "my_additional_input_parameter"
