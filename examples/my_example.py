@@ -71,7 +71,7 @@ p.Projection(
 my_model_my_synapse_type_pop = p.Population(
     n_neurons, MyModelCurrMySynapseType(
         my_neuron_parameter=-70.0, i_offset=i_offset,
-        my_ex_synapse_parameter=0.5),
+        my_ex_synapse_parameter=2.0),
     label="my_model_my_synapse_type_pop")
 p.Projection(
     input_pop, my_model_my_synapse_type_pop,
