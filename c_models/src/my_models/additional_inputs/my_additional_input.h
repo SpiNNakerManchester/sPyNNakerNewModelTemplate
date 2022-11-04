@@ -21,7 +21,8 @@ struct additional_input_t {
 //! \param[out] state The state to write to
 //! \param[in] params The parameters to read from
 static inline void additional_input_initialise(
-        additional_input_t *state, additional_input_params_t *params) {
+        additional_input_t *state, additional_input_params_t *params,
+        UNUSED uint32_t n_steps_per_timestep) {
     state->my_parameter = params->my_parameter;
     state->input_current = params->input_current_init;
 }

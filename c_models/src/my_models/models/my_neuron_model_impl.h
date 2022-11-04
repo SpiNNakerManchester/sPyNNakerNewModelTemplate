@@ -28,7 +28,8 @@ struct neuron_t {
     REAL my_parameter;
 };
 
-static inline void neuron_model_initialise(neuron_t *state, neuron_params_t *params) {
+static inline void neuron_model_initialise(neuron_t *state, neuron_params_t *params,
+        UNUSED uint32_t n_steps_per_timestep) {
     // TODO: Make sure state variables are all set up
     state->V = params->V_init;
     state->I_offset = params->I_offset;

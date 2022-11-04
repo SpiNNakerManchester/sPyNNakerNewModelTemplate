@@ -21,7 +21,8 @@ struct input_type_t {
 //! \param[out] state The state to write to
 //! \param[in] params The parameters to read from
 static inline void input_type_initialise(
-        input_type_t *state, input_type_params_t *params) {
+        input_type_t *state, input_type_params_t *params,
+        UNUSED uint32_t n_steps_per_timestep) {
     state->my_parameter = params->my_parameter;
     state->multiplicator = params->multiplicator_init;
 }

@@ -16,7 +16,7 @@ struct threshold_type_t {
 };
 
 static inline void threshold_type_initialise(threshold_type_t *state,
-        threshold_type_params_t *params) {
+        threshold_type_params_t *params, UNUSED uint32_t n_steps_per_timestep) {
     state->threshold_value = params->threshold_value;
     state->my_param = params->my_param;
 }
