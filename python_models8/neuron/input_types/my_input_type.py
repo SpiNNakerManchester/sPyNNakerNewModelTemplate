@@ -1,15 +1,10 @@
 from spynnaker.pyNN.models.neuron.input_types import AbstractInputType
 from data_specification.enums.data_type import DataType
+from spynnaker.pyNN.utilities.struct import Struct
 
 # TODO create constants to match the parameter names
 MY_MULTIPLICATOR = "my_multiplicator"
 MY_INPUT_PARAMETER = "my_input_parameter"
-
-# TODO create units for each parameter
-UNITS = {
-    MY_MULTIPLICATOR: "",
-    MY_INPUT_PARAMETER: "mA"
-}
 
 
 class MyInputType(AbstractInputType):
@@ -23,9 +18,10 @@ class MyInputType(AbstractInputType):
 
         # TODO: Update the data types
         super().__init__([
-            DataType.S1615,  # my_multiplicator
-            DataType.S1615   # my_input_parameter
-        ])
+            Struct([
+                (DataType.S1615, MY_MULTIPLICATOR),
+                (DataType.S1615, MY_INPUT_PARAMETER)])],
+            {MY_MULTIPLICATOR: "", MY_INPUT_PARAMETER: "mA"})
 
         # TODO: store the parameters
         self._my_multiplicator = my_multiplicator
@@ -60,26 +56,3 @@ class MyInputType(AbstractInputType):
         # TODO: Add initial values of the state variables that the user can
         # change
         state_variables[MY_MULTIPLICATOR] = self._my_multiplicator
-
-    def get_values(self, parameters, state_variables, vertex_slice, ts):
-        # TODO: Return, in order of the struct, the values from the parameters,
-        # state variables, or other
-        return [state_variables[MY_MULTIPLICATOR],
-                parameters[MY_INPUT_PARAMETER]]
-
-    def update_values(self, values, parameters, state_variables):
-        # TODO: From the list of values given in order of the struct, update
-        # the parameters and state variables
-        (_my_input_parameter, my_multiplicator) = values
-
-        # NOTE: If you know that the value doesn't change, you don't have to
-        # assign it (hint: often only state variables are likely to change)!
-        state_variables[MY_MULTIPLICATOR] = my_multiplicator
-
-    def has_variable(self, variable):
-        # This works from the UNITS dict, so no changes are required
-        return variable in UNITS
-
-    def get_units(self, variable):
-        # This works from the UNITS dict, so no changes are required
-        return UNITS[variable]
