@@ -31,7 +31,7 @@ class TestMyModelCurrMySynapseType(NwtTestBase):
         test_pop = sim.Population(
             1, MyModelCurrMySynapseType(
                 my_neuron_parameter=-70.0, i_offset=0.0,
-                my_ex_synapse_parameter=0.5),
+                my_ex_synapse_parameter=2.0),
             label="my_model_my_additional_input_pop")
         test_pop.record(['spikes', 'v'])
         sim.Projection(

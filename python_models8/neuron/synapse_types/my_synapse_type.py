@@ -1,20 +1,15 @@
-import numpy
 from spinn_utilities.overrides import overrides
 from data_specification.enums import DataType
 from spynnaker.pyNN.models.neuron.synapse_types import AbstractSynapseType
+from spynnaker.pyNN.utilities.struct import Struct
+from spynnaker.pyNN.data.spynnaker_data_view import SpynnakerDataView
 
 # TODO: create constants to match the parameter names
 EX_SYNAPSE = 'my_ex_synapse_parameter'
 IN_SYNAPSE = 'my_in_synapse_parameter'
-EXC_INIT = 'my_exc_init'
-INH_INIT = 'my_inh_init'
-
-# TODO: create units for each parameter
-UNITS = {
-    EX_SYNAPSE: "mV",
-    IN_SYNAPSE: 'mV',
-    EXC_INIT: "uS",
-    INH_INIT: "uS"}
+ISYN_EXC = 'my_exc_init'
+ISYN_INH = 'my_inh_init'
+TIMESTEP_MS = 'timestep_ms'
 
 
 class MySynapseType(AbstractSynapseType):
@@ -28,14 +23,14 @@ class MySynapseType(AbstractSynapseType):
             my_inh_init):
 
         # TODO: Update the data types - this must match the struct exactly
-        super().__init__([
-            DataType.U032,  # my_exc_decay
-            DataType.U032,  # my_exc_init
-            DataType.U032,  # my_inh_decay
-            DataType.U032,  # my_inh_init
-            DataType.S1615,  # my_input_buffer_excitatory_value
-            DataType.S1615   # my_input_buffer_inhibitory_value;
-        ])
+        super().__init__(
+            [Struct([
+                (DataType.S1615, EX_SYNAPSE),
+                (DataType.S1615, ISYN_EXC),
+                (DataType.S1615, IN_SYNAPSE),
+                (DataType.S1615, ISYN_INH),
+                (DataType.S1615, TIMESTEP_MS)])],
+            {EX_SYNAPSE: "mV", IN_SYNAPSE: 'mV', ISYN_EXC: "", ISYN_INH: ""})
 
         # TODO: Store the parameters
         self._my_ex_synapse_parameter = my_ex_synapse_parameter
@@ -100,39 +95,11 @@ class MySynapseType(AbstractSynapseType):
         # TODO: Add initial values of the parameters that the user can change
         parameters[EX_SYNAPSE] = self._my_ex_synapse_parameter
         parameters[IN_SYNAPSE] = self._my_in_synapse_parameter
+        parameters[TIMESTEP_MS] = (
+            SpynnakerDataView.get_simulation_time_step_ms())
 
     def add_state_variables(self, state_variables):
         # TODO: Add initial values of the state variables that the user can
         # change
-        state_variables[EXC_INIT] = self._my_exc_init
-        state_variables[INH_INIT] = self._my_inh_init
-
-    def get_values(self, parameters, state_variables, vertex_slice, ts):
-        # TODO: Return, in order of the struct, the values from the parameters,
-        # state variables, or other
-        tsfloat = float(ts) / 1000.0
-        decay = lambda x: numpy.exp(-tsfloat / x)  # noqa E731
-        init = lambda x: (x / tsfloat) * (1.0 - numpy.exp(-tsfloat / x))  # noqa E731
-        return [parameters[EX_SYNAPSE].apply_operation(decay),
-                parameters[EX_SYNAPSE].apply_operation(init),
-                parameters[IN_SYNAPSE].apply_operation(decay),
-                parameters[IN_SYNAPSE].apply_operation(init),
-                state_variables[EXC_INIT], state_variables[INH_INIT]]
-
-    def update_values(self, values, parameters, state_variables):
-        # TODO: From the list of values given in order of the struct, update
-        # the parameters and state variables
-        (_ex_decay, _ex_init, _in_decay, _in_init, exc_init, inh_init) = values
-
-        # NOTE: If you know that the value doesn't change, you don't have to
-        # assign it (hint: often only state variables are likely to change)!
-        state_variables[EXC_INIT] = exc_init
-        state_variables[INH_INIT] = inh_init
-
-    def has_variable(self, variable):
-        # This works from the UNITS dict, so no changes are required
-        return variable in UNITS
-
-    def get_units(self, variable):
-        # This works from the UNITS dict, so no changes are required
-        return UNITS[variable]
+        state_variables[ISYN_EXC] = self._my_exc_init
+        state_variables[ISYN_INH] = self._my_inh_init
