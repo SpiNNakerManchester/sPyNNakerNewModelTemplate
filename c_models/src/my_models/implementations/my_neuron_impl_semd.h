@@ -184,18 +184,18 @@ static void neuron_impl_do_timestep_update(
             // Set the inhibitory my_multiplicator value
             for (int i = 0; i < NUM_INHIBITORY_RECEPTORS; i++) {
                 if ((inh_input_values[i] >= 0.01k) &&
-                        (input_type->receptor[i].my_multiplicator == 0) &&
-                        (input_type->receptor[i].my_inh_input_previous == 0)) {
+                        (input_type->receptor[i].my_multiplicator == ZERO) &&
+                        (input_type->receptor[i].my_inh_input_previous == ZERO)) {
                     input_type->receptor[i].my_multiplicator = exc_input_values[i];
                 } else if (inh_input_values[i] < 0.01k) {
-                    input_type->receptor[i].my_multiplicator = 0;
+                    input_type->receptor[i].my_multiplicator = ZERO;
                 }
                 input_type->receptor[i].my_inh_input_previous = inh_input_values[i];
             }
 
             // Sum g_syn contributions from all receptors for recording
-            REAL total_exc = 0;
-            REAL total_inh = 0;
+            REAL total_exc = ZERO;
+            REAL total_inh = ZERO;
 
             for (int i = 0; i < NUM_EXCITATORY_RECEPTORS; i++) {
                 total_exc += exc_input_values[i];
