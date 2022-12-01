@@ -52,8 +52,8 @@ static state_t neuron_model_state_update(
     // outside of this function, so does not need to be repeated here.
 
     // Sum contributions from multiple inputs (if used)
-    REAL total_exc = 0;
-    REAL total_inh = 0;
+    REAL total_exc = ZERO;
+    REAL total_inh = ZERO;
     for (uint32_t i = 0; i < num_excitatory_inputs; i++) {
         total_exc += exc_input[i];
     }
