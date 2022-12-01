@@ -89,13 +89,13 @@ static void neuron_impl_do_timestep_update(
 
         // Do something to update the state
         neuron->v += neuron->inputs[0] - neuron->inputs[1];
-        neuron->inputs[0] = 0;
-        neuron->inputs[1] = 0;
+        neuron->inputs[0] = ZERO;
+        neuron->inputs[1] = ZERO;
 
         // Determine if the neuron has spiked
         if (neuron->v > neuron->threshold) {
             // Reset if spiked
-            neuron->v = 0k;
+            neuron->v = ZERO;
             neuron_recording_record_bit(SPIKE_RECORDING_BITFIELD, neuron_index);
             send_spike(timer_count, time, neuron_index);
         }
