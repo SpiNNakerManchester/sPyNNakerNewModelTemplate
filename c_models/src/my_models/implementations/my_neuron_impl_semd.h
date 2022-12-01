@@ -183,11 +183,11 @@ static void neuron_impl_do_timestep_update(
 
             // Set the inhibitory my_multiplicator value
             for (int i = 0; i < NUM_INHIBITORY_RECEPTORS; i++) {
-                if ((inh_input_values[i] >= 0.01) &&
+                if ((inh_input_values[i] >= 0.01k) &&
                         (input_type->receptor[i].my_multiplicator == 0) &&
                         (input_type->receptor[i].my_inh_input_previous == 0)) {
                     input_type->receptor[i].my_multiplicator = exc_input_values[i];
-                } else if (inh_input_values[i] < 0.01) {
+                } else if (inh_input_values[i] < 0.01k) {
                     input_type->receptor[i].my_multiplicator = 0;
                 }
                 input_type->receptor[i].my_inh_input_previous = inh_input_values[i];
