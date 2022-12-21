@@ -45,10 +45,17 @@ static bool neuron_impl_initialise(uint32_t n_neurons) {
 
 SOMETIMES_UNUSED // Marked unused as only used sometimes
 static void neuron_impl_load_neuron_parameters(
-        address_t address, uint32_t next, uint32_t n_neurons) {
+        address_t address, uint32_t next, uint32_t n_neurons,
+        address_t save_initial_state) {
     // Copy parameters to DTCM from SDRAM
     spin1_memcpy(neuron_array, &address[next],
             n_neurons * sizeof(neuron_impl_t));
+    // If we are to save the initial state, copy the whole of the parameters
+    // to the initial state
+    if (save_initial_state) {
+        spin1_memcpy(save_initial_state, neuron_array,
+                n_neurons * sizeof(neuron_impl_t));
+    }
 }
 
 SOMETIMES_UNUSED // Marked unused as only used sometimes
@@ -82,13 +89,13 @@ static void neuron_impl_do_timestep_update(
 
         // Do something to update the state
         neuron->v += neuron->inputs[0] - neuron->inputs[1];
-        neuron->inputs[0] = 0;
-        neuron->inputs[1] = 0;
+        neuron->inputs[0] = ZERO;
+        neuron->inputs[1] = ZERO;
 
         // Determine if the neuron has spiked
         if (neuron->v > neuron->threshold) {
             // Reset if spiked
-            neuron->v = 0k;
+            neuron->v = ZERO;
             neuron_recording_record_bit(SPIKE_RECORDING_BITFIELD, neuron_index);
             send_spike(timer_count, time, neuron_index);
         }
