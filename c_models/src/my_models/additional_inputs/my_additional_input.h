@@ -54,7 +54,7 @@ static input_t additional_input_get_input_value_as_current(
 //!     parameters
 static void additional_input_has_spiked(
         additional_input_t *additional_input) {
-    additional_input->input_current = 0;
+    additional_input->input_current = ZERO;
 }
 
 #endif // _MY_ADDITIONAL_INPUT_H_
