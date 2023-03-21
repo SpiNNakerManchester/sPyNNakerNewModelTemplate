@@ -45,14 +45,18 @@ jobs:
         echo "NEURAL_MODELLING_DIRS=$PWD/sPyNNaker/neural_modelling" >> $GITHUB_ENV
 
     - name: Checkout SpiNNaker C Dependencies
-      uses: ./support/actions/checkout-spinn-deps
+      uses: ./support/actions/install-spinn-deps
       with:
         # Note: SpiNNUtils needed for spinn_utilities.make_tools
         repositories: >
           spinnaker_tools spinn_common SpiNNUtils SpiNNFrontEndCommon sPyNNaker
-    - name: Install SpiNNUtils
-      run: python setup.py install
-      working-directory: SpiNNUtils
+
+    - name: "Prepare: Install SpiNNUtils"
+      uses: ./support/actions/install-spinn-deps
+      with:
+        # Note: SpiNNUtils needed for spinn_utilities.make_tools
+        repositories: SpiNNUtils
+        install: true
 
     - name: "Check: Lint C lib code using Vera++"
       # Note: run this before building to avoid linting modified_src directories
