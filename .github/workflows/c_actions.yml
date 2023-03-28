@@ -49,7 +49,7 @@ jobs:
       with:
         # Note: SpiNNUtils needed for spinn_utilities.make_tools
         repositories: >
-          spinnaker_tools spinn_common SpiNNUtils SpiNNFrontEndCommon sPyNNaker
+          spinnaker_tools spinn_common SpiNNFrontEndCommon sPyNNaker
 
     - name: "Prepare: Install SpiNNUtils"
       uses: ./support/actions/install-spinn-deps

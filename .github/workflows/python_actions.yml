@@ -55,8 +55,10 @@ jobs:
 
     - name: Install matplotlib
       uses: ./support/actions/install-matplotlib
+
     - name: Setup
-      uses: ./support/actions/run-setup
+      uses: ./support/actions/run-install
+
     - name: Setup PyNN
       uses: ./support/actions/pynn-setup
 
