@@ -78,7 +78,8 @@ static inline weight_state_t weight_one_term_apply_potentiation(
 }
 
 //---------------------------------------
-static inline weight_t weight_get_final(weight_state_t new_state) {
+static inline weight_t weight_get_final(
+		weight_state_t new_state, REAL reg_error) {
 
     // TODO: Perform operations to get the final weight from the intermediate
     // state, taking into account all potentiation and depression
