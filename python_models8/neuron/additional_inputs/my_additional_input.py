@@ -1,4 +1,4 @@
-from data_specification.enums import DataType
+from spinn_front_end_common.interface.ds import DataType
 from spynnaker.pyNN.models.neuron.additional_inputs import (
     AbstractAdditionalInput)
 from spynnaker.pyNN.utilities.struct import Struct
