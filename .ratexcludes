@@ -12,7 +12,6 @@
 **/*.npy
 **/*.jpg
 **/*.elf
-**/DataSpecification/**
 **/IntroLab/**
 **/PACMAN/**
 **/PyNN8Examples/**
