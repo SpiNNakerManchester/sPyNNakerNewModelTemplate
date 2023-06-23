@@ -1,4 +1,4 @@
-from data_specification.enums.data_type import DataType
+from spinn_front_end_common.interface.ds import DataType
 from spynnaker.pyNN.utilities.struct import Struct
 from spynnaker.pyNN.models.neuron.implementations import (
     AbstractNeuronImpl)
