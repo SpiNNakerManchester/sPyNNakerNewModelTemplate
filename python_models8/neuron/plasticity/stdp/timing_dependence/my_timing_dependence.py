@@ -45,7 +45,6 @@ class MyTimingDependence(AbstractTimingDependence):
         self._a_minus = A_minus
 
         ts = SpynnakerDataView.get_simulation_time_step_ms()
-        ts = ts / MICRO_TO_MILLISECOND_CONVERSION
         self._my_potentiation_data = get_exp_lut_array(
             ts, self._my_potentiation_parameter)
         self._my_depression_data = get_exp_lut_array(
