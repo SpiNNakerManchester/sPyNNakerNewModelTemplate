@@ -54,7 +54,7 @@ class TestMyModelCurrExpSTDP(NwtTestBase):
         neo = test_pop.get_data('all')
         sim.end()
         for _, _, weight in weights:
-            self.assertEqual(weight, 0.5)
+            self.assertAlmostEqual(weight, 0.5, places=2)
         self.check_results(neo, [201, 402, 603, 804])
 
     def test_do_run(self):

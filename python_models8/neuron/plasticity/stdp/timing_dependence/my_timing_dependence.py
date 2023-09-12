@@ -5,6 +5,9 @@ from spynnaker.pyNN.models.neuron.plasticity.stdp.timing_dependence import (
     AbstractTimingDependence)
 from spynnaker.pyNN.models.neuron.plasticity.stdp.synapse_structure import (
     SynapseStructureWeightOnly)
+from spynnaker.pyNN.models.neuron.plasticity.stdp.common import (
+    get_exp_lut_array, get_min_lut_value)
+from spynnaker.pyNN.data import SpynnakerDataView
 
 
 class MyTimingDependence(AbstractTimingDependence):
@@ -13,6 +16,8 @@ class MyTimingDependence(AbstractTimingDependence):
         "_a_plus",
         "_my_depression_parameter",
         "_my_potentiation_parameter",
+        "_my_depression_data",
+        "_my_potentiation_data",
         "_synapse_structure"]
 
     NUM_PARAMETERS = 2
@@ -37,6 +42,12 @@ class MyTimingDependence(AbstractTimingDependence):
         # Are these in the c code?
         self._a_plus = A_plus
         self._a_minus = A_minus
+
+        ts = SpynnakerDataView.get_simulation_time_step_ms()
+        self._my_potentiation_data = get_exp_lut_array(
+            ts, self._my_potentiation_parameter)
+        self._my_depression_data = get_exp_lut_array(
+            ts, self._my_depression_parameter)
 
     # TODO: Add getters and setters for parameters
 
@@ -112,6 +123,15 @@ class MyTimingDependence(AbstractTimingDependence):
     @overrides(AbstractTimingDependence.get_parameter_names)
     def get_parameter_names(self):
         return ['my_potentiation_parameter', 'my_depression_parameter']
+
+    @overrides(AbstractTimingDependence.minimum_delta)
+    def minimum_delta(self, max_stdp_spike_delta):
+        ts = SpynnakerDataView.get_simulation_time_step_ms()
+        return [
+            get_min_lut_value(self._my_potentiation_data, ts,
+                              max_stdp_spike_delta),
+            get_min_lut_value(self._my_depression_data, ts,
+                              max_stdp_spike_delta)]
 
     @property
     def synaptic_structure(self):
