@@ -1,5 +1,8 @@
+from numpy import floating
+from numpy.typing import NDArray
 from spinn_utilities.overrides import overrides
-from spinn_front_end_common.interface.ds import DataType
+from spinn_front_end_common.interface.ds import (
+    DataSpecificationBase, DataType)
 from spinn_front_end_common.utilities.constants import BYTES_PER_WORD
 from spynnaker.pyNN.models.neuron.plasticity.stdp.weight_dependence import (
     AbstractWeightDependence, AbstractHasAPlusAMinus)
@@ -88,8 +91,8 @@ class MyWeightDependence(AbstractHasAPlusAMinus, AbstractWeightDependence):
 
     @overrides(AbstractWeightDependence.write_parameters)
     def write_parameters(
-            self, spec, global_weight_scale, synapse_weight_scales,
-            n_weight_terms):
+            self, spec: DataSpecificationBase, global_weight_scale: float,
+            synapse_weight_scales: NDArray[floating], n_weight_terms: int):
         # TODO: update to write the parameters
         # Loop through each synapse type's weight scale
         for w in synapse_weight_scales:
