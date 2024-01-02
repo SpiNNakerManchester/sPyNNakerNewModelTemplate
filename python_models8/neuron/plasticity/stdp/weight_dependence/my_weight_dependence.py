@@ -84,7 +84,7 @@ class MyWeightDependence(AbstractHasAPlusAMinus, AbstractWeightDependence):
     @overrides(AbstractWeightDependence.get_parameters_sdram_usage_in_bytes)
     def get_parameters_sdram_usage_in_bytes(
             self, n_synapse_types: int, n_weight_terms: int) -> int:
-       # TODO: update to match the number of bytes used by the parameters
+        # TODO: update to match the number of bytes used by the parameters
         if n_weight_terms != 1:
             raise NotImplementedError(
                 "My weight dependence only supports one term")
