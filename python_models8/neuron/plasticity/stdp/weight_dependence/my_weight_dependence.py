@@ -1,5 +1,6 @@
 from numpy import floating
 from numpy.typing import NDArray
+from typing import List
 from spinn_utilities.overrides import overrides
 from spinn_front_end_common.interface.ds import (
     DataSpecificationBase, DataType)
@@ -56,7 +57,8 @@ class MyWeightDependence(AbstractHasAPlusAMinus, AbstractWeightDependence):
         self._my_weight_parameter = my_weight_parameter
 
     @overrides(AbstractWeightDependence.is_same_as)
-    def is_same_as(self, weight_dependence):
+    def is_same_as(
+            self, weight_dependence: AbstractWeightDependence) -> bool:
         # TODO: Update with the correct class name
         if not isinstance(weight_dependence, MyWeightDependence):
             return False
@@ -81,8 +83,8 @@ class MyWeightDependence(AbstractHasAPlusAMinus, AbstractWeightDependence):
 
     @overrides(AbstractWeightDependence.get_parameters_sdram_usage_in_bytes)
     def get_parameters_sdram_usage_in_bytes(
-            self, n_synapse_types, n_weight_terms):
-        # TODO: update to match the number of bytes used by the parameters
+            self, n_synapse_types: int, n_weight_terms: int) -> int:
+       # TODO: update to match the number of bytes used by the parameters
         if n_weight_terms != 1:
             raise NotImplementedError(
                 "My weight dependence only supports one term")
@@ -122,5 +124,5 @@ class MyWeightDependence(AbstractHasAPlusAMinus, AbstractWeightDependence):
         return self._w_max
 
     @overrides(AbstractWeightDependence.get_parameter_names)
-    def get_parameter_names(self):
+    def get_parameter_names(self) -> List[str]:
         return ['w_min', 'w_max', 'my_weight_parameter']
