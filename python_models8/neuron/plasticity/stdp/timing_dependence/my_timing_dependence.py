@@ -33,7 +33,6 @@ class MyTimingDependence(AbstractTimingDependence):
         self._my_potentiation_parameter = my_potentiation_parameter
         self._my_depression_parameter = my_depression_parameter
 
-
         # Are these in the c code?
         self._a_plus = A_plus
         self._a_minus = A_minus
