@@ -32,9 +32,14 @@ class MyConnector(AbstractConnector, AbstractGenerateConnectorOnHost):
         # TODO: Store any additional parameters
 
     @overrides(AbstractConnector.get_delay_maximum)
-    def get_delay_maximum(
-            self, synapse_info: SynapseInformation) -> Optional[float]:
+    def get_delay_maximum(self, synapse_info):
+        # TODO call self._get_delay_maximum if needed
         return 16
+
+    @overrides(AbstractConnector.get_delay_minimum)
+    def get_delay_minimum(self, synapse_info):
+        # TODO call self._get_delay_minimum if needed
+        return 1
 
     @overrides(AbstractGenerateConnectorOnHost.create_synaptic_block)
     def create_synaptic_block(
