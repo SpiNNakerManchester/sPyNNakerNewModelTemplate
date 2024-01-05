@@ -12,8 +12,7 @@ class MyTimingDependence(AbstractTimingDependence):
         "_a_minus",
         "_a_plus",
         "_my_depression_parameter",
-        "_my_potentiation_parameter",
-        "_synapse_structure"]
+        "_my_potentiation_parameter"]
 
     NUM_PARAMETERS = 2
 
@@ -27,12 +26,12 @@ class MyTimingDependence(AbstractTimingDependence):
 
             A_plus=0.01, A_minus=0.01):
 
+        # TODO: Update to match the synapse structure in the C code
+        super().__init__(SynapseStructureWeightOnly())
+
         # TODO: Store any parameters
         self._my_potentiation_parameter = my_potentiation_parameter
         self._my_depression_parameter = my_depression_parameter
-
-        # TODO: Update to match the synapse structure in the C code
-        self._synapse_structure = SynapseStructureWeightOnly()
 
         # Are these in the c code?
         self._a_plus = A_plus
@@ -112,12 +111,6 @@ class MyTimingDependence(AbstractTimingDependence):
     @overrides(AbstractTimingDependence.get_parameter_names)
     def get_parameter_names(self):
         return ['my_potentiation_parameter', 'my_depression_parameter']
-
-    @property
-    def synaptic_structure(self):
-        """ Get the synaptic structure of the plastic part of the rows
-        """
-        return self._synapse_structure
 
     @property
     def A_plus(self):
