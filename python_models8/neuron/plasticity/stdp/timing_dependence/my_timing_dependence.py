@@ -16,7 +16,7 @@ class MyTimingDependence(AbstractTimingDependence):
         "_a_minus",
         "_a_plus",
         "_my_depression_parameter",
-        "_my_potentiation_parameter",]
+        "_my_potentiation_parameter"]
 
     NUM_PARAMETERS = 2
 
