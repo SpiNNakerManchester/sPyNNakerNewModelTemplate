@@ -48,18 +48,18 @@ class MyConnector(AbstractConnector, AbstractGenerateConnectorOnHost):
             self, post_slices: Sequence[Slice], post_vertex_slice: Slice,
             synapse_type: int, synapse_info: SynapseInformation) -> NDArray:
         # TODO: update accordingly
-        pass
+        raise NotImplementedError
 
     @overrides(AbstractConnector.get_weight_variance)
     def get_weight_variance(self, weights: Weight_Types,
                             synapse_info: SynapseInformation) -> float:
         # TODO: update accordingly
-        pass
+        raise NotImplementedError
 
     @overrides(AbstractConnector.get_weight_maximum)
     def get_weight_maximum(self, synapse_info: SynapseInformation) -> float:
         # TODO: update accordingly
-        pass
+        raise NotImplementedError
 
     @overrides(AbstractConnector.get_n_connections_from_pre_vertex_maximum)
     def get_n_connections_from_pre_vertex_maximum(
@@ -67,10 +67,10 @@ class MyConnector(AbstractConnector, AbstractGenerateConnectorOnHost):
             min_delay: Optional[float] = None,
             max_delay: Optional[float] = None) -> int:
         # TODO: update accordingly
-        pass
+        raise NotImplementedError
 
     @overrides(AbstractConnector.get_n_connections_to_post_vertex_maximum)
     def get_n_connections_to_post_vertex_maximum(
             self, synapse_info: SynapseInformation) -> int:
         # TODO: update accordingly
-        pass
+        raise NotImplementedError
