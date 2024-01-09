@@ -33,13 +33,13 @@ class MyInputType(AbstractInputType):
     def my_multiplicator(self):
         return self._my_multiplicator
 
-    @property
-    def my_input_parameter(self):
-        return self._my_input_parameter
-
     @my_multiplicator.setter
     def my_multiplicator(self, my_multiplicator):
         self._my_multiplicator = my_multiplicator
+
+    @property
+    def my_input_parameter(self):
+        return self._my_input_parameter
 
     @my_input_parameter.setter
     def my_input_parameter(self, my_input_parameter):
