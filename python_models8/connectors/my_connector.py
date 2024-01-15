@@ -1,4 +1,9 @@
+from numpy.typing import NDArray
+from typing import Optional,  Sequence
 from spinn_utilities.overrides import overrides
+from pacman.model.graphs.common import Slice
+from spynnaker.pyNN.models.neural_projections import SynapseInformation
+from spynnaker.pyNN.types import Weight_Types
 from spynnaker.pyNN.models.neural_projections.connectors import (
     AbstractConnector, AbstractGenerateConnectorOnHost)
 
@@ -27,40 +32,45 @@ class MyConnector(AbstractConnector, AbstractGenerateConnectorOnHost):
         # TODO: Store any additional parameters
 
     @overrides(AbstractConnector.get_delay_maximum)
-    def get_delay_maximum(self, synapse_info):
+    def get_delay_maximum(
+            self, synapse_info: SynapseInformation) -> Optional[float]:
         # TODO call self._get_delay_maximum if needed
         return 16
 
     @overrides(AbstractConnector.get_delay_minimum)
-    def get_delay_minimum(self, synapse_info):
+    def get_delay_minimum(
+            self, synapse_info: SynapseInformation) -> Optional[float]:
         # TODO call self._get_delay_minimum if needed
         return 1
 
     @overrides(AbstractGenerateConnectorOnHost.create_synaptic_block)
     def create_synaptic_block(
-            self, post_slices, post_vertex_slice, synapse_type, synapse_info):
+            self, post_slices: Sequence[Slice], post_vertex_slice: Slice,
+            synapse_type: int, synapse_info: SynapseInformation) -> NDArray:
         # TODO: update accordingly
-        pass
+        raise NotImplementedError
 
     @overrides(AbstractConnector.get_weight_variance)
-    def get_weight_variance(
-            self, weights, synapse_info):
+    def get_weight_variance(self, weights: Weight_Types,
+                            synapse_info: SynapseInformation) -> float:
         # TODO: update accordingly
-        pass
+        raise NotImplementedError
 
     @overrides(AbstractConnector.get_weight_maximum)
-    def get_weight_maximum(self, synapse_info):
+    def get_weight_maximum(self, synapse_info: SynapseInformation) -> float:
         # TODO: update accordingly
-        pass
+        raise NotImplementedError
 
     @overrides(AbstractConnector.get_n_connections_from_pre_vertex_maximum)
     def get_n_connections_from_pre_vertex_maximum(
-            self, n_post_atoms, synapse_info, min_delay=None,
-            max_delay=None):
+            self, n_post_atoms: int, synapse_info: SynapseInformation,
+            min_delay: Optional[float] = None,
+            max_delay: Optional[float] = None) -> int:
         # TODO: update accordingly
-        pass
+        raise NotImplementedError
 
     @overrides(AbstractConnector.get_n_connections_to_post_vertex_maximum)
-    def get_n_connections_to_post_vertex_maximum(self, synapse_info):
+    def get_n_connections_to_post_vertex_maximum(
+            self, synapse_info: SynapseInformation) -> int:
         # TODO: update accordingly
-        pass
+        raise NotImplementedError

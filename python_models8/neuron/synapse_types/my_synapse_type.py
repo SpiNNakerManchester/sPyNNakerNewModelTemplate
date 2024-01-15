@@ -1,3 +1,4 @@
+from typing import Optional, Sequence
 from spinn_utilities.overrides import overrides
 from spinn_front_end_common.interface.ds import DataType
 from spynnaker.pyNN.models.neuron.synapse_types import AbstractSynapseType
@@ -73,12 +74,12 @@ class MySynapseType(AbstractSynapseType):
         self._my_inh_init = my_inh_init
 
     @overrides(AbstractSynapseType.get_n_synapse_types)
-    def get_n_synapse_types(self):
+    def get_n_synapse_types(self) -> int:
         # TODO: Update with the number of supported synapse types
         return 2
 
     @overrides(AbstractSynapseType.get_synapse_id_by_target)
-    def get_synapse_id_by_target(self, target):
+    def get_synapse_id_by_target(self, target: str) -> Optional[int]:
         # TODO: update the mapping from name to ID
         if target == "excitatory":
             return 0
@@ -87,7 +88,7 @@ class MySynapseType(AbstractSynapseType):
         return None
 
     @overrides(AbstractSynapseType.get_synapse_targets)
-    def get_synapse_targets(self):
+    def get_synapse_targets(self) -> Sequence[str]:
         # TODO: update to return the same names as above
         return "excitatory", "inhibitory"
 

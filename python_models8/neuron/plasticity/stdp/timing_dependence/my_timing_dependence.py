@@ -1,5 +1,9 @@
+from numpy import floating
+from numpy.typing import NDArray
+from typing import List
 from spinn_utilities.overrides import overrides
-from spinn_front_end_common.interface.ds import DataType
+from spinn_front_end_common.interface.ds import (
+    DataSpecificationBase, DataType)
 from spinn_front_end_common.utilities.constants import BYTES_PER_WORD
 from spynnaker.pyNN.models.neuron.plasticity.stdp.timing_dependence import (
     AbstractTimingDependence)
@@ -56,7 +60,7 @@ class MyTimingDependence(AbstractTimingDependence):
         self._my_depression_parameter = my_depression_parameter
 
     @overrides(AbstractTimingDependence.is_same_as)
-    def is_same_as(self, timing_dependence):
+    def is_same_as(self, timing_dependence: AbstractTimingDependence) -> bool:
         # TODO: Update with the correct class name
         if not isinstance(timing_dependence, MyTimingDependence):
             return False
@@ -87,7 +91,7 @@ class MyTimingDependence(AbstractTimingDependence):
         return 0
 
     @overrides(AbstractTimingDependence.get_parameters_sdram_usage_in_bytes)
-    def get_parameters_sdram_usage_in_bytes(self):
+    def get_parameters_sdram_usage_in_bytes(self) -> int:
         # TODO: update to match the number of bytes used by the parameters
         return self.NUM_PARAMETERS * BYTES_PER_WORD
 
@@ -101,7 +105,8 @@ class MyTimingDependence(AbstractTimingDependence):
 
     @overrides(AbstractTimingDependence.write_parameters)
     def write_parameters(
-            self, spec, global_weight_scale, synapse_weight_scales):
+            self, spec: DataSpecificationBase, global_weight_scale: float,
+            synapse_weight_scales: NDArray[floating]):
         # TODO: update to write the parameters
         spec.write_value(
             self._my_potentiation_parameter, data_type=DataType.S1615)
@@ -109,7 +114,7 @@ class MyTimingDependence(AbstractTimingDependence):
             self._my_depression_parameter, data_type=DataType.S1615)
 
     @overrides(AbstractTimingDependence.get_parameter_names)
-    def get_parameter_names(self):
+    def get_parameter_names(self) -> List[str]:
         return ['my_potentiation_parameter', 'my_depression_parameter']
 
     @property

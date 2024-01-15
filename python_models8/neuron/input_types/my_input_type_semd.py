@@ -1,4 +1,5 @@
 from spinn_utilities.overrides import overrides
+from spinn_utilities.ranged import RangeDictionary
 from spinn_front_end_common.interface.ds import DataType
 from spynnaker.pyNN.models.neuron.input_types import AbstractInputType
 from spynnaker.pyNN.utilities.struct import Struct
@@ -24,11 +25,11 @@ class MyInputTypeCurrentSEMD(AbstractInputType):
         self.__my_inh_input_previous = my_inh_input_previous
 
     @overrides(AbstractInputType.add_parameters)
-    def add_parameters(self, parameters):
+    def add_parameters(self, parameters: RangeDictionary[float]):
         parameters[MY_MULTIPLICATOR] = self.__my_multiplicator
 
     @overrides(AbstractInputType.add_state_variables)
-    def add_state_variables(self, state_variables):
+    def add_state_variables(self, state_variables: RangeDictionary[float]):
         state_variables[MY_INH_INPUT_PREVIOUS] = self.__my_inh_input_previous
 
     @property

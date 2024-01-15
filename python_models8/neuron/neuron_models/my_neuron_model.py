@@ -1,4 +1,5 @@
 from spinn_utilities.overrides import overrides
+from spinn_utilities.ranged import RangeDictionary
 from spinn_front_end_common.interface.ds import DataType
 from spynnaker.pyNN.models.neuron.implementations import (
     AbstractStandardNeuronComponent)
@@ -57,13 +58,13 @@ class MyNeuronModel(AbstractStandardNeuronComponent):
         self._v = v
 
     @overrides(AbstractStandardNeuronComponent.add_parameters)
-    def add_parameters(self, parameters):
+    def add_parameters(self, parameters: RangeDictionary[float]):
         # TODO: Add initial values of the parameters that the user can change
         parameters[I_OFFSET] = self._i_offset
         parameters[MY_NEURON_PARAMETER] = self._my_neuron_parameter
 
     @overrides(AbstractStandardNeuronComponent.add_state_variables)
-    def add_state_variables(self, state_variables):
+    def add_state_variables(self, state_variables: RangeDictionary[float]):
         # TODO: Add initial values of the state variables that the user can
         # change
         state_variables[V] = self._v
