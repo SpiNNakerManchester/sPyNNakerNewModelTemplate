@@ -17,7 +17,7 @@ See: [here](https://spinnakermanchester.github.io/latest/LicenseAgreement.html#m
 
 For up to date information on Contributors see the graphs/contributors pages on each project.
 
-For example [https://github.com/SpiNNakerManchester/sPyNNaker8NewModelTemplate/graphs/contributors](https://github.com/SpiNNakerManchester/sPyNNaker8NewModelTemplate/graphs/contributors)
+For example [https://github.com/SpiNNakerManchester/sPyNNakerNewModelTemplate/graphs/contributors](https://github.com/SpiNNakerManchester/sPyNNakerNewModelTemplate/graphs/contributors)
 
 [Combined list](https://spinnakermanchester.github.io/latest/LicenseAgreement.html#contributors)
 
