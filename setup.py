@@ -28,7 +28,7 @@ if __name__ == '__main__':
         if os.path.isdir(build_dir):
             shutil.rmtree(build_dir)
         egg_dir = os.path.join(
-            this_dir, "sPyNNaker8NewModelTemplate.egg-info")
+            this_dir, "sPyNNakerNewModelTemplate.egg-info")
         if os.path.isdir(egg_dir):
             shutil.rmtree(egg_dir)
     setup()
