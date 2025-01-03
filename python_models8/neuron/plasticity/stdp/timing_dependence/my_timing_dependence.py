@@ -106,7 +106,7 @@ class MyTimingDependence(AbstractTimingDependence):
     @overrides(AbstractTimingDependence.write_parameters)
     def write_parameters(
             self, spec: DataSpecificationBase, global_weight_scale: float,
-            synapse_weight_scales: NDArray[floating]):
+            synapse_weight_scales: NDArray[floating]) -> None:
         # TODO: update to write the parameters
         spec.write_value(
             self._my_potentiation_parameter, data_type=DataType.S1615)
