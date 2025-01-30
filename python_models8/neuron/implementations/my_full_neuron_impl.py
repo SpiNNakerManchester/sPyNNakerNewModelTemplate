@@ -117,12 +117,12 @@ class MyFullNeuronImpl(AbstractNeuronImpl):
         return variable == "v"
 
     @overrides(AbstractNeuronImpl.add_parameters)
-    def add_parameters(self, parameters: RangeDictionary):
+    def add_parameters(self, parameters: RangeDictionary) -> None:
         # TODO: Write the parameter values
         parameters[THRESHOLD] = self._threshold
 
     @overrides(AbstractNeuronImpl.add_state_variables)
-    def add_state_variables(self, state_variables: RangeDictionary):
+    def add_state_variables(self, state_variables: RangeDictionary) -> None:
         # TODO: Write the state variable values
         state_variables[V] = self._v
         state_variables[EXC_INPUT] = self._exc_input

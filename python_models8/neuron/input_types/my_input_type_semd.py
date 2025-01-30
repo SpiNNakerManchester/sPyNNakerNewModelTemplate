@@ -25,11 +25,12 @@ class MyInputTypeCurrentSEMD(AbstractInputType):
         self.__my_inh_input_previous = my_inh_input_previous
 
     @overrides(AbstractInputType.add_parameters)
-    def add_parameters(self, parameters: RangeDictionary[float]):
+    def add_parameters(self, parameters: RangeDictionary[float]) -> None:
         parameters[MY_MULTIPLICATOR] = self.__my_multiplicator
 
     @overrides(AbstractInputType.add_state_variables)
-    def add_state_variables(self, state_variables: RangeDictionary[float]):
+    def add_state_variables(
+            self, state_variables: RangeDictionary[float]) -> None:
         state_variables[MY_INH_INPUT_PREVIOUS] = self.__my_inh_input_previous
 
     @property
