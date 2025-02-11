@@ -58,13 +58,14 @@ class MyNeuronModel(AbstractStandardNeuronComponent):
         self._v = v
 
     @overrides(AbstractStandardNeuronComponent.add_parameters)
-    def add_parameters(self, parameters: RangeDictionary[float]):
+    def add_parameters(self, parameters: RangeDictionary[float]) -> None:
         # TODO: Add initial values of the parameters that the user can change
         parameters[I_OFFSET] = self._i_offset
         parameters[MY_NEURON_PARAMETER] = self._my_neuron_parameter
 
     @overrides(AbstractStandardNeuronComponent.add_state_variables)
-    def add_state_variables(self, state_variables: RangeDictionary[float]):
+    def add_state_variables(
+            self, state_variables: RangeDictionary[float]) -> None:
         # TODO: Add initial values of the state variables that the user can
         # change
         state_variables[V] = self._v
