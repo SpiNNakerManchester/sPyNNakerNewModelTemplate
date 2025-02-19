@@ -35,7 +35,7 @@ jobs:
 
     # Set up the dependencies for everything
     - name: Install Ubuntu dependencies
-      uses: ./support/actions/apt-get-install
+      uses: SpiNNakerManchester/SupportScripts/actions/apt-get-install@action-dash
       with:
         packages: graphviz
     - name: Set up Python ${{ matrix.python-version }}
