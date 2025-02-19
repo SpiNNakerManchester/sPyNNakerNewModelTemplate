@@ -85,7 +85,7 @@ jobs:
 
     - name: Run rat copyright enforcement
       if: matrix.python-version == 3.12
-      uses: ./support/actions/check-copyrights
+      uses: SpiNNakerManchester/SupportScripts/actions/check-copyrights@action-dash
       with:
         config-file: rat_asl20.xml
 
