@@ -30,7 +30,7 @@ jobs:
         path: support
 
     - name: Install Ubuntu packages
-      uses: SpiNNakerManchester/SupportScripts/actions/apt-get-install@action-dash
+      uses: SpiNNakerManchester/SupportScripts/actions/apt-get-install@main
       with:
         packages: doxygen gcc-arm-none-eabi
     - name: Configure Python 3.12
