@@ -62,7 +62,7 @@ jobs:
       uses: ./support/actions/run-install
 
     - name: Setup PyNN
-      uses: ./support/actions/pynn-setup
+      uses: SpiNNakerManchester/SupportScripts/actions/pynn-setup@main
 
     - name: Create a spynnaker.cfg
       uses: SpiNNakerManchester/SupportScripts/actions/configure-spynnaker@action-dash
