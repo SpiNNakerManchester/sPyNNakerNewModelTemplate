@@ -69,7 +69,7 @@ jobs:
       with:
         board-address: spinn-4.cs.man.ac.uk
     - name: Test with pytest
-      uses: ./support/actions/pytest
+      uses: SpiNNakerManchester/SupportScripts/actions/pytest@action-dash
       with:
         tests: unittests
 
