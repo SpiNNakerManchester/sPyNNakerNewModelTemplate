@@ -59,17 +59,17 @@ jobs:
       uses: SpiNNakerManchester/SupportScripts/actions/install-matplotlib@main
 
     - name: Setup
-      uses: SpiNNakerManchester/SupportScripts/actions/run-install@action-dash
+      uses: SpiNNakerManchester/SupportScripts/actions/run-install@main
 
     - name: Setup PyNN
       uses: SpiNNakerManchester/SupportScripts/actions/pynn-setup@main
 
     - name: Create a spynnaker.cfg
-      uses: SpiNNakerManchester/SupportScripts/actions/configure-spynnaker@action-dash
+      uses: SpiNNakerManchester/SupportScripts/actions/configure-spynnaker@main
       with:
         board-address: spinn-4.cs.man.ac.uk
     - name: Test with pytest
-      uses: SpiNNakerManchester/SupportScripts/actions/pytest@action-dash
+      uses: SpiNNakerManchester/SupportScripts/actions/pytest@main
       with:
         tests: unittests
 
@@ -85,7 +85,7 @@ jobs:
 
     - name: Run rat copyright enforcement
       if: matrix.python-version == 3.12
-      uses: SpiNNakerManchester/SupportScripts/actions/check-copyrights@action-dash
+      uses: SpiNNakerManchester/SupportScripts/actions/check-copyrights@main
       with:
         config-file: rat_asl20.xml
 
