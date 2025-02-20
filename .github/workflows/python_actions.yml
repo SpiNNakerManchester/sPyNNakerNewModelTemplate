@@ -35,7 +35,7 @@ jobs:
 
     # Set up the dependencies for everything
     - name: Install Ubuntu dependencies
-      uses: ./support/actions/apt-get-install
+      uses: SpiNNakerManchester/SupportScripts/actions/apt-get-install@main
       with:
         packages: graphviz
     - name: Set up Python ${{ matrix.python-version }}
@@ -43,12 +43,12 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
     - name: Install pip, etc
-      uses: ./support/actions/python-tools
+      uses: SpiNNakerManchester/SupportScripts/actions/python-tools@main
     - name: Install mypy
       run: pip install mypy
 
     - name: Install Spinnaker Dependencies
-      uses: ./support/actions/install-spinn-deps
+      uses: SpiNNakerManchester/SupportScripts/actions/install-spinn-deps@main
       with:
         repositories: >
           SpiNNUtils SpiNNMachine SpiNNMan PACMAN spalloc
@@ -56,20 +56,20 @@ jobs:
         install: true
 
     - name: Install matplotlib
-      uses: ./support/actions/install-matplotlib
+      uses: SpiNNakerManchester/SupportScripts/actions/install-matplotlib@main
 
     - name: Setup
-      uses: ./support/actions/run-install
+      uses: SpiNNakerManchester/SupportScripts/actions/run-install@main
 
     - name: Setup PyNN
-      uses: ./support/actions/pynn-setup
+      uses: SpiNNakerManchester/SupportScripts/actions/pynn-setup@main
 
     - name: Create a spynnaker.cfg
-      uses: ./support/actions/configure-spynnaker
+      uses: SpiNNakerManchester/SupportScripts/actions/configure-spynnaker@main
       with:
         board-address: spinn-4.cs.man.ac.uk
     - name: Test with pytest
-      uses: ./support/actions/pytest
+      uses: SpiNNakerManchester/SupportScripts/actions/pytest@main
       with:
         tests: unittests
 
@@ -85,15 +85,9 @@ jobs:
 
     - name: Run rat copyright enforcement
       if: matrix.python-version == 3.12
-      uses: ./support/actions/check-copyrights
+      uses: SpiNNakerManchester/SupportScripts/actions/check-copyrights@main
       with:
-        config_file: rat_asl20.xml
-
-    #- name: Validate all XML
-    #  if: matrix.python-version == 3.8
-    #  uses: ./support/actions/validate-xml
-    #  with:
-    #    base-path: ${{ env.CODE_PATHS }}
+        config-file: rat_asl20.xml
 
     - name: Validate CITATION.cff
       if: matrix.python-version == 3.12
