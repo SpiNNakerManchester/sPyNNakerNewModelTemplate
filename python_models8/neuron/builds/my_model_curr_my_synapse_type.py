@@ -45,8 +45,6 @@ class MyModelCurrMySynapseType(AbstractPyNNNeuronModelStandard):
         # create threshold type model
         threshold_type = ThresholdTypeStatic(v_thresh)
 
-        # instantiate the sPyNNaker system by initialising
-        # the AbstractPopulationVertex
         super().__init__(
 
             # the model a name (shown in reports)
