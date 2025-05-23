@@ -404,7 +404,7 @@ if _on_rtd:
 # Automatically called by sphinx at startup
 def setup(app):
     # NB: extra dot at end is deliberate!
-    trim = ("spynnaker.", "spinn_front_end_common.", "pacman.",
+    trim = ("pynn_models8.", "spynnaker.", "spinn_front_end_common.", "pacman.",
             "spinnman.", "spinn_machine.", "data_specification.",
             "spinn_utilities.")
 
