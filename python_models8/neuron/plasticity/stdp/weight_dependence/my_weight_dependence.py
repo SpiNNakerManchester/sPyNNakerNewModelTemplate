@@ -1,4 +1,4 @@
-from numpy import floating
+from numpy import float64
 from numpy.typing import NDArray
 from typing import List
 from spinn_utilities.overrides import overrides
@@ -94,7 +94,7 @@ class MyWeightDependence(AbstractHasAPlusAMinus, AbstractWeightDependence):
     @overrides(AbstractWeightDependence.write_parameters)
     def write_parameters(
             self, spec: DataSpecificationBase, global_weight_scale: float,
-            synapse_weight_scales: NDArray[floating], n_weight_terms: int):
+            synapse_weight_scales: NDArray[float64], n_weight_terms: int):
         # TODO: update to write the parameters
         # Loop through each synapse type's weight scale
         for w in synapse_weight_scales:

@@ -1,4 +1,4 @@
-from numpy import floating
+from numpy import float64
 from numpy.typing import NDArray
 from typing import List
 from spinn_utilities.overrides import overrides
@@ -106,7 +106,7 @@ class MyTimingDependence(AbstractTimingDependence):
     @overrides(AbstractTimingDependence.write_parameters)
     def write_parameters(
             self, spec: DataSpecificationBase, global_weight_scale: float,
-            synapse_weight_scales: NDArray[floating]) -> None:
+            synapse_weight_scales: NDArray[float64]) -> None:
         # TODO: update to write the parameters
         spec.write_value(
             self._my_potentiation_parameter, data_type=DataType.S1615)
