@@ -3,7 +3,7 @@ from typing import Optional,  Sequence
 from spinn_utilities.overrides import overrides
 from pacman.model.graphs.common import Slice
 from spynnaker.pyNN.models.neural_projections import SynapseInformation
-from spynnaker.pyNN.types import Weight_Types
+from spynnaker.pyNN.types import WEIGHTS
 from spynnaker.pyNN.models.neural_projections.connectors import (
     AbstractConnector, AbstractGenerateConnectorOnHost)
 
@@ -51,7 +51,7 @@ class MyConnector(AbstractConnector, AbstractGenerateConnectorOnHost):
         raise NotImplementedError
 
     @overrides(AbstractConnector.get_weight_variance)
-    def get_weight_variance(self, weights: Weight_Types,
+    def get_weight_variance(self, weights: WEIGHTS,
                             synapse_info: SynapseInformation) -> float:
         # TODO: update accordingly
         raise NotImplementedError
