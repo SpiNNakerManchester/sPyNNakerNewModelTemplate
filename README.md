@@ -1,5 +1,3 @@
-[![Python Build Status](https://github.com/SpiNNakerManchester/sPyNNakerNewModelTemplate/workflows/Python%20Actions/badge.svg?branch=master)](https://github.com/SpiNNakerManchester/sPyNNakerNewModelTemplate/actions?query=workflow%3A%22Python+Actions%22+branch%3Amaster)
-[![C Build Status](https://github.com/SpiNNakerManchester/sPyNNakerNewModelTemplate/workflows/C%20Actions/badge.svg?branch=master)](https://github.com/SpiNNakerManchester/sPyNNakerNewModelTemplate/actions?query=workflow%3A%22C+Actions%22+branch%3Amaster)-
 
 # sPyNNaker New Model Template
 
