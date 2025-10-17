@@ -8,13 +8,13 @@ This code depends on SpiNNUtils_, SpiNNMachine_, SpiNNMan_, PACMAN_, SpiNNFrontE
 
 .. _SpiNNaker: https://apt.cs.manchester.ac.uk/projects/SpiNNaker
 .. _sPyNNakerNewModelTemplate: https://github.com/SpiNNakerManchester/sPyNNakerNewModelTemplate
-.. _sPyNNaker: https://spynnaker.readthedocs.io/en/7.4.1
-.. _SpiNNUtils: https://spinnutils.readthedocs.io/en/7.4.1
-.. _SpiNNMachine: https://spinnmachine.readthedocs.io/en/7.4.1
-.. _SpiNNMan: https://spinnman.readthedocs.io/en/7.4.1
-.. _PACMAN: https://pacman.readthedocs.io/en/7.4.1
-.. _SpiNNFrontEndCommon: https://spinnfrontendcommon.readthedocs.io/en/7.4.1
-.. _Combined_documentation: https://spinnakermanchester.readthedocs.io/en/7.4.1
+.. _sPyNNaker: https://spynnaker.readthedocs.io
+.. _SpiNNUtils: https://spinnutils.readthedocs.io
+.. _SpiNNMachine: https://spinnmachine.readthedocs.io
+.. _SpiNNMan: https://spinnman.readthedocs.io
+.. _PACMAN: https://pacman.readthedocs.io
+.. _SpiNNFrontEndCommon: https://spinnfrontendcommon.readthedocs.io
+.. _Combined_documentation: https://spinnakermanchester.readthedocs.io
 .. _c_models: c_models/
 
 sPyNNakerNewModelTemplate
