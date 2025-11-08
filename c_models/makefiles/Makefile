@@ -11,7 +11,8 @@ MODELS = my_model_curr_exp \
     my_model_curr_my_synapse_type_neuron \
     synapses_stdp_mad_my_timing_my_weight \
     my_if_curr_exp_sEMD_neuron \
-    my_full_neuron_impl_neuron
+    my_full_neuron_impl_neuron \
+    glif3_curr
 
 ifneq ($(SPYNNAKER_DEBUG), DEBUG)
     MODELS += my_model_curr_exp_stdp_mad_my_timing_my_weight \
