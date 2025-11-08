@@ -19,7 +19,7 @@ class GLIF3Curr(AbstractPyNNNeuronModelStandard):
     - Leaky integrate-and-fire dynamics
     - Two after-spike currents with different time constants
     - Fixed threshold
-    - 4 independent exponential synapses
+    - 4 independent exponential synapses (AMPA, GABA_A, NMDA, GABA_B)
 
     Parameters
     ----------
@@ -52,13 +52,13 @@ class GLIF3Curr(AbstractPyNNNeuronModelStandard):
     i_asc_1 : float
         Initial slow after-spike current (nA). Default: 0.0
     tau_syn_0 : float
-        Synapse 0 time constant (ms). Default: 5.0
+        Synapse 0 (AMPA - fast excitatory) time constant (ms). Default: 5.0
     tau_syn_1 : float
-        Synapse 1 time constant (ms). Default: 5.0
+        Synapse 1 (GABA_A - fast inhibitory) time constant (ms). Default: 5.0
     tau_syn_2 : float
-        Synapse 2 time constant (ms). Default: 5.0
+        Synapse 2 (NMDA - slow excitatory) time constant (ms). Default: 5.0
     tau_syn_3 : float
-        Synapse 3 time constant (ms). Default: 5.0
+        Synapse 3 (GABA_B - slow inhibitory) time constant (ms). Default: 5.0
     isyn_0 : float
         Initial synaptic current 0 (nA). Default: 0.0
     isyn_1 : float

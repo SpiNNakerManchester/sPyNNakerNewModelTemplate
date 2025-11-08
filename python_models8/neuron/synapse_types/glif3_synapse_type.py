@@ -24,16 +24,22 @@ class GLIF3SynapseType(AbstractSynapseType):
     This allows for 4 different receptor types, each with its own time constant.
     All synapses use exponential decay.
 
+    Receptor Types (Allen Institute convention):
+    - Type 0 (AMPA): Fast excitatory
+    - Type 1 (GABA_A): Fast inhibitory
+    - Type 2 (NMDA): Slow excitatory
+    - Type 3 (GABA_B): Slow inhibitory
+
     Parameters
     ----------
     tau_syn_0 : float
-        Time constant for synapse type 0 (ms). Default: 5.0
+        Time constant for synapse type 0 (AMPA) (ms). Default: 5.0
     tau_syn_1 : float
-        Time constant for synapse type 1 (ms). Default: 5.0
+        Time constant for synapse type 1 (GABA_A) (ms). Default: 5.0
     tau_syn_2 : float
-        Time constant for synapse type 2 (ms). Default: 5.0
+        Time constant for synapse type 2 (NMDA) (ms). Default: 5.0
     tau_syn_3 : float
-        Time constant for synapse type 3 (ms). Default: 5.0
+        Time constant for synapse type 3 (GABA_B) (ms). Default: 5.0
     isyn_0 : float
         Initial current for synapse 0 (nA). Default: 0.0
     isyn_1 : float
@@ -162,6 +168,7 @@ class GLIF3SynapseType(AbstractSynapseType):
     @overrides(AbstractSynapseType.get_synapse_id_by_target)
     def get_synapse_id_by_target(self, target: str) -> Optional[int]:
         # Map target names to synapse IDs
+        # Generic numbered names
         if target == "synapse_0" or target == "syn0":
             return 0
         elif target == "synapse_1" or target == "syn1":
@@ -170,11 +177,20 @@ class GLIF3SynapseType(AbstractSynapseType):
             return 2
         elif target == "synapse_3" or target == "syn3":
             return 3
-        # Also support standard names for compatibility
+        # Biological receptor names (Allen Institute convention)
+        elif target == "AMPA" or target == "ampa":
+            return 0  # Fast excitatory
+        elif target == "GABA_A" or target == "GABAA" or target == "gaba_a" or target == "gabaa":
+            return 1  # Fast inhibitory
+        elif target == "NMDA" or target == "nmda":
+            return 2  # Slow excitatory
+        elif target == "GABA_B" or target == "GABAB" or target == "gaba_b" or target == "gabab":
+            return 3  # Slow inhibitory
+        # Backward compatibility names
         elif target == "excitatory":
-            return 0
+            return 0  # Default to AMPA
         elif target == "inhibitory":
-            return 1
+            return 1  # Default to GABA_A
         return None
 
     @overrides(AbstractSynapseType.get_synapse_targets)
