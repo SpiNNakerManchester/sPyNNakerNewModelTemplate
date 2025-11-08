@@ -3,11 +3,11 @@ from spynnaker.pyNN.models.neuron import AbstractPyNNNeuronModelStandard
 
 # Components from main tools
 from spynnaker.pyNN.models.neuron.input_types import InputTypeCurrent
-from spynnaker.pyNN.models.neuron.synapse_types import SynapseTypeExponential
 from spynnaker.pyNN.models.neuron.threshold_types import ThresholdTypeStatic
 
-# GLIF3 neuron model
+# GLIF3-specific components
 from python_models8.neuron.neuron_models.glif3_neuron_model import GLIF3NeuronModel
+from python_models8.neuron.synapse_types.glif3_synapse_type import GLIF3SynapseType
 from spynnaker.pyNN.models.defaults import default_initial_values
 
 
@@ -19,7 +19,7 @@ class GLIF3Curr(AbstractPyNNNeuronModelStandard):
     - Leaky integrate-and-fire dynamics
     - Two after-spike currents with different time constants
     - Fixed threshold
-    - Exponential synapses
+    - 4 independent exponential synapses
 
     Parameters
     ----------
@@ -51,18 +51,26 @@ class GLIF3Curr(AbstractPyNNNeuronModelStandard):
         Initial fast after-spike current (nA). Default: 0.0
     i_asc_1 : float
         Initial slow after-spike current (nA). Default: 0.0
-    tau_syn_E : float
-        Excitatory synapse time constant (ms). Default: 5.0
-    tau_syn_I : float
-        Inhibitory synapse time constant (ms). Default: 5.0
-    isyn_exc : float
-        Initial excitatory synaptic current (nA). Default: 0.0
-    isyn_inh : float
-        Initial inhibitory synaptic current (nA). Default: 0.0
+    tau_syn_0 : float
+        Synapse 0 time constant (ms). Default: 5.0
+    tau_syn_1 : float
+        Synapse 1 time constant (ms). Default: 5.0
+    tau_syn_2 : float
+        Synapse 2 time constant (ms). Default: 5.0
+    tau_syn_3 : float
+        Synapse 3 time constant (ms). Default: 5.0
+    isyn_0 : float
+        Initial synaptic current 0 (nA). Default: 0.0
+    isyn_1 : float
+        Initial synaptic current 1 (nA). Default: 0.0
+    isyn_2 : float
+        Initial synaptic current 2 (nA). Default: 0.0
+    isyn_3 : float
+        Initial synaptic current 3 (nA). Default: 0.0
     """
 
     # Identify which of the values are state variables
-    @default_initial_values({"v", "i_asc_0", "i_asc_1", "isyn_exc", "isyn_inh"})
+    @default_initial_values({"v", "i_asc_0", "i_asc_1", "isyn_0", "isyn_1", "isyn_2", "isyn_3"})
     def __init__(
             self,
             # GLIF3 neuron model parameters
@@ -84,10 +92,14 @@ class GLIF3Curr(AbstractPyNNNeuronModelStandard):
             i_asc_1=0.0,
 
             # Synapse type parameters and state variables
-            tau_syn_E=5.0,
-            tau_syn_I=5.0,
-            isyn_exc=0.0,
-            isyn_inh=0.0):
+            tau_syn_0=5.0,
+            tau_syn_1=5.0,
+            tau_syn_2=5.0,
+            tau_syn_3=5.0,
+            isyn_0=0.0,
+            isyn_1=0.0,
+            isyn_2=0.0,
+            isyn_3=0.0):
 
         # Create GLIF3 neuron model
         neuron_model = GLIF3NeuronModel(
@@ -106,9 +118,16 @@ class GLIF3Curr(AbstractPyNNNeuronModelStandard):
             i_asc_0=i_asc_0,
             i_asc_1=i_asc_1)
 
-        # Create synapse type model (exponential synapses)
-        synapse_type = SynapseTypeExponential(
-            tau_syn_E, tau_syn_I, isyn_exc, isyn_inh)
+        # Create synapse type model (4 independent exponential synapses)
+        synapse_type = GLIF3SynapseType(
+            tau_syn_0=tau_syn_0,
+            tau_syn_1=tau_syn_1,
+            tau_syn_2=tau_syn_2,
+            tau_syn_3=tau_syn_3,
+            isyn_0=isyn_0,
+            isyn_1=isyn_1,
+            isyn_2=isyn_2,
+            isyn_3=isyn_3)
 
         # Create input type model (current-based)
         input_type = InputTypeCurrent()

@@ -2,7 +2,7 @@
 Example usage of the GLIF3 (Generalized Leaky Integrate-and-Fire) neuron model.
 
 This example demonstrates how to create and simulate a GLIF3 neuron with
-after-spike currents.
+after-spike currents and 4 independent receptor types.
 """
 
 import pyNN.spiNNaker as sim
@@ -28,8 +28,10 @@ cell_params = {
     'k1': 0.05,           # Slow ASC decay rate (1/ms) - tau_1 = 20 ms
     't_ref': 2.0,         # Refractory period (ms)
     'i_offset': 1.0,      # Constant input current (nA)
-    'tau_syn_E': 5.0,     # Excitatory synapse time constant (ms)
-    'tau_syn_I': 5.0,     # Inhibitory synapse time constant (ms)
+    'tau_syn_0': 5.0,     # Synapse 0 time constant (ms)
+    'tau_syn_1': 3.0,     # Synapse 1 time constant (ms)
+    'tau_syn_2': 10.0,    # Synapse 2 time constant (ms)
+    'tau_syn_3': 15.0,    # Synapse 3 time constant (ms)
 }
 
 # Create a population of GLIF3 neurons
@@ -40,7 +42,7 @@ pop_glif3 = sim.Population(
     label="GLIF3_population"
 )
 
-# Create a spike source to provide input
+# Create spike sources to provide input to different receptor types
 spike_times = [[i * 50 + 10] for i in range(10)]  # Spikes every 50ms for each neuron
 input_pop = sim.Population(
     n_neurons,
@@ -48,13 +50,31 @@ input_pop = sim.Population(
     label="Input_spikes"
 )
 
-# Connect input to GLIF3 population
+# Connect input to GLIF3 population using synapse 0 (fast synapse)
 sim.Projection(
     input_pop,
     pop_glif3,
     sim.OneToOneConnector(),
     synapse_type=sim.StaticSynapse(weight=5.0, delay=1.0),
-    receptor_type='excitatory'
+    receptor_type='synapse_0',  # or 'syn0'
+    label="Input_to_synapse_0"
+)
+
+# Optionally add more inputs to different receptor types
+# Example: input to synapse 1 (medium synapse)
+input_pop_2 = sim.Population(
+    n_neurons,
+    sim.SpikeSourceArray(spike_times=[[i * 100 + 25] for i in range(5)]),
+    label="Input_spikes_2"
+)
+
+sim.Projection(
+    input_pop_2,
+    pop_glif3,
+    sim.OneToOneConnector(),
+    synapse_type=sim.StaticSynapse(weight=3.0, delay=1.0),
+    receptor_type='synapse_1',  # or 'syn1'
+    label="Input_to_synapse_1"
 )
 
 # Record spikes and membrane voltage
@@ -82,3 +102,4 @@ print("- Leaky integrate-and-fire dynamics")
 print("- Two after-spike currents with different time constants")
 print("- Fixed threshold")
 print("- Refractory period")
+print("- 4 independent receptor types (synapse_0 through synapse_3)")
