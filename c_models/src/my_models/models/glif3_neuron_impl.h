@@ -136,21 +136,20 @@ static state_t neuron_model_state_update(
         total_inh += inh_input[i];
     }
 
-    // Total input current
-    REAL I_total = total_exc - total_inh + external_bias + neuron->I_offset + current_offset;
+    // Total input current including after-spike currents
+    // IMPORTANT: Use current ASC values (before decay) per Allen Institute implementation
+    REAL I_total = total_exc - total_inh + external_bias + neuron->I_offset + current_offset
+                   + neuron->I_asc_0 + neuron->I_asc_1;
 
-    // Update after-spike currents (exponential decay)
-    neuron->I_asc_0 *= neuron->exp_k0_dt;
-    neuron->I_asc_1 *= neuron->exp_k1_dt;
-
-    // Add after-spike currents to total current
-    I_total += neuron->I_asc_0 + neuron->I_asc_1;
-
-    // Update membrane voltage
+    // Update membrane voltage using current ASC values
     // dV/dt = (1/C_m) * [I_total - g*(V - E_L)]
     // V(t+dt) = V(t) + (dt/C_m) * [I_total - g*(V(t) - E_L)]
     REAL leak_current = neuron->g * (neuron->V - neuron->E_L);
     neuron->V += neuron->dt_over_cm * (I_total - leak_current);
+
+    // Update after-spike currents (exponential decay) for next timestep
+    neuron->I_asc_0 *= neuron->exp_k0_dt;
+    neuron->I_asc_1 *= neuron->exp_k1_dt;
 
     // Return voltage for threshold comparison
     return neuron->V;
