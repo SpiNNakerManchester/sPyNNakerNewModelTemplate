@@ -1,6 +1,4 @@
-ifndef SPYNNAKER_INSTALL_DIR
-    $(error SPYNNAKER_INSTALL_DIR is not set.  Please define SPYNNAKER_INSTALL_DIR (possibly by running "source setup" in the neural_modelling folder within the sPyNNaker source folder))
-endif
+SPYNNAKER_INSTALL_DIR := $(strip $(if $(SPYNNAKER_INSTALL_DIR), $(SPYNNAKER_INSTALL_DIR), $(if $(SPINN_DIRS), $(SPINN_DIRS)/spynnaker_install, $(error SPYNNAKER_INSTALL_DIR or SPINN_DIRS is not set.  Please define SPYNNAKER_INSTALL_DIR or SPINN_DIRS))))
 
 # Work out the top-level project folder
 MAKEFILE_PATH := $(abspath $(lastword $(MAKEFILE_LIST)))
