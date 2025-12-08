@@ -1,33 +1,24 @@
-ifndef NEURAL_MODELLING_DIRS
-    $(error NEURAL_MODELLING_DIRS is not set.  Please define NEURAL_MODELLING_DIRS (possibly by running "source setup" in the neural_modelling folder within the sPyNNaker source folder))
-endif
+SPYNNAKER_INSTALL_DIR := $(strip $(if $(SPYNNAKER_INSTALL_DIR), $(SPYNNAKER_INSTALL_DIR), $(if $(SPINN_DIRS), $(SPINN_DIRS)/spynnaker_install, $(error SPYNNAKER_INSTALL_DIR or SPINN_DIRS is not set.  Please define SPYNNAKER_INSTALL_DIR or SPINN_DIRS))))
 
-# ----------------------------------------------------------------------
-# Compute the absolute path to the directory containing this file.
-#
-EXTRA_MAKEFILE_PATH := $(abspath $(lastword $(MAKEFILE_LIST)))
+# Work out the top-level project folder
+MAKEFILE_PATH := $(abspath $(lastword $(MAKEFILE_LIST)))
+EXTRA_MODELS_DIR := $(abspath $(dir $(MAKEFILE_PATH))/../../)/
 
-# ----------------------------------------------------------------------
-# Make sure that APP_OUTPUT_DIR points to where you want the .aplx files to go.
-#
-APP_OUTPUT_DIR := $(abspath $(dir $(EXTRA_MAKEFILE_PATH))../../python_models8/model_binaries/)
+# This is where the building will happen
+BUILD_DIR := $(EXTRA_MODELS_DIR)c_models/build/$(APP)/
 
-# ----------------------------------------------------------------------
-# Make sure EXTRA_SRC_DIR points to the source directory where your unmodified
-# files are found.
-#
-EXTRA_SRC_DIR := $(abspath $(dir $(EXTRA_MAKEFILE_PATH))/../src/)
+# This is where the output .aplx files will go
+APP_OUTPUT_DIR := $(EXTRA_MODELS_DIR)python_models8/model_binaries/
 
-# ----------------------------------------------------------------------
-# Add EXTRA_SRC_DIR to the SOURCE_DIRS to ensure that it gets used correctly
-SOURCE_DIRS += $(EXTRA_SRC_DIR)
-CFLAGS += -I$(EXTRA_SRC_DIR)
+# This is where the extra source files are located
+EXTRA_SRC_DIR := $(EXTRA_MODELS_DIR)c_models/src
 
-# ----------------------------------------------------------------------
-# Make sure each neuron model has a unique build directory.
-#
-BUILD_DIR := $(abspath $(dir $(EXTRA_MAKEFILE_PATH))/../build/$(APP))/
+# This location will be used to hold source files after log conversion
+# which saves instruction space on the SpiNNaker machine
+EXTRA_MODIFIED_DIR := $(EXTRA_MODELS_DIR)c_models/modified_src/
 
-# ----------------------------------------------------------------------
-# Import the main Makefile
-include $(NEURAL_MODELLING_DIRS)/makefiles/neuron/neural_build.mk
+# This simply maps the source directory to the modified source directory
+SOURCE_DIRS += $(EXTRA_SRC_DIR):$(EXTRA_MODIFIED_DIR)
+
+# Import the main neural build Makefile
+include $(SPYNNAKER_INSTALL_DIR)/make/neural_build.mk
