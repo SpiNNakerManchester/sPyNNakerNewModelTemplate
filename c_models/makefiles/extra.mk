@@ -4,7 +4,6 @@ ifndef SPYNNAKER_INSTALL_DIR:
     SPYNNAKER_INSTALL_DIR := $(abspath $(CUR_DIR)/../../../sPyNNaker/neural_modelling)
 endif
 
-
 # Work out the top-level project folder
 MAKEFILE_PATH := $(abspath $(lastword $(MAKEFILE_LIST)))
 EXTRA_MODELS_DIR := $(abspath $(dir $(MAKEFILE_PATH))/../../)/
