@@ -74,22 +74,11 @@ jobs:
         make -C sPyNNaker/neural_modelling install
         make -C c_models
 
-    - name: Build SpiNNaker C code globally
-      env:
-        C_LOGS_DICT: ${{ github.workspace }}/python_models8/model_binaries/logs.sqlite3
-        CFLAGS: -fdiagnostics-color=always
-      run: |
-        make -C spinnaker_tools install
-        make -C spinn_common install
-        make -C SpiNNFrontEndCommon/c_common
-        make -C sPyNNaker/neural_modelling
-        make -C sPyNNaker/neural_modelling install
-        make -C c_models
-
     - name: Build C code in DEBUG mode
       run: make clean; make SPYNNAKER_DEBUG=DEBUG
       working-directory: c_models
       env:
+        SPYNNAKER_INSTALL_DIR: ${{ github.workspace }}/spynnaker_install
         C_LOGS_DICT: ${{ github.workspace }}/python_models8/model_binaries/logs.sqlite3
         CFLAGS: -fdiagnostics-color=always
 
