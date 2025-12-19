@@ -65,7 +65,6 @@ jobs:
         SPINN_COMMON_INSTALL_DIR: ${{ github.workspace }}/spinn_common_install
         FEC_INSTALL_DIR: ${{ github.workspace }}/fec_install
         SPYNNAKER_INSTALL_DIR: ${{ github.workspace }}/spynnaker_install
-        C_LOGS_DICT: ${{ github.workspace }}/python_models8/model_binaries/logs.sqlite3
         CFLAGS: -fdiagnostics-color=always
       run: |
         make -C spinnaker_tools install
@@ -82,7 +81,6 @@ jobs:
         SPINN_COMMON_INSTALL_DIR: ${{ github.workspace }}/spinn_common_install
         FEC_INSTALL_DIR: ${{ github.workspace }}/fec_install
         SPYNNAKER_INSTALL_DIR: ${{ github.workspace }}/spynnaker_install
-        C_LOGS_DICT: ${{ github.workspace }}/python_models8/model_binaries/logs.sqlite3
         CFLAGS: -fdiagnostics-color=always
 
     # To be added: Documentation building
