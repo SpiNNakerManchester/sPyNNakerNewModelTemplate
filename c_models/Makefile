@@ -10,4 +10,5 @@ all: $(DIRS)
 clean: $(DIRS)
 	$(RM) $(APP_OUTPUT_DIR)logs.sqlite3
 	$(RM) $(APP_OUTPUT_DIR)*.aplx
+	$(RM) -r $(CURRENT_DIR)/modified_src
 	for d in $(DIRS); do $(MAKE) -C $$d clean || exit $$?; done
