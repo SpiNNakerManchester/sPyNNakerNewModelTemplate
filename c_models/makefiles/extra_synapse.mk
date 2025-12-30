@@ -1,4 +1,4 @@
-CUR_DIR := $(abspath $(dir $(lastword $(MAKEFILE_LIST)))/)
+CUR_DIR := $(abspath $(dir $(lastword $(MAKEFILE_LIST))))
 SPYNNAKER_INSTALL_DIR := $(strip $(if $(SPYNNAKER_INSTALL_DIR), $(SPYNNAKER_INSTALL_DIR), $(abspath $(CUR_DIR)/../../../sPyNNaker/neural_modelling)))
 
 # Work out the top-level project folder
