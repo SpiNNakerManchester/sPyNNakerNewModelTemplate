@@ -1,4 +1,5 @@
-SPYNNAKER_INSTALL_DIR := $(strip $(if $(SPYNNAKER_INSTALL_DIR), $(SPYNNAKER_INSTALL_DIR), $(if $(SPINN_DIRS), $(SPINN_DIRS)/spynnaker_install, $(error SPYNNAKER_INSTALL_DIR or SPINN_DIRS is not set.  Please define SPYNNAKER_INSTALL_DIR or SPINN_DIRS))))
+CUR_DIR := $(abspath $(dir $(lastword $(MAKEFILE_LIST))))
+SPYNNAKER_INSTALL_DIR := $(strip $(if $(SPYNNAKER_INSTALL_DIR), $(SPYNNAKER_INSTALL_DIR), $(abspath $(CUR_DIR)/../../../sPyNNaker/neural_modelling)))
 
 # Work out the top-level project folder
 MAKEFILE_PATH := $(abspath $(lastword $(MAKEFILE_LIST)))
@@ -9,6 +10,9 @@ BUILD_DIR := $(EXTRA_MODELS_DIR)c_models/build/$(APP)/
 
 # This is where the output .aplx files will go
 APP_OUTPUT_DIR := $(EXTRA_MODELS_DIR)python_models8/model_binaries/
+# key for the database in this APP_OUTPUT_DIR
+# If you change APP_OUTPUT_DIR please use a lower case letter
+DATABASE_KEY = N
 
 # This is where the extra source files are located
 EXTRA_SRC_DIR := $(EXTRA_MODELS_DIR)c_models/src

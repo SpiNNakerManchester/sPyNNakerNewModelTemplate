@@ -65,26 +65,11 @@ jobs:
         SPINN_COMMON_INSTALL_DIR: ${{ github.workspace }}/spinn_common_install
         FEC_INSTALL_DIR: ${{ github.workspace }}/fec_install
         SPYNNAKER_INSTALL_DIR: ${{ github.workspace }}/spynnaker_install
-        C_LOGS_DICT: ${{ github.workspace }}/python_models8/model_binaries/logs.sqlite3
         CFLAGS: -fdiagnostics-color=always
       run: |
         make -C spinnaker_tools install
         make -C spinn_common install
-        make -C SpiNNFrontEndCommon/c_common
-        make -C sPyNNaker/neural_modelling
-        make -C sPyNNaker/neural_modelling install
-        make -C c_models
-
-    - name: Build SpiNNaker C code globally
-      env:
-        SPINN_DIRS: ${{ github.workspace }}/spinn_dirs
-        C_LOGS_DICT: ${{ github.workspace }}/python_models8/model_binaries/logs.sqlite3
-        CFLAGS: -fdiagnostics-color=always
-      run: |
-        make -C spinnaker_tools install
-        make -C spinn_common install
-        make -C SpiNNFrontEndCommon/c_common
-        make -C sPyNNaker/neural_modelling
+        make -C SpiNNFrontEndCommon/c_common install
         make -C sPyNNaker/neural_modelling install
         make -C c_models
 
@@ -92,8 +77,10 @@ jobs:
       run: make clean; make SPYNNAKER_DEBUG=DEBUG
       working-directory: c_models
       env:
-        SPINN_DIRS: ${{ github.workspace }}/spinn_dirs
-        C_LOGS_DICT: ${{ github.workspace }}/python_models8/model_binaries/logs.sqlite3
+        SPINN_INSTALL_DIR: ${{ github.workspace }}/spinnaker_tools_install
+        SPINN_COMMON_INSTALL_DIR: ${{ github.workspace }}/spinn_common_install
+        FEC_INSTALL_DIR: ${{ github.workspace }}/fec_install
+        SPYNNAKER_INSTALL_DIR: ${{ github.workspace }}/spynnaker_install
         CFLAGS: -fdiagnostics-color=always
 
     # To be added: Documentation building
