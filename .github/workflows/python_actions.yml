@@ -15,7 +15,7 @@
 name: Python Actions
 on: [push]
 env:
-  CODE_PATHS: examples python_models8 nmt_integration_tests
+  CODE_PATHS: examples python_models nmt_integration_tests
 
 jobs:
   build:

@@ -1,6 +1,6 @@
 MAKEFILE_PATH := $(abspath $(lastword $(MAKEFILE_LIST)))
 CURRENT_DIR := $(abspath $(dir $(MAKEFILE_PATH)))
-APP_OUTPUT_DIR := $(CURRENT_DIR)/../python_models8/model_binaries/
+APP_OUTPUT_DIR := $(CURRENT_DIR)/../python_models/model_binaries/
 
 DIRS = makefiles
 

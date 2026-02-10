@@ -14,11 +14,11 @@
 
 import pyNN.spiNNaker as sim
 from .nwt_testbase import NwtTestBase
-from python_models8.neuron.builds.my_model_curr_exp import MyModelCurrExp
-from python_models8.neuron.plasticity.stdp.timing_dependence\
+from python_models.neuron.builds.my_model_curr_exp import MyModelCurrExp
+from python_models.neuron.plasticity.stdp.timing_dependence\
     .my_timing_dependence import (
         MyTimingDependence)
-from python_models8.neuron.plasticity.stdp.weight_dependence\
+from python_models.neuron.plasticity.stdp.weight_dependence\
     .my_weight_dependence import (
         MyWeightDependence)
 

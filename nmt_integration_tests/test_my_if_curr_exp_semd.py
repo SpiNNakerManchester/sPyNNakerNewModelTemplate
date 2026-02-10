@@ -14,7 +14,7 @@
 
 import pyNN.spiNNaker as sim
 from .nwt_testbase import NwtTestBase
-from python_models8.neuron.builds.my_if_curr_exp_sEMD import MyIFCurrExpSEMD
+from python_models.neuron.builds.my_if_curr_exp_sEMD import MyIFCurrExpSEMD
 
 # Set the run time of the execution
 run_time = 1000

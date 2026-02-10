@@ -21,9 +21,9 @@ class ImportAllModule(unittest.TestCase):
 
     def test_import_all(self):
         if os.environ.get('CONTINUOUS_INTEGRATION', 'false').lower() == 'true':
-            package_loader.load_module("python_models8", remove_pyc_files=False)
+            package_loader.load_module("python_models", remove_pyc_files=False)
         else:
             # Do a full stack cleanup
             package_loader.load_module(
                 "spinn_utilities", remove_pyc_files=True)
-            package_loader.load_module("python_models8", remove_pyc_files=True)
+            package_loader.load_module("python_models", remove_pyc_files=True)
