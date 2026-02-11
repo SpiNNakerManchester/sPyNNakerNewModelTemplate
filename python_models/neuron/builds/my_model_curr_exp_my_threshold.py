@@ -1,19 +1,17 @@
 # A PyNN Model for standard neurons built from components
 from spynnaker.pyNN.models.neuron import AbstractPyNNNeuronModelStandard
-
 # Components from main tools
 from spynnaker.pyNN.models.neuron.input_types import InputTypeCurrent
-from spynnaker.pyNN.models.neuron.threshold_types import ThresholdTypeStatic
+from spynnaker.pyNN.models.neuron.synapse_types import SynapseTypeExponential
 from spynnaker.pyNN.models.defaults import default_initial_values
+from python_models.neuron.neuron_models.my_neuron_model import MyNeuronModel
+from python_models.neuron.threshold_types.my_threshold_type import (
+    MyThresholdType)
 
-# Additional components
-from python_models8.neuron.neuron_models.my_neuron_model import MyNeuronModel
-from python_models8.neuron.synapse_types.my_synapse_type import MySynapseType
 
+class MyModelCurrExpMyThreshold(AbstractPyNNNeuronModelStandard):
 
-class MyModelCurrMySynapseType(AbstractPyNNNeuronModelStandard):
-
-    @default_initial_values({"v", "my_exc_init", "my_inh_init"})
+    @default_initial_values({"v", "isyn_exc", "isyn_inh"})
     def __init__(
             self,
 
@@ -23,35 +21,37 @@ class MyModelCurrMySynapseType(AbstractPyNNNeuronModelStandard):
             v=-70.0,
 
             # threshold types parameters
-            v_thresh=-50.0,
+            my_threshold_parameter=0.5,
+            threshold_value=-10.0,
 
-            # synapse type parameters and state variables
-            my_ex_synapse_parameter=0.1,
-            my_in_synapse_parameter=0.1,
-            my_exc_init=0.0,
-            my_inh_init=0.0):
+            # synapse type parameters
+            tau_syn_E=5.0,
+            tau_syn_I=5.0,
+            isyn_exc=0.0,
+            isyn_inh=0.0):
 
         # create neuron model class
         neuron_model = MyNeuronModel(i_offset, my_neuron_parameter, v)
 
         # create synapse type model
-        synapse_type = MySynapseType(
-            my_ex_synapse_parameter, my_in_synapse_parameter,
-            my_exc_init, my_inh_init)
+        synapse_type = SynapseTypeExponential(
+            tau_syn_E, tau_syn_I, isyn_exc, isyn_inh)
 
         # create input type model
         input_type = InputTypeCurrent()
 
         # create threshold type model
-        threshold_type = ThresholdTypeStatic(v_thresh)
+        threshold_type = MyThresholdType(
+            threshold_value, my_threshold_parameter)
 
+        # Create the model using the superclass
         super().__init__(
 
             # the model a name (shown in reports)
-            model_name="MyModelMySynapseType",
+            model_name="MyModelCurrExpMyThreshold",
 
             # the matching binary name
-            binary="my_model_curr_my_synapse_type.aplx",
+            binary="my_model_curr_exp_my_threshold.aplx",
 
             # the various model types
             neuron_model=neuron_model, input_type=input_type,

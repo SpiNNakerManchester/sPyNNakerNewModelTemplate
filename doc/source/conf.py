@@ -436,7 +436,7 @@ def excluded_because_in_init(base):
 
 
 _output_dir = os.path.abspath(".")
-_package_base = "python_models8"
+_package_base = "python_models"
 
 # Do the rst generation; remove files which aren't in git first!
 for fl in os.listdir("."):

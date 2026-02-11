@@ -14,7 +14,7 @@
 
 import pyNN.spiNNaker as sim
 from .nwt_testbase import NwtTestBase
-from python_models8.neuron.builds.my_model_curr_exp_my_additional_input \
+from python_models.neuron.builds.my_model_curr_exp_my_additional_input \
     import MyModelCurrExpMyAdditionalInput
 
 # Set the number of neurons to simulate

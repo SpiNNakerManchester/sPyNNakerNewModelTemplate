@@ -1,10 +1,10 @@
-python_models8
+python_models
 ==============
 
 .. toctree::
    :maxdepth: 4
 
-   python_models8
+   python_models
 
 examples
 ========

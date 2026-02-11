@@ -28,5 +28,5 @@
 **/neural_modelling/builds/**/*.txt
 **/reports/**
 **/c_models/**
-**/python_models8/**
+**/python_models/**
 **/examples/**
