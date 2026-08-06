@@ -1,11 +1,17 @@
+from typing import Optional, Sequence
+
 from numpy.typing import NDArray
-from typing import Optional,  Sequence
+
 from spinn_utilities.overrides import overrides
+
 from pacman.model.graphs.common import Slice
+
 from spynnaker.pyNN.models.neural_projections import SynapseInformation
-from spynnaker.pyNN.types import Weights
 from spynnaker.pyNN.models.neural_projections.connectors import (
-    AbstractConnector, AbstractGenerateConnectorOnHost)
+    AbstractConnector,
+    AbstractGenerateConnectorOnHost,
+)
+from spynnaker.pyNN.types import Weights
 
 
 class MyConnector(AbstractConnector, AbstractGenerateConnectorOnHost):

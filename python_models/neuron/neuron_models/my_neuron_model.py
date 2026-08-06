@@ -1,8 +1,11 @@
 from spinn_utilities.overrides import overrides
 from spinn_utilities.ranged import RangeDictionary
+
 from spinn_front_end_common.interface.ds import DataType
+
 from spynnaker.pyNN.models.neuron.implementations import (
-    AbstractStandardNeuronComponent)
+    AbstractStandardNeuronComponent,
+)
 from spynnaker.pyNN.utilities.struct import Struct
 
 # TODO: create constants to match the parameter names

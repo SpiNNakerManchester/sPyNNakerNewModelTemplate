@@ -1,10 +1,10 @@
 # A PyNN Model for standard neurons built from components
+from spynnaker.pyNN.models.defaults import default_initial_values
 from spynnaker.pyNN.models.neuron import AbstractPyNNNeuronModelStandard
 
 # Components from main tools
 from spynnaker.pyNN.models.neuron.input_types import InputTypeCurrent
 from spynnaker.pyNN.models.neuron.threshold_types import ThresholdTypeStatic
-from spynnaker.pyNN.models.defaults import default_initial_values
 
 # Additional components
 from python_models.neuron.neuron_models.my_neuron_model import MyNeuronModel

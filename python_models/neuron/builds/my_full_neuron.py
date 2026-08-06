@@ -1,7 +1,9 @@
-from spynnaker.pyNN.models.neuron import AbstractPyNNNeuronModel
 from spynnaker.pyNN.models.defaults import default_parameters
+from spynnaker.pyNN.models.neuron import AbstractPyNNNeuronModel
+
 from python_models.neuron.implementations.my_full_neuron_impl import (
-    MyFullNeuronImpl)
+    MyFullNeuronImpl,
+)
 
 
 class MyFullNeuron(AbstractPyNNNeuronModel):

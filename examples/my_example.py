@@ -1,28 +1,29 @@
 # import spynnaker and plotting stuff
+import matplotlib.pyplot as plt
 import pyNN.spiNNaker as p
 from pyNN.utility.plotting import Figure, Panel
-import matplotlib.pyplot as plt
 
 # import models
 from python_models.neuron.plasticity.stdp.timing_dependence\
-    .my_timing_dependence import (
-        MyTimingDependence)
+    .my_timing_dependence import MyTimingDependence
 from python_models.neuron.plasticity.stdp.weight_dependence\
-    .my_weight_dependence import (
-        MyWeightDependence)
-from python_models.neuron.builds.my_model_curr_exp import MyModelCurrExp
+    .my_weight_dependence import MyWeightDependence
+
 from python_models.neuron.builds.my_full_neuron import MyFullNeuron
 from python_models.neuron.builds.my_if_curr_exp_sEMD import MyIFCurrExpSEMD
+from python_models.neuron.builds.my_model_curr_exp import MyModelCurrExp
+from python_models.neuron.builds.my_model_curr_exp_my_additional_input import (
+        MyModelCurrExpMyAdditionalInput,
+)
 from python_models.neuron.builds.my_model_curr_exp_my_input_type import (
-    MyModelCurrExpMyInputType)
-from python_models.neuron.builds.my_model_curr_my_synapse_type import (
-    MyModelCurrMySynapseType)
-from python_models.neuron.builds.my_model_curr_exp_my_additional_input \
-    import (
-        MyModelCurrExpMyAdditionalInput)
+        MyModelCurrExpMyInputType,
+)
 from python_models.neuron.builds.my_model_curr_exp_my_threshold import (
-    MyModelCurrExpMyThreshold)
-
+        MyModelCurrExpMyThreshold,
+)
+from python_models.neuron.builds.my_model_curr_my_synapse_type import (
+        MyModelCurrMySynapseType,
+)
 
 # Set the run time of the execution
 run_time = 1000

@@ -1,5 +1,6 @@
-from spynnaker.pyNN.models.neuron.input_types import AbstractInputType
 from spinn_front_end_common.interface.ds import DataType
+
+from spynnaker.pyNN.models.neuron.input_types import AbstractInputType
 from spynnaker.pyNN.utilities.struct import Struct
 
 # TODO create constants to match the parameter names
