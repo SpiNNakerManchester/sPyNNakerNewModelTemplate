@@ -13,9 +13,12 @@
 # limitations under the License.
 
 import pyNN.spiNNaker as sim
+
+from python_models.neuron.builds.my_model_curr_exp_my_additional_input import (
+    MyModelCurrExpMyAdditionalInput,
+)
+
 from .nwt_testbase import NwtTestBase
-from python_models.neuron.builds.my_model_curr_exp_my_additional_input \
-    import MyModelCurrExpMyAdditionalInput
 
 # Set the number of neurons to simulate
 n_neurons = 1

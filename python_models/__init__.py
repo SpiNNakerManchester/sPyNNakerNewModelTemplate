@@ -1,5 +1,7 @@
 import os
+
 from spynnaker.pyNN.data import SpynnakerDataView
+
 from python_models import model_binaries
 
 # This adds the model binaries path to the paths searched by sPyNNaker

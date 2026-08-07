@@ -1,9 +1,12 @@
 from typing import Optional, Sequence
+
 from spinn_utilities.overrides import overrides
+
 from spinn_front_end_common.interface.ds import DataType
+
+from spynnaker.pyNN.data.spynnaker_data_view import SpynnakerDataView
 from spynnaker.pyNN.models.neuron.synapse_types import AbstractSynapseType
 from spynnaker.pyNN.utilities.struct import Struct
-from spynnaker.pyNN.data.spynnaker_data_view import SpynnakerDataView
 
 # TODO: create constants to match the parameter names
 EX_SYNAPSE = 'my_ex_synapse_parameter'

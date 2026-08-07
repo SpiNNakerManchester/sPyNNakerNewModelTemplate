@@ -1,12 +1,15 @@
 from spynnaker.pyNN.models.defaults import default_initial_values
-from spynnaker.pyNN.models.neuron.neuron_models import (
-    NeuronModelLeakyIntegrateAndFire)
 from spynnaker.pyNN.models.neuron import AbstractPyNNNeuronModelStandard
 from spynnaker.pyNN.models.neuron.implementations import ModelParameter
+from spynnaker.pyNN.models.neuron.neuron_models import (
+    NeuronModelLeakyIntegrateAndFire,
+)
 from spynnaker.pyNN.models.neuron.synapse_types import SynapseTypeExponential
-from python_models.neuron.input_types.my_input_type_semd import (
-    MyInputTypeCurrentSEMD)
 from spynnaker.pyNN.models.neuron.threshold_types import ThresholdTypeStatic
+
+from python_models.neuron.input_types.my_input_type_semd import (
+    MyInputTypeCurrentSEMD,
+)
 
 
 class MyIFCurrExpSEMD(AbstractPyNNNeuronModelStandard):

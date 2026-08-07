@@ -13,9 +13,12 @@
 # limitations under the License.
 
 import pyNN.spiNNaker as sim
-from .nwt_testbase import NwtTestBase
+
 from python_models.neuron.builds.my_model_curr_my_synapse_type import (
-    MyModelCurrMySynapseType)
+    MyModelCurrMySynapseType,
+)
+
+from .nwt_testbase import NwtTestBase
 
 # Set the run time of the execution
 run_time = 1000

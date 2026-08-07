@@ -1,10 +1,12 @@
 from typing import List, Mapping, Optional
-from spinn_front_end_common.interface.ds import DataType
-from spynnaker.pyNN.utilities.struct import Struct
-from spynnaker.pyNN.models.neuron.implementations import (
-    AbstractNeuronImpl)
+
 from spinn_utilities.overrides import overrides
 from spinn_utilities.ranged import RangeDictionary
+
+from spinn_front_end_common.interface.ds import DataType
+
+from spynnaker.pyNN.models.neuron.implementations import AbstractNeuronImpl
+from spynnaker.pyNN.utilities.struct import Struct
 
 # TODO: Add names for parameters and state variables
 THRESHOLD = "threshold"

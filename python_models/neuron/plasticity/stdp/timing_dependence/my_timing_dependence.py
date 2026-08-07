@@ -1,14 +1,19 @@
+from typing import List
+
 from numpy import floating
 from numpy.typing import NDArray
-from typing import List
+
 from spinn_utilities.overrides import overrides
-from spinn_front_end_common.interface.ds import (
-    DataSpecificationBase, DataType)
+
+from spinn_front_end_common.interface.ds import DataSpecificationBase, DataType
 from spinn_front_end_common.utilities.constants import BYTES_PER_WORD
-from spynnaker.pyNN.models.neuron.plasticity.stdp.timing_dependence import (
-    AbstractTimingDependence)
+
 from spynnaker.pyNN.models.neuron.plasticity.stdp.synapse_structure import (
-    SynapseStructureWeightOnly)
+    SynapseStructureWeightOnly,
+)
+from spynnaker.pyNN.models.neuron.plasticity.stdp.timing_dependence import (
+    AbstractTimingDependence,
+)
 
 
 class MyTimingDependence(AbstractTimingDependence):
