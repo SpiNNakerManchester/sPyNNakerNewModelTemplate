@@ -3,12 +3,6 @@ import matplotlib.pyplot as plt
 import pyNN.spiNNaker as p
 from pyNN.utility.plotting import Figure, Panel
 
-# import models
-from python_models.neuron.plasticity.stdp.timing_dependence\
-    .my_timing_dependence import MyTimingDependence
-from python_models.neuron.plasticity.stdp.weight_dependence\
-    .my_weight_dependence import MyWeightDependence
-
 from python_models.neuron.builds.my_full_neuron import MyFullNeuron
 from python_models.neuron.builds.my_if_curr_exp_sEMD import MyIFCurrExpSEMD
 from python_models.neuron.builds.my_model_curr_exp import MyModelCurrExp
@@ -24,6 +18,12 @@ from python_models.neuron.builds.my_model_curr_exp_my_threshold import (
 from python_models.neuron.builds.my_model_curr_my_synapse_type import (
         MyModelCurrMySynapseType,
 )
+
+# import models
+from python_models.neuron.plasticity.stdp.timing_dependence\
+    .my_timing_dependence import MyTimingDependence
+from python_models.neuron.plasticity.stdp.weight_dependence\
+    .my_weight_dependence import MyWeightDependence
 
 # Set the run time of the execution
 run_time = 1000
