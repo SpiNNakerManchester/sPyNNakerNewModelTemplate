@@ -14,8 +14,9 @@ class MyInputTypeCurrentSEMD(AbstractInputType):
     """ My current sEMD input type
     """
     __slots__ = [
+        "__my_inh_input_previous",
         "__my_multiplicator",
-        "__my_inh_input_previous"]
+    ]
 
     def __init__(self, my_multiplicator, my_inh_input_previous):
         super().__init__([
