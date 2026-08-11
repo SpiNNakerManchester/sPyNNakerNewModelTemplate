@@ -106,13 +106,13 @@ class MyWeightDependence(AbstractHasAPlusAMinus, AbstractWeightDependence):
             # Scale the maximum and minimum weights to fixed-point values
             # based on the weight scaling that has been done externally
             spec.write_value(
-                data=int(round(self._w_min * w)), data_type=DataType.INT32)
+                data=round(self._w_min * w), data_type=DataType.INT32)
             spec.write_value(
-                data=int(round(self._w_max * w)), data_type=DataType.INT32)
+                data=round(self._w_max * w), data_type=DataType.INT32)
 
             # Write my parameter as an appropriately scaled fixed-point number
             spec.write_value(
-                data=int(round(self._my_weight_parameter * w)),
+                data=round(self._my_weight_parameter * w),
                 data_type=DataType.INT32)
 
             if n_weight_terms != 1:
