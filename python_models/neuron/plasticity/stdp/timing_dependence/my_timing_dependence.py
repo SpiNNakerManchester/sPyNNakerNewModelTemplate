@@ -1,4 +1,3 @@
-from typing import List
 
 from numpy import floating
 from numpy.typing import NDArray
@@ -119,7 +118,7 @@ class MyTimingDependence(AbstractTimingDependence):
             self._my_depression_parameter, data_type=DataType.S1615)
 
     @overrides(AbstractTimingDependence.get_parameter_names)
-    def get_parameter_names(self) -> List[str]:
+    def get_parameter_names(self) -> list[str]:
         return ['my_potentiation_parameter', 'my_depression_parameter']
 
     @property
