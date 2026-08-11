@@ -1,4 +1,3 @@
-from typing import List
 
 from numpy import floating
 from numpy.typing import NDArray
@@ -129,5 +128,5 @@ class MyWeightDependence(AbstractHasAPlusAMinus, AbstractWeightDependence):
         return self._w_max
 
     @overrides(AbstractWeightDependence.get_parameter_names)
-    def get_parameter_names(self) -> List[str]:
+    def get_parameter_names(self) -> list[str]:
         return ['w_min', 'w_max', 'my_weight_parameter']

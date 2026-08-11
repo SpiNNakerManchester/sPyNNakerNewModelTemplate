@@ -1,4 +1,4 @@
-from typing import List, Mapping, Optional
+from typing import Mapping, Optional
 
 from spinn_utilities.overrides import overrides
 from spinn_utilities.ranged import RangeDictionary
@@ -45,7 +45,7 @@ class MyFullNeuronImpl(AbstractNeuronImpl):
 
     @property
     @overrides(AbstractNeuronImpl.structs)
-    def structs(self) -> List[Struct]:
+    def structs(self) -> list[Struct]:
         return [self._struct]
 
     @property
@@ -82,14 +82,14 @@ class MyFullNeuronImpl(AbstractNeuronImpl):
         raise ValueError("Unknown target {}".format(target))
 
     @overrides(AbstractNeuronImpl.get_synapse_targets)
-    def get_synapse_targets(self) -> List[str]:
+    def get_synapse_targets(self) -> list[str]:
 
         # TODO: Update with the names that are allowed on a PyNN synapse
         # receptor_type
         return ["excitatory", "inhibitory"]
 
     @overrides(AbstractNeuronImpl.get_recordable_variables)
-    def get_recordable_variables(self) -> List[str]:
+    def get_recordable_variables(self) -> list[str]:
         # TODO: Update with the names of state variables that can be recorded
         return ["v"]
 
