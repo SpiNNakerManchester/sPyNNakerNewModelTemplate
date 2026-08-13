@@ -1,4 +1,4 @@
-from typing import Optional, Sequence
+from typing import Sequence
 
 from numpy.typing import NDArray
 
@@ -45,7 +45,7 @@ class MyConnector(AbstractConnector, AbstractGenerateConnectorOnHost):
 
     @overrides(AbstractConnector.get_delay_minimum)
     def get_delay_minimum(
-            self, synapse_info: SynapseInformation) -> Optional[float]:
+            self, synapse_info: SynapseInformation) -> float | None:
         # TODO call self._get_delay_minimum if needed
         return 1
 
@@ -70,8 +70,8 @@ class MyConnector(AbstractConnector, AbstractGenerateConnectorOnHost):
     @overrides(AbstractConnector.get_n_connections_from_pre_vertex_maximum)
     def get_n_connections_from_pre_vertex_maximum(
             self, n_post_atoms: int, synapse_info: SynapseInformation,
-            min_delay: Optional[float] = None,
-            max_delay: Optional[float] = None) -> int:
+            min_delay: float | None = None,
+            max_delay: float | None = None) -> int:
         # TODO: update accordingly
         raise NotImplementedError
 
