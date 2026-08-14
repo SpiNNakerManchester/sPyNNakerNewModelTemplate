@@ -1,4 +1,4 @@
-from typing import Mapping, Optional
+from typing import Mapping
 
 from spinn_utilities.overrides import overrides
 from spinn_utilities.ranged import RangeDictionary
@@ -72,7 +72,7 @@ class MyFullNeuronImpl(AbstractNeuronImpl):
         return 2
 
     @overrides(AbstractNeuronImpl.get_synapse_id_by_target)
-    def get_synapse_id_by_target(self, target: str) -> Optional[int]:
+    def get_synapse_id_by_target(self, target: str) -> int | None:
         # TODO: Update with the names that are allowed on a PyNN synapse
         # receptor_type and match up with indices
         if target == "excitatory":

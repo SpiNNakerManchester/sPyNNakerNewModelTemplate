@@ -1,4 +1,4 @@
-from typing import Optional, Sequence
+from typing import Sequence
 
 from spinn_utilities.overrides import overrides
 
@@ -82,7 +82,7 @@ class MySynapseType(AbstractSynapseType):
         return 2
 
     @overrides(AbstractSynapseType.get_synapse_id_by_target)
-    def get_synapse_id_by_target(self, target: str) -> Optional[int]:
+    def get_synapse_id_by_target(self, target: str) -> int | None:
         # TODO: update the mapping from name to ID
         if target == "excitatory":
             return 0
