@@ -186,7 +186,7 @@ Figure(
           data_labels=[my_full_neuron_pop.label],
           yticks=True, xlim=(0, run_time), xticks=True),
     title="Simple my model examples",
-    annotations="Simulated with {}".format(p.name())
+    annotations=f"Simulated with {p.name()}"
 )
 plt.show()
 

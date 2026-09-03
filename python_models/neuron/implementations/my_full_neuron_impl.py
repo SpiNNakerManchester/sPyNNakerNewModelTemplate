@@ -79,7 +79,7 @@ class MyFullNeuronImpl(AbstractNeuronImpl):
             return 0
         elif target == "inhibitory":
             return 1
-        raise ValueError("Unknown target {}".format(target))
+        raise ValueError(f"Unknown target {target}")
 
     @overrides(AbstractNeuronImpl.get_synapse_targets)
     def get_synapse_targets(self) -> list[str]:
@@ -102,7 +102,7 @@ class MyFullNeuronImpl(AbstractNeuronImpl):
     def get_recordable_units(self, variable: str) -> str:
         # TODO: Update with the appropriate units for variables
         if variable != "v":
-            raise ValueError("Unknown variable {}".format(variable))
+            raise ValueError(f"Unknown variable {variable}")
         return "mV"
 
     @overrides(AbstractNeuronImpl.get_recordable_variable_index)
@@ -110,7 +110,7 @@ class MyFullNeuronImpl(AbstractNeuronImpl):
         # TODO: Update with the index in the recorded_variable_values array
         # that the given variable will be recorded in to
         if variable != "v":
-            raise ValueError("Unknown variable {}".format(variable))
+            raise ValueError(f"Unknown variable {variable}")
         return 0
 
     @overrides(AbstractNeuronImpl.is_recordable)
