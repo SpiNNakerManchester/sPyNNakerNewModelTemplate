@@ -1,4 +1,4 @@
-from typing import Mapping
+from collections.abc import Mapping
 
 from spinn_utilities.overrides import overrides
 from spinn_utilities.ranged import RangeDictionary
