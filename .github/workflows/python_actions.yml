@@ -13,7 +13,8 @@
 # limitations under the License.
 
 name: Python Actions
-on: [push]
+# on: [push]
+on: [workflow_dispatch]
 env:
   CODE_PATHS: examples python_models nmt_integration_tests
 
