@@ -26,3 +26,6 @@ SOURCE_DIRS += $(EXTRA_SRC_DIR):$(EXTRA_MODIFIED_DIR)
 
 # Import the main neural build Makefile
 include $(SPYNNAKER_INSTALL_DIR)/make/synapse_build.mk
+
+clean:
+	$(RM) -r $(BUILD_DIR) $(EXTRA_MODIFIED_DIR)
