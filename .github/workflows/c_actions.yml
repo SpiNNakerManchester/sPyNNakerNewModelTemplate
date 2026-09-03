@@ -82,7 +82,7 @@ jobs:
       working-directory: c_models
       run: |
         ls -lR $SPYNNAKER_INSTALL_DIR
-        make
+        make -d
 
     - name: Build C code in DEBUG mode
       run: make clean; make SPYNNAKER_DEBUG=DEBUG
