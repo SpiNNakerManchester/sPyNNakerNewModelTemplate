@@ -80,7 +80,9 @@ jobs:
         SPYNNAKER_INSTALL_DIR: ${{ github.workspace }}/spynnaker_install
         CFLAGS: -fdiagnostics-color=always
       working-directory: c_models
-      run: make clean; make
+      run: |
+        ls -lR $SPYNNAKER_INSTALL_DIR
+        make clean; make
 
     - name: Build C code in DEBUG mode
       run: make clean; make SPYNNAKER_DEBUG=DEBUG
