@@ -25,6 +25,7 @@ jobs:
       coverage-package: pacman
       flake8-packages: examples python_models nmt_integration_tests unittests
       pylint-packages: examples python_models nmt_integration_tests unittests
+      # Limit which pylint messages matter
       pylint-exitcheck: 39
       # currently examples are not type annotated
       mypy-full-packages:
