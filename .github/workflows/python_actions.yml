@@ -14,84 +14,15 @@
 
 name: Python Actions
 on: [push]
-env:
-  CODE_PATHS: examples python_models nmt_integration_tests
-
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: ["3.10", "3.11", "3.12", "3.13"]
-    steps:
-    # Check out the code and critical support code
-    - name: Checkout
-      uses: actions/checkout@v2
-    - name: Checkout SupportScripts
-      uses: actions/checkout@v2
-      with:
-        repository: SpiNNakerManchester/SupportScripts
-        path: support
-
-    # Set up the dependencies for everything
-    - name: Install Ubuntu dependencies
-      uses: SpiNNakerManchester/SupportScripts/actions/apt-get-install@main
-      with:
-        packages: graphviz
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v2
-      with:
-        python-version: ${{ matrix.python-version }}
-    - name: Install pip, etc
-      uses: SpiNNakerManchester/SupportScripts/actions/python-tools@main
-    - name: Install mypy
-      run: pip install mypy
-
-    - name: Install Spinnaker Dependencies
-      uses: SpiNNakerManchester/SupportScripts/actions/install-spinn-deps@main
-      with:
-        repositories: >
-          SpiNNUtils SpiNNMachine SpiNNMan PACMAN spalloc
-          SpiNNFrontEndCommon sPyNNaker TestBase
-        install: true
-
-    - name: Install matplotlib
-      uses: SpiNNakerManchester/SupportScripts/actions/install-matplotlib@main
-
-    - name: Setup
-      uses: SpiNNakerManchester/SupportScripts/actions/run-install@main
-
-    - name: Setup PyNN
-      uses: SpiNNakerManchester/SupportScripts/actions/pynn-setup@main
-
-    - name: Create a spynnaker.cfg
-      uses: SpiNNakerManchester/SupportScripts/actions/configure-spynnaker@main
-      with:
-        board-address: spinn-4.cs.man.ac.uk
-    - name: Test with pytest
-      uses: SpiNNakerManchester/SupportScripts/actions/pytest@main
-      with:
-        tests: unittests
-
-    # Code quality assessment
-    - name: Lint with flake8
-      run: flake8 $CODE_PATHS
-
-    - name: Lint with pylint
-      uses: ./support/actions/pylint
-      with:
-        package: ${{ env.CODE_PATHS }}
-        exitcheck: 39
-
-    - name: Run rat copyright enforcement
-      if: matrix.python-version == 3.12
-      uses: SpiNNakerManchester/SupportScripts/actions/check-copyrights@main
-      with:
-        config-file: rat_asl20.xml
-
-    - name: Validate CITATION.cff
-      if: matrix.python-version == 3.12
-      uses: dieghernan/cff-validator@main
-
-    - name: Lint with mypy
-      run: mypy $CODE_PATHS
+  call:
+    uses: SpiNNakerManchester/SupportScripts/.github/workflows/python_checks.yml@main
+    with:
+      dependencies: SpiNNUtils SpiNNMachine SpiNNMan PACMAN spalloc SpiNNFrontEndCommon sPyNNaker TestBase
+      test-directories: unittests
+      coverage-package: pacman
+      flake8-packages: examples python_models nmt_integration_tests unittests
+      pylint-packages: examples python_models nmt_integration_tests unittests
+      mypy-full-packages: examples python_models nmt_integration_tests unittests
+      ruff-packages: examples python_models nmt_integration_tests unittests
+    secrets: inherit
