@@ -14,7 +14,7 @@
 
 import pyNN.spiNNaker as sim
 
-from python_models.neuron.builds.my_if_curr_exp_sEMD import MyIFCurrExpSEMD
+from python_models.neuron.builds.my_if_curr_exp_semd import MyIFCurrExpSEMD
 
 from .nwt_testbase import NwtTestBase
 
