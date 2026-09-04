@@ -4,7 +4,7 @@ import pyNN.spiNNaker as p
 from pyNN.utility.plotting import Figure, Panel
 
 from python_models.neuron.builds.my_full_neuron import MyFullNeuron
-from python_models.neuron.builds.my_if_curr_exp_sEMD import MyIFCurrExpSEMD
+from python_models.neuron.builds.my_if_curr_exp_semd import MyIFCurrExpSEMD
 from python_models.neuron.builds.my_model_curr_exp import MyModelCurrExp
 from python_models.neuron.builds.my_model_curr_exp_my_additional_input import (
         MyModelCurrExpMyAdditionalInput,
