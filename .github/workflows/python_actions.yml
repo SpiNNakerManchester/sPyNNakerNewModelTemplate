@@ -14,8 +14,8 @@
 
 name: Python Actions
 on: [push]
- permissions:
-   contents: read
+permissions:
+  contents: read
 jobs:
   call:
     uses: SpiNNakerManchester/SupportScripts/.github/workflows/python_checks.yml@main
