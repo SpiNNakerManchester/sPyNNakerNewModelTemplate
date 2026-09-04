@@ -13,7 +13,6 @@
 # limitations under the License.
 
 from spinnaker_testbase import ScriptChecker
-from unittest import SkipTest  # pylint: disable=unused-import
 
 
 class TestScripts(ScriptChecker):
@@ -28,8 +27,8 @@ class TestScripts(ScriptChecker):
     """
 # flake8: noqa
 
+    def test_examples_my_semd_example(self):
+        self.check_script("examples/my_semd_example.py")
+
     def test_examples_my_example(self):
         self.check_script("examples/my_example.py")
-
-    def test_examples_my_sEMD_example(self):
-        self.check_script("examples/my_sEMD_example.py")
