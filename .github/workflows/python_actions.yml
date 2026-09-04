@@ -14,6 +14,8 @@
 
 name: Python Actions
 on: [push]
+ permissions:
+   contents: read
 jobs:
   call:
     uses: SpiNNakerManchester/SupportScripts/.github/workflows/python_checks.yml@main
@@ -23,6 +25,7 @@ jobs:
       coverage-package: pacman
       flake8-packages: examples python_models nmt_integration_tests unittests
       pylint-packages: examples python_models nmt_integration_tests unittests
-      mypy-full-packages: examples python_models nmt_integration_tests unittests
+      # currently examples are not type annotated
+      mypy-full-packages:
       ruff-packages: examples python_models nmt_integration_tests unittests
     secrets: inherit
