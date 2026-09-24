@@ -14,85 +14,20 @@
 
 name: Python Actions
 on: [push]
-env:
-  CODE_PATHS: examples python_models8 nmt_integration_tests
-
+permissions:
+  contents: read
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: [3.8, 3.9, "3.10", "3.11"]
-    steps:
-    # Check out the code and critical support code
-    - name: Checkout
-      uses: actions/checkout@v2
-    - name: Checkout SupportScripts
-      uses: actions/checkout@v2
-      with:
-        repository: SpiNNakerManchester/SupportScripts
-        path: support
-
-    # Set up the dependencies for everything
-    - name: Install Ubuntu dependencies
-      uses: ./support/actions/apt-get-install
-      with:
-        packages: graphviz
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v2
-      with:
-        python-version: ${{ matrix.python-version }}
-    - name: Install pip, etc
-      uses: ./support/actions/python-tools
-
-    - name: Install Spinnaker Dependencies
-      uses: ./support/actions/install-spinn-deps
-      with:
-        repositories: >
-          SpiNNUtils SpiNNMachine SpiNNMan PACMAN spalloc
-          SpiNNFrontEndCommon sPyNNaker TestBase
-        install: true
-
-    - name: Install matplotlib
-      uses: ./support/actions/install-matplotlib
-
-    - name: Setup
-      uses: ./support/actions/run-install
-
-    - name: Setup PyNN
-      uses: ./support/actions/pynn-setup
-
-    - name: Create a spynnaker.cfg
-      uses: ./support/actions/configure-spynnaker
-      with:
-        board-address: spinn-4.cs.man.ac.uk
-    - name: Test with pytest
-      uses: ./support/actions/pytest
-      with:
-        tests: unittests
-
-    # Code quality assessment
-    - name: Lint with flake8
-      run: flake8 $CODE_PATHS
-
-    - name: Lint with pylint
-      uses: ./support/actions/pylint
-      with:
-        package: ${{ env.CODE_PATHS }}
-        exitcheck: 39
-
-    - name: Run rat copyright enforcement
-      if: matrix.python-version == 3.8
-      uses: ./support/actions/check-copyrights
-      with:
-        config_file: rat_asl20.xml
-
-    #- name: Validate all XML
-    #  if: matrix.python-version == 3.8
-    #  uses: ./support/actions/validate-xml
-    #  with:
-    #    base-path: ${{ env.CODE_PATHS }}
-
-    - name: Validate CITATION.cff
-      if: matrix.python-version == 3.8
-      uses: dieghernan/cff-validator@main
+  call:
+    uses: SpiNNakerManchester/SupportScripts/.github/workflows/python_checks.yml@main
+    with:
+      dependencies: SpiNNUtils SpiNNMachine SpiNNMan PACMAN spalloc SpiNNFrontEndCommon sPyNNaker TestBase
+      test-directories: unittests
+      coverage-package: pacman
+      flake8-packages: examples python_models nmt_integration_tests unittests
+      pylint-packages: examples python_models nmt_integration_tests unittests
+      # Limit which pylint messages matter
+      pylint-exitcheck: 39
+      # currently examples are not type annotated
+      mypy-full-packages:
+      ruff-packages: examples python_models nmt_integration_tests unittests
+    secrets: inherit

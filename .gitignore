@@ -7,7 +7,7 @@ modified_src/
 application_generated_data_files/
 reports/
 *.pyc
-/sPyNNaker8NewModelTemplate.egg-info/
+/sPyNNakerNewModelTemplate.egg-info/
 __pycache__
 .pytest_cache
 .settings/

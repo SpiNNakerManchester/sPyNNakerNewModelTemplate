@@ -14,7 +14,7 @@
 **/*.elf
 **/IntroLab/**
 **/PACMAN/**
-**/PyNN8Examples/**
+**/PyNNExamples/**
 **/spalloc/**
 **/spinnaker_tools/**
 **/SpiNNFrontEndCommon/**
@@ -28,5 +28,5 @@
 **/neural_modelling/builds/**/*.txt
 **/reports/**
 **/c_models/**
-**/python_models8/**
+**/python_models/**
 **/examples/**

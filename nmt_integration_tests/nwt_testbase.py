@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from spinnaker_testbase import BaseTestCase
+
 from spynnaker.pyNN.utilities import neo_convertor
 
 

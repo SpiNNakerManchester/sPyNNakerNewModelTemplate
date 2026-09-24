@@ -1,28 +1,29 @@
 # import spynnaker and plotting stuff
+import matplotlib.pyplot as plt
 import pyNN.spiNNaker as p
 from pyNN.utility.plotting import Figure, Panel
-import matplotlib.pyplot as plt
+
+from python_models.neuron.builds.my_full_neuron import MyFullNeuron
+from python_models.neuron.builds.my_if_curr_exp_semd import MyIFCurrExpSEMD
+from python_models.neuron.builds.my_model_curr_exp import MyModelCurrExp
+from python_models.neuron.builds.my_model_curr_exp_my_additional_input import (
+        MyModelCurrExpMyAdditionalInput,
+)
+from python_models.neuron.builds.my_model_curr_exp_my_input_type import (
+        MyModelCurrExpMyInputType,
+)
+from python_models.neuron.builds.my_model_curr_exp_my_threshold import (
+        MyModelCurrExpMyThreshold,
+)
+from python_models.neuron.builds.my_model_curr_my_synapse_type import (
+        MyModelCurrMySynapseType,
+)
 
 # import models
-from python_models8.neuron.plasticity.stdp.timing_dependence\
-    .my_timing_dependence import (
-        MyTimingDependence)
-from python_models8.neuron.plasticity.stdp.weight_dependence\
-    .my_weight_dependence import (
-        MyWeightDependence)
-from python_models8.neuron.builds.my_model_curr_exp import MyModelCurrExp
-from python_models8.neuron.builds.my_full_neuron import MyFullNeuron
-from python_models8.neuron.builds.my_if_curr_exp_sEMD import MyIFCurrExpSEMD
-from python_models8.neuron.builds.my_model_curr_exp_my_input_type import (
-    MyModelCurrExpMyInputType)
-from python_models8.neuron.builds.my_model_curr_my_synapse_type import (
-    MyModelCurrMySynapseType)
-from python_models8.neuron.builds.my_model_curr_exp_my_additional_input \
-    import (
-        MyModelCurrExpMyAdditionalInput)
-from python_models8.neuron.builds.my_model_curr_exp_my_threshold import (
-    MyModelCurrExpMyThreshold)
-
+from python_models.neuron.plasticity.stdp.timing_dependence\
+    .my_timing_dependence import MyTimingDependence
+from python_models.neuron.plasticity.stdp.weight_dependence\
+    .my_weight_dependence import MyWeightDependence
 
 # Set the run time of the execution
 run_time = 1000
@@ -185,7 +186,7 @@ Figure(
           data_labels=[my_full_neuron_pop.label],
           yticks=True, xlim=(0, run_time), xticks=True),
     title="Simple my model examples",
-    annotations="Simulated with {}".format(p.name())
+    annotations=f"Simulated with {p.name()}"
 )
 plt.show()
 
