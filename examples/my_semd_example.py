@@ -13,7 +13,7 @@ from pyNN.utility.plotting import Figure, Panel
 from python_models.neuron.builds.my_if_curr_exp_semd import MyIFCurrExpSEMD
 
 # parameters
-datum = datetime.datetime.now()
+datum = datetime.datetime.now(tz=datetime.UTC)
 
 step = 0.1
 p.setup(timestep=step)
