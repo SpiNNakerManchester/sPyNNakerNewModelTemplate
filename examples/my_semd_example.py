@@ -4,7 +4,6 @@ See https://www.cit-ec.de/en/nbs/spiking-insect-vision for more details
 """
 
 # imports
-import datetime
 
 import matplotlib.pyplot as plt
 import pyNN.spiNNaker as p
@@ -13,7 +12,6 @@ from pyNN.utility.plotting import Figure, Panel
 from python_models.neuron.builds.my_if_curr_exp_semd import MyIFCurrExpSEMD
 
 # parameters
-datum = datetime.datetime.now()
 
 step = 0.1
 p.setup(timestep=step)
@@ -68,8 +66,6 @@ spikes = sEMD.get_data(['spikes'])  # read spikes
 v = sEMD.get_data(['v'])  # read membrane voltage
 current_exc = sEMD.get_data(['gsyn_exc'])  # read excitatory
 current_inh = sEMD.get_data(['gsyn_inh'])  # read inhibitory
-
-print(datum)
 
 # plots
 Figure(
