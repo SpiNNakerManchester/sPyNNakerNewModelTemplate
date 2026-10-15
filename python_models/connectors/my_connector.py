@@ -11,7 +11,7 @@ from spynnaker.pyNN.models.neural_projections.connectors import (
     AbstractConnector,
     AbstractGenerateConnectorOnHost,
 )
-from spynnaker.pyNN.types import Weights
+from spynnaker.pyNN.spynnaker_types import Weights
 
 
 class MyConnector(AbstractConnector, AbstractGenerateConnectorOnHost):
